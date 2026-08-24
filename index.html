@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#e30613">
+<title>PSM Monitoring</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#222}
+header{background:#e30613;color:#fff;padding:16px 18px;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:21px}header small{opacity:.9}
+main{max-width:900px;margin:auto;padding:14px 14px 90px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;z-index:10}
+.nav button{flex:1;border:0;background:white;padding:11px 3px;font-size:11px;color:#555}.nav button.active{color:#e30613;font-weight:bold}
+.card{background:#fff;border-radius:14px;padding:15px;margin-bottom:13px;box-shadow:0 2px 8px #00000012}
+h2{font-size:18px;margin:4px 0 12px}.tabs{display:flex;gap:7px;overflow:auto;margin-bottom:12px}
+.tabs button{border:1px solid #ddd;background:#fff;border-radius:10px;padding:9px 13px;white-space:nowrap}
+.tabs button.active{background:#e30613;color:#fff;border-color:#e30613}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:12px;border-radius:11px;background:#f7f7f7}
+.stat b{display:block;font-size:20px;margin-top:4px}.red{color:#e30613}.green{color:#149447}.orange{color:#d98200}
+.item{border:1px solid #eee;border-radius:12px;padding:12px;margin:9px 0}.item-title{font-weight:bold}
+.row{display:flex;justify-content:space-between;gap:8px;align-items:center;margin:6px 0}
+input,select{width:100%;padding:10px;border:1px solid #ccc;border-radius:9px;font-size:14px}
+label{display:block;font-size:12px;font-weight:bold;margin:9px 0 5px}
+button.primary{background:#e30613;color:white;border:0;border-radius:10px;padding:11px 14px;font-weight:bold}
+button.yellow{background:#ffca05;color:#111;border:0;border-radius:10px;padding:11px 14px;font-weight:bold}
+button.secondary{background:#eee;border:0;border-radius:10px;padding:10px 13px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{border-bottom:1px solid #eee;padding:9px 5px;text-align:left}th{background:#fafafa}
+.muted{color:#777;font-size:12px}.empty{text-align:center;color:#888;padding:20px}
+.hidden{display:none}.info{background:#fff7d6;border-left:4px solid #ffca05;padding:11px;border-radius:8px;font-size:13px}
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><h1>📊 PSM Monitoring</h1><small>Produk Spesial Mingguan</small></header>
+<main id="app"></main>
+<nav class="nav">
+<button data-page="dashboard">🏠<br>Dashboard</button>
+<button data-page="toko">🎯<br>Target Toko</button>
+<button data-page="kasir">👤<br>Target Kasir</button>
+<button data-page="info">📋<br>Info Target</button>
+<button data-page="laporan">📈<br>Laporan</button>
+</nav>
+<script>
+const KEY='psm_monitoring_v2';
+let db=JSON.parse(localStorage.getItem(KEY)||'null')||{month:new Date().getMonth()+1,year:new Date().getFullYear(),weeks:{}};
+let page='dashboard',week=1;
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function daysInWeek(w){
+  const y=db.year,m=db.month;
+  const last=new Date(y,m,0).getDate();
+  const ranges={1:[1,7],2:[8,15],3:[16,23],4:[24,last]};
+  return ranges[w];
+}
+function weekName(w){let r=daysInWeek(w);return `WEEK ${w} | ${String(r[0]).padStart(2,'0')}-${String(r[1]).padStart(2,'0')} ${new Date(db.year,db.month-1,1).toLocaleString('id-ID',{month:'long'}).toUpperCase()} ${db.year}`}
+function data(){if(!db.weeks[week])db.weeks[week]={items:[],actual:{},cashier:{}};return db.weeks[week]}
+function rup(n){return 'Rp'+Number(n||0).toLocaleString('id-ID')}
+function pct(a,t){return t?((a/t)*100).toFixed(2)+'%':'0%'}
+function totalTarget(){return data().items.reduce((s,x)=>s+Number(x.target||0),0)}
+function totalActual(){return data().items.reduce((s,x)=>s+Number(data().actual[x.id]||0),0)}
+function tabs(){return `<div class="tabs">${[1,2,3,4].map(w=>`<button class="${week==w?'active':''}" onclick="setWeek(${w})">Week ${w}</button>`).join('')}</div>`}
+function setWeek(w){week=w;render()}
+function render(){
+ const a=document.getElementById('app');
+ if(page==='dashboard')a.innerHTML=dashboard();
+ if(page==='toko')a.innerHTML=toko();
+ if(page==='kasir')a.innerHTML=kasir();
+ if(page==='info')a.innerHTML=infoTarget();
+ if(page==='laporan')a.innerHTML=laporan();
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+}
+function dashboard(){
+ const t=totalTarget(),ac=totalActual(),d=data().items.length;
+ return `${tabs()}<div class="card"><h2>Dashboard ${weekName(week)}</h2>
+ <div class="grid"><div class="stat">Target Toko<b>${t} pcs</b></div>
+ <div class="stat">Actual<b class="green">${ac} pcs</b></div>
+ <div class="stat">ACV<b class="${ac>=t?'green':'orange'}">${pct(ac,t)}</b></div>
+ <div class="stat">Kekurangan<b class="red">${Math.max(0,t-ac)} pcs</b></div></div></div>
+ <div class="card"><b>${d} item PSM</b><p class="muted">Target per hari dihitung otomatis berdasarkan jumlah hari pada week aktif.</p></div>`;
+}
+function toko(){
+ return `${tabs()}<div class="card"><h2>🎯 Target PSM Toko</h2>
+ <button class="yellow" onclick="addItem()">＋ Tambah Item</button>
+ <div id="items">${data().items.length?data().items.map(itemCard).join(''):'<div class="empty">Belum ada item. Tambahkan item PSM.</div>'}</div></div>`;
+}
+function itemCard(x){
+ let ac=Number(data().actual[x.id]||0),tar=Number(x.target||0),kur=Math.max(0,tar-ac),lebih=Math.max(0,ac-tar);
+ return `<div class="item"><div class="row"><span class="item-title">${esc(x.name)}</span><b>${pct(ac,tar)}</b></div>
+ <div class="muted">Target toko: ${tar} pcs • Harga: ${rup(x.price)}</div>
+ <div class="row"><span>Actual</span><b class="green">${ac} pcs (${rup(ac*x.price)})</b></div>
+ <div class="row"><span>${lebih?'Lebih':'Kurang'}</span><b class="${lebih?'green':'red'}">${lebih?lebih:kur} pcs (${rup((lebih||kur)*x.price)})</b></div>
+ <div class="muted">Target hari normal: ${(tar/daysInWeek(week).reduce((a,b)=>b-a,0)+1).toFixed(2)} pcs</div>
+ <button class="secondary" onclick="inputActual('${x.id}')">Input Actual</button>
+ <button class="secondary" onclick="editItem('${x.id}')">Edit</button>
+ <button class="secondary" onclick="delItem('${x.id}')">Hapus</button></div>`;
+}
+function addItem(){
+ let name=prompt('Nama item PSM:');if(!name)return;
+ let target=Number(prompt('Target toko (qty):','0'));if(!target)return;
+ let price=Number(prompt('Harga per item (Rp):','0'))||0;
+ let vs=prompt('Variant, pisahkan dengan koma. Contoh: Double Coco, Classic, Coffee, Chocodif','');
+ data().items.push({id:Date.now().toString(),name,target,price,variants:vs?vs.split(',').map(v=>v.trim()).filter(Boolean):[]});
+ save();render();
+}
+function editItem(id){
+ let x=data().items.find(i=>i.id===id);if(!x)return;
+ let n=prompt('Nama item:',x.name);if(n===null)return;
+ let t=Number(prompt('Target toko:',x.target));if(!t)return;
+ let p=Number(prompt('Harga per item:',x.price))||0;
+ let v=prompt('Variant dipisahkan koma:',x.variants.join(', '));
+ Object.assign(x,{name:n,target:t,price:p,variants:v?v.split(',').map(s=>s.trim()).filter(Boolean):[]});save();render();
+}
+function delItem(id){if(confirm('Hapus item ini?')){data().items=data().items.filter(x=>x.id!==id);delete data().actual[id];save();render()}}
+function inputActual(id){
+ let x=data().items.find(i=>i.id===id),old=Number(data().actual[id]||0);
+ if(x.variants.length){
+   let sum=0;
+   x.variants.forEach(v=>{sum+=Number(prompt(`Actual ${v} (qty):`,'0')||0)});
+   data().actual[id]=sum;
+ }else data().actual[id]=Number(prompt(`Actual ${x.name} (qty):`,old)||0);
+ save();render();
+}
+function kasir(){
+ return `${tabs()}<div class="card"><h2>👤 Target Kasir Per Item</h2>
+ <div class="info">Target kasir = Target toko ÷ 3. Menu ini terpisah dari target toko.</div>
+ ${data().items.length?data().items.map(kasirItem).join(''):'<div class="empty">Belum ada item.</div>'}</div>`;
+}
+function kasirItem(x){
+ let target=Number(x.target||0),tk=target/3,vals=data().cashier[x.id]||[0,0,0];
+ let total=vals.reduce((a,b)=>a+Number(b||0),0);
+ return `<div class="item"><div class="item-title">${esc(x.name)}</div>
+ <div class="muted">Target toko: ${target} pcs • Target per orang: ${fmt(tk)} pcs (100%)</div>
+ <table><tr><th>Orang</th><th>Actual</th><th>ACV</th><th>Status</th></tr>
+ ${vals.map((v,i)=>`<tr><td>Orang ${i+1}</td><td>${v} pcs (${rup(v*x.price)})</td><td>${pct(v,tk)}</td><td>${v<tk?'<span class="red">Kurang '+fmt(tk-v)+'</span>':'<span class="green">OK</span>'}</td></tr>`).join('')}</table>
+ <p><b>Total actual: ${total} pcs</b> • ${pct(total,target)}</p>
+ <button class="secondary" onclick="inputKasir('${x.id}')">Input Target Kasir</button></div>`;
+}
+function inputKasir(id){
+ let x=data().items.find(i=>i.id===id),vals=data().cashier[id]||[0,0,0];
+ vals=vals.map((v,i)=>Number(prompt(`Actual Orang ${i+1} untuk ${x.name}:`,v)||0));
+ data().cashier[id]=vals;save();render();
+}
+function infoTarget(){
+ const t=totalTarget(),r=daysInWeek(week),days=r[1]-r[0]+1;
+ return `${tabs()}<div class="card"><h2>📋 INFO TARGET PSM</h2>
+ <div class="info"><b>${weekName(week)}</b><br>Format ini otomatis mengikuti item yang kamu masukkan pada Week aktif.</div>
+ <br><table><tr><th>No</th><th>Item</th><th>Target Toko</th><th>Target Kasir</th></tr>
+ ${data().items.map((x,i)=>`<tr><td>${i+1}</td><td><b>${esc(x.name)}</b>${x.variants.length?'<br><span class="muted">'+x.variants.join(', ')+'</span>':''}</td><td>${x.target}</td><td>${fmt(Number(x.target)/3)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada item</td></tr>'}</table>
+ <br><div class="grid"><div class="stat">Target Toko<b>${t} pcs</b></div><div class="stat">Target Per Hari<b>${fmt(t/days)} pcs</b></div></div>
+ <p><b>Target Toko: 100%</b><br>Target per shift dapat dihitung sesuai standar shift toko.</p>
+ <button class="yellow" onclick="copyInfo()">📤 Salin / Bagikan Info Target</button></div>`;
+}
+function copyInfo(){
+ let r=daysInWeek(week),days=r[1]-r[0]+1,t=totalTarget();
+ let text=`TARGET PSM\\n${weekName(week)}\\n\\n`+data().items.map((x,i)=>`${i+1}. ${x.name}\\n- Target toko : ${x.target}\\n- Target kasir : ${fmt(x.target/3)}`).join('\\n\\n')+
+ `\\n\\nTarget toko : ${t} (100%)\\nTarget per hari : ${fmt(t/days)}`;
+ navigator.clipboard?.writeText(text).then(()=>alert('Info target berhasil disalin.')).catch(()=>prompt('Salin teks berikut:',text));
+}
+function laporan(){
+ let t=totalTarget(),a=totalActual();
+ return `${tabs()}<div class="card"><h2>📈 Laporan ${weekName(week)}</h2>
+ <div class="grid"><div class="stat">Target<b>${t} pcs</b></div><div class="stat">Actual<b class="green">${a} pcs</b></div><div class="stat">ACV<b>${pct(a,t)}</b></div><div class="stat">Kurang<b class="red">${Math.max(0,t-a)} pcs</b></div></div>
+ <hr><p class="muted">Catatan: kekurangan item dihitung dari target item dikurangi actual. Nilai rupiah hanya mengikuti qty × harga item.</p></div>`;
+}
+function fmt(n){return Number(n).toLocaleString('id-ID',{maximumFractionDigits:2})}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{page=b.dataset.page;render()});
+render();
+</script>
+</body>
+</html>
