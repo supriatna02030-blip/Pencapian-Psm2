@@ -8,326 +8,532 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f5f5f5;
- color:#222
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f5f5;
+  color:#222;
+  padding-bottom:75px
 }
+
 header{
- background:#e30613;
- color:#fff;
- padding:16px 18px;
- position:sticky;
- top:0;
- z-index:5
+  background:#e30613;
+  color:#fff;
+  padding:18px 18px 16px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  box-shadow:0 2px 8px #0002
 }
-header h1{margin:0;font-size:21px}
-header small{opacity:.9}
+
+header h1{
+  margin:0;
+  font-size:22px
+}
+
+header small{
+  opacity:.9;
+  display:block;
+  margin-top:4px
+}
 
 main{
- max-width:900px;
- margin:auto;
- padding:14px 14px 90px
+  max-width:1000px;
+  margin:auto;
+  padding:14px 13px 30px
 }
 
 .nav{
- position:fixed;
- bottom:0;
- left:0;
- right:0;
- background:#fff;
- border-top:1px solid #ddd;
- display:flex;
- z-index:10;
- overflow-x:auto
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  border-top:1px solid #ddd;
+  display:flex;
+  z-index:50;
+  box-shadow:0 -2px 10px #00000010
 }
+
 .nav button{
- flex:1;
- min-width:70px;
- border:0;
- background:white;
- padding:9px 2px;
- font-size:10px;
- color:#555
+  flex:1;
+  border:0;
+  background:#fff;
+  padding:9px 2px 8px;
+  font-size:10px;
+  color:#666
 }
+
 .nav button.active{
- color:#e30613;
- font-weight:bold
+  color:#e30613;
+  font-weight:bold
 }
 
 .card{
- background:#fff;
- border-radius:14px;
- padding:15px;
- margin-bottom:13px;
- box-shadow:0 2px 8px #00000012
+  background:#fff;
+  border-radius:17px;
+  padding:15px;
+  margin-bottom:13px;
+  box-shadow:0 2px 10px #0000000d
 }
 
 h2{
- font-size:18px;
- margin:4px 0 12px
+  font-size:18px;
+  margin:3px 0 12px
+}
+
+h3{
+  margin:4px 0 8px
 }
 
 .tabs{
- display:flex;
- gap:7px;
- overflow:auto;
- margin-bottom:12px
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  margin-bottom:12px
 }
+
 .tabs button{
- border:1px solid #ddd;
- background:#fff;
- border-radius:10px;
- padding:9px 13px;
- white-space:nowrap
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:11px;
+  padding:9px 15px;
+  white-space:nowrap
 }
+
 .tabs button.active{
- background:#e30613;
- color:#fff;
- border-color:#e30613
+  background:#e30613;
+  color:#fff;
+  border-color:#e30613
+}
+
+.monthbar{
+  margin-bottom:12px
+}
+
+.monthbar label{
+  margin-top:0
+}
+
+.monthbar input{
+  background:#fff
 }
 
 .grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px
 }
 
 .stat{
- padding:12px;
- border-radius:11px;
- background:#f7f7f7
+  padding:13px;
+  border-radius:13px;
+  background:#f7f7f7
 }
+
 .stat b{
- display:block;
- font-size:20px;
- margin-top:4px
+  display:block;
+  font-size:21px;
+  margin-top:5px
 }
 
 .red{color:#e30613}
 .green{color:#149447}
 .orange{color:#d98200}
-
-.item{
- border:1px solid #eee;
- border-radius:13px;
- padding:12px;
- margin:10px 0;
- background:#fff
-}
-
-.item-number{
- width:28px;
- height:28px;
- border-radius:50%;
- background:#e30613;
- color:#fff;
- display:flex;
- align-items:center;
- justify-content:center;
- font-weight:bold;
- flex:none
-}
-
-.item-title{
- font-weight:bold;
- font-size:15px
-}
-
-.row{
- display:flex;
- justify-content:space-between;
- gap:8px;
- align-items:center;
- margin:7px 0
-}
-
-input,select{
- width:100%;
- padding:10px;
- border:1px solid #ccc;
- border-radius:9px;
- font-size:14px
-}
-
-label{
- display:block;
- font-size:12px;
- font-weight:bold;
- margin:9px 0 5px
-}
-
-button.primary{
- background:#e30613;
- color:white;
- border:0;
- border-radius:10px;
- padding:11px 14px;
- font-weight:bold
-}
-
-button.yellow{
- background:#ffca05;
- color:#111;
- border:0;
- border-radius:10px;
- padding:11px 14px;
- font-weight:bold
-}
-
-button.secondary{
- background:#eee;
- border:0;
- border-radius:10px;
- padding:10px 13px
-}
-
-button.danger{
- background:#ffe9e9;
- color:#e30613;
- border:0;
- border-radius:10px;
- padding:10px 13px;
- font-weight:bold
-}
-
-.actions{
- display:flex;
- gap:7px;
- flex-wrap:wrap;
- margin-top:10px
-}
-.actions button{
- flex:1;
- min-width:90px
-}
-
-table{
- width:100%;
- border-collapse:collapse;
- font-size:13px
-}
-th,td{
- border-bottom:1px solid #eee;
- padding:9px 5px;
- text-align:left
-}
-th{background:#fafafa}
+.blue{color:#125bd1}
+.purple{color:#6834c7}
 
 .muted{
- color:#777;
- font-size:12px
+  color:#777;
+  font-size:12px
+}
+
+.small{
+  font-size:11px
 }
 
 .empty{
- text-align:center;
- color:#888;
- padding:20px
+  text-align:center;
+  color:#888;
+  padding:25px 10px
 }
 
 .info{
- background:#fff7d6;
- border-left:4px solid #ffca05;
- padding:11px;
- border-radius:8px;
- font-size:13px
+  background:#fff7d6;
+  border-left:4px solid #ffca05;
+  padding:11px;
+  border-radius:9px;
+  font-size:13px
 }
 
-.progress{
- height:10px;
- background:#eee;
- border-radius:20px;
- overflow:hidden;
- margin-top:8px
+.success{
+  background:#eaf8ef;
+  border-left:4px solid #149447;
+  padding:11px;
+  border-radius:9px;
+  font-size:13px
 }
 
-.progress i{
- display:block;
- height:100%;
- background:#e30613;
- border-radius:20px
+input,
+select{
+  width:100%;
+  padding:11px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:14px;
+  background:#fff
+}
+
+label{
+  display:block;
+  font-size:12px;
+  font-weight:bold;
+  margin:10px 0 5px
+}
+
+button{
+  cursor:pointer
+}
+
+button.primary{
+  background:#e30613;
+  color:#fff;
+  border:0;
+  border-radius:10px;
+  padding:11px 14px;
+  font-weight:bold
+}
+
+button.yellow{
+  background:#ffca05;
+  color:#111;
+  border:0;
+  border-radius:10px;
+  padding:11px 14px;
+  font-weight:bold
+}
+
+button.secondary{
+  background:#eee;
+  border:0;
+  border-radius:10px;
+  padding:10px 13px
+}
+
+button.danger{
+  background:#ffe9e9;
+  color:#e30613;
+  border:0;
+  border-radius:10px;
+  padding:10px 13px;
+  font-weight:bold
+}
+
+button.bluebtn{
+  background:#eaf2ff;
+  color:#125bd1;
+  border:0;
+  border-radius:10px;
+  padding:10px 13px;
+  font-weight:bold
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:10px
+}
+
+.actions button{
+  flex:1;
+  min-width:100px
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:center;
+  margin:6px 0
+}
+
+.item{
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:13px;
+  margin:10px 0;
+  background:#fff
+}
+
+.item-title{
+  font-weight:bold;
+  font-size:15px
 }
 
 .badge{
- display:inline-block;
- padding:4px 8px;
- border-radius:20px;
- background:#eee;
- font-size:10px;
- font-weight:bold
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:20px;
+  background:#f1f1f1;
+  font-size:10px;
+  font-weight:bold
 }
 
 .goodbg{background:#eaf8ef}
 .badbg{background:#ffecec}
 .yellowbg{background:#fff7d6}
 
-.photo{
- width:70px;
- height:70px;
- border-radius:12px;
- object-fit:cover;
- background:#eee;
- border:1px solid #ddd
+.progress{
+  height:11px;
+  background:#eee;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:9px
 }
 
-.photo-large{
- width:110px;
- height:110px;
- border-radius:14px;
- object-fit:cover;
- background:#eee;
- border:1px solid #ddd
+.progress i{
+  display:block;
+  height:100%;
+  border-radius:20px;
+  background:#e30613
 }
 
-.product-head{
- display:flex;
- align-items:center;
- gap:10px
+.progress.greenbar i{
+  background:#149447
+}
+
+.progress.purplebar i{
+  background:#6834c7
 }
 
 .totalbox{
- background:#fff;
- border:1px solid #eee;
- border-radius:12px;
- padding:12px;
- margin-top:10px
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:13px;
+  padding:12px;
+  margin-top:10px
 }
 
-.datebar{
- display:grid;
- grid-template-columns:1fr;
- gap:8px;
- margin-bottom:12px
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px
 }
 
-.acv-big{
- font-size:25px;
- font-weight:bold
+th,td{
+  border-bottom:1px solid #eee;
+  padding:9px 5px;
+  text-align:left;
+  vertical-align:middle
+}
+
+th{
+  background:#fafafa
+}
+
+.product-photo{
+  width:54px;
+  height:54px;
+  border-radius:11px;
+  object-fit:cover;
+  background:#eee;
+  display:block
+}
+
+.photo-empty{
+  width:54px;
+  height:54px;
+  border-radius:11px;
+  background:#f2f2f2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px
+}
+
+.home-main{
+  border:1px solid #eee;
+  overflow:hidden
+}
+
+.home-title{
+  display:flex;
+  gap:10px;
+  align-items:center
+}
+
+.home-icon{
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  background:#fff0f0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  flex-shrink:0
+}
+
+.big-acv{
+  font-size:28px!important
+}
+
+.date-select{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+  align-items:end
+}
+
+.date-select button{
+  height:42px
+}
+
+.daily-card{
+  border:1px solid #cfe0ff;
+  background:linear-gradient(180deg,#f7fbff,#fff)
+}
+
+.cashier-card{
+  border:1px solid #e5d8ff;
+  background:linear-gradient(180deg,#fcf9ff,#fff)
+}
+
+.summary-card{
+  background:#fffaf0;
+  border:1px solid #f5e2b7
+}
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px
+}
+
+.quick{
+  background:#fff;
+  border-radius:12px;
+  padding:10px;
+  text-align:center;
+  border:1px solid #eee
+}
+
+.quick span{
+  display:block;
+  font-size:11px;
+  color:#777
+}
+
+.quick b{
+  display:block;
+  font-size:18px;
+  margin-top:4px
+}
+
+.product-mini{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:8px;
+  align-items:center;
+  padding:9px 0;
+  border-bottom:1px solid #eee
+}
+
+.product-mini:last-child{
+  border-bottom:0
+}
+
+.day-list{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px
+}
+
+.day-box{
+  border:1px solid #eee;
+  border-radius:10px;
+  padding:8px 4px;
+  text-align:center;
+  font-size:10px;
+  background:#fff
+}
+
+.day-box.active{
+  border:2px solid #149447;
+  background:#effaf2
+}
+
+.day-box.bad{
+  background:#fff1f1
+}
+
+.day-box.good{
+  background:#effaf2
+}
+
+.form-row{
+  margin-bottom:10px
 }
 
 .hr{
- border:0;
- border-top:1px solid #eee;
- margin:14px 0
+  border:0;
+  border-top:1px solid #eee;
+  margin:13px 0
 }
 
 .toast{
- position:fixed;
- left:50%;
- bottom:75px;
- transform:translateX(-50%);
- background:#222;
- color:#fff;
- padding:10px 15px;
- border-radius:10px;
- font-size:12px;
- z-index:50;
- display:none
+  position:fixed;
+  left:50%;
+  bottom:78px;
+  transform:translateX(-50%);
+  background:#222;
+  color:#fff;
+  padding:10px 15px;
+  border-radius:10px;
+  font-size:12px;
+  z-index:100;
+  display:none
 }
 
-@media(max-width:600px){
- .grid{grid-template-columns:1fr 1fr}
+.hidden{
+  display:none
+}
+
+@media(max-width:700px){
+  .quick-grid{
+    grid-template-columns:1fr 1fr
+  }
+
+  .day-list{
+    grid-template-columns:repeat(4,1fr)
+  }
+}
+
+@media(max-width:500px){
+  .grid{
+    grid-template-columns:1fr 1fr
+  }
+
+  table{
+    font-size:11px
+  }
+
+  th,td{
+    padding:8px 4px
+  }
+
+  .actions button{
+    min-width:85px
+  }
 }
 </style>
 </head>
@@ -335,19 +541,19 @@ th{background:#fafafa}
 <body>
 
 <header>
- <h1>📊 PSM Monitoring</h1>
- <small>Produk Spesial Mingguan</small>
+  <h1>📊 PSM Monitoring</h1>
+  <small>Produk Spesial Mingguan</small>
 </header>
 
 <main id="app"></main>
 
 <nav class="nav">
- <button data-page="dashboard">🏠<br>Dashboard</button>
- <button data-page="toko">🎯<br>Target Toko</button>
- <button data-page="kasir">👤<br>Target Kasir</button>
- <button data-page="info">📋<br>Info Target</button>
- <button data-page="laporan">📈<br>Laporan</button>
- <button data-page="pengaturan">⚙️<br>Pengaturan</button>
+  <button data-page="dashboard">🏠<br>Home</button>
+  <button data-page="produk">📦<br>Produk</button>
+  <button data-page="kasir">👤<br>Target Kasir</button>
+  <button data-page="laporan">📈<br>Laporan</button>
+  <button data-page="info">📋<br>Info Target</button>
+  <button data-page="pengaturan">⚙️<br>Pengaturan</button>
 </nav>
 
 <div id="toast" class="toast"></div>
@@ -355,2411 +561,3093 @@ th{background:#fafafa}
 <script>
 
 /* =========================================================
-   PSM MONITORING
-   ========================================================= */
+   PSM MONITORING FINAL
+========================================================= */
 
-const KEY="psm_monitoring_final_v1";
+const KEY='psm_monitoring_final_v5';
 
 function freshDB(){
- const d=new Date();
+  const d=new Date();
 
- return {
-  month:d.getMonth()+1,
-  year:d.getFullYear(),
-  settings:{
-   cashierDivisor:3
-  },
-  weeks:{}
- };
-}
+  return {
+    month:d.getMonth()+1,
+    year:d.getFullYear(),
 
-function loadDB(){
- try{
-  const x=JSON.parse(localStorage.getItem(KEY)||"null");
-  return x && typeof x==="object" ? x : freshDB();
- }catch(e){
-  return freshDB();
- }
+    settings:{
+      cashierDivisor:3,
+      dailyTarget:0
+    },
+
+    weeks:{
+      1:{items:[],actual:{},daily:{}},
+      2:{items:[],actual:{},daily:{}},
+      3:{items:[],actual:{},daily:{}},
+      4:{items:[],actual:{},daily:{}}
+    }
+  };
 }
 
 let db=loadDB();
-let page="dashboard";
+let page='dashboard';
 let week=1;
-let selectedDate="";
+let selectedDate='';
 
-function save(){
- localStorage.setItem(KEY,JSON.stringify(db));
-}
+function loadDB(){
 
-function ensureDB(){
+  try{
 
- if(!db.settings){
-  db.settings={cashierDivisor:3};
- }
+    const old=JSON.parse(localStorage.getItem(KEY)||'null');
 
- if(!db.settings.cashierDivisor){
-  db.settings.cashierDivisor=3;
- }
+    if(old && typeof old==='object'){
+      return normalizeDB(old);
+    }
 
- if(!db.weeks){
-  db.weeks={};
- }
+    return normalizeDB(freshDB());
 
- for(let w=1;w<=4;w++){
+  }catch(e){
 
-  if(!db.weeks[w]){
-   db.weeks[w]={
-    target:0,
-    items:[],
-    daily:{},
-    cashierDaily:{}
-   };
+    return normalizeDB(freshDB());
+
   }
 
-  const d=db.weeks[w];
-
-  if(!Array.isArray(d.items))d.items=[];
-  if(!d.daily)d.daily={};
-  if(!d.cashierDaily)d.cashierDaily={};
-
-  d.items.forEach(x=>{
-   if(!x.id)x.id="item_"+Date.now()+Math.random();
-   if(!Array.isArray(x.variants))x.variants=[];
-   if(typeof x.price!=="number")x.price=0;
-   if(typeof x.target!=="number")x.target=0;
-   if(!x.photo)x.photo="";
-  });
- }
 }
 
-ensureDB();
-save();
+function normalizeDB(x){
 
+  const base=freshDB();
 
-/* =========================
-   BASIC
-========================= */
+  x.month=x.month||base.month;
+  x.year=x.year||base.year;
+
+  x.settings=x.settings||{};
+
+  x.settings.cashierDivisor=
+    Number(x.settings.cashierDivisor)||3;
+
+  x.settings.dailyTarget=
+    Number(x.settings.dailyTarget)||0;
+
+  x.weeks=x.weeks||{};
+
+  for(let w=1;w<=4;w++){
+
+    if(!x.weeks[w]){
+      x.weeks[w]={
+        items:[],
+        actual:{},
+        daily:{}
+      };
+    }
+
+    x.weeks[w].items=
+      Array.isArray(x.weeks[w].items)
+      ?x.weeks[w].items:[];
+
+    x.weeks[w].actual=
+      x.weeks[w].actual||{};
+
+    x.weeks[w].daily=
+      x.weeks[w].daily||{};
+
+    x.weeks[w].items.forEach(item=>{
+
+      if(!item.id){
+        item.id='item_'+Date.now()+
+          Math.random().toString(36).slice(2);
+      }
+
+      if(!Array.isArray(item.variants)){
+        item.variants=[];
+      }
+
+      if(!Array.isArray(item.photos)){
+        item.photos=[];
+      }
+
+      item.price=Number(item.price)||0;
+      item.target=Number(item.target)||0;
+
+    });
+
+  }
+
+  return x;
+}
+
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(db));
+}
+
+function ensureWeek(w=week){
+
+  if(!db.weeks)db.weeks={};
+
+  if(!db.weeks[w]){
+
+    db.weeks[w]={
+      items:[],
+      actual:{},
+      daily:{}
+    };
+
+  }
+
+  return db.weeks[w];
+}
 
 function data(){
- return db.weeks[week];
+  return ensureWeek(week);
 }
 
 function daysInWeek(w=week){
 
- const y=Number(db.year);
- const m=Number(db.month);
+  const y=Number(db.year);
+  const m=Number(db.month);
 
- const last=new Date(y,m,0).getDate();
+  const last=new Date(y,m,0).getDate();
 
- const ranges={
-  1:[1,7],
-  2:[8,15],
-  3:[16,23],
-  4:[24,last]
- };
+  const ranges={
+    1:[1,7],
+    2:[8,15],
+    3:[16,23],
+    4:[24,last]
+  };
 
- return ranges[w];
+  return ranges[w];
 }
 
 function weekDays(w=week){
 
- const r=daysInWeek(w);
+  const r=daysInWeek(w);
 
- return r[1]-r[0]+1;
+  return r[1]-r[0]+1;
 }
 
-function monthName(){
+function monthText(){
 
- return new Date(
-  Number(db.year),
-  Number(db.month)-1,
-  1
- ).toLocaleString(
-  "id-ID",
-  {month:"long"}
- ).toUpperCase();
+  return new Date(
+    Number(db.year),
+    Number(db.month)-1,
+    1
+  ).toLocaleString(
+    'id-ID',
+    {month:'long'}
+  ).toUpperCase();
+
 }
 
 function weekName(w=week){
 
- const r=daysInWeek(w);
+  const r=daysInWeek(w);
 
- return `WEEK ${w} | ${String(r[0]).padStart(2,"0")}-${String(r[1]).padStart(2,"0")} ${monthName()} ${db.year}`;
+  return `WEEK ${w} | ${String(r[0]).padStart(2,'0')}-${String(r[1]).padStart(2,'0')} ${monthText()} ${db.year}`;
+
 }
 
 function dateKey(day){
 
- return `${db.year}-${String(db.month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+  return `${db.year}-${String(db.month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+
 }
 
 function weekDates(w=week){
 
- const r=daysInWeek(w);
- const arr=[];
+  const r=daysInWeek(w);
 
- for(let d=r[0];d<=r[1];d++){
-  arr.push(dateKey(d));
- }
+  const arr=[];
 
- return arr;
+  for(let d=r[0];d<=r[1];d++){
+    arr.push(dateKey(d));
+  }
+
+  return arr;
+
 }
 
 function todayKey(){
 
- const d=new Date();
+  const d=new Date();
 
- return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+
 }
 
 function selectedDay(){
 
- const dates=weekDates();
+  const dates=weekDates();
 
- if(selectedDate && dates.includes(selectedDate)){
-  return selectedDate;
- }
+  if(selectedDate && dates.includes(selectedDate)){
+    return selectedDate;
+  }
 
- const t=todayKey();
+  const t=todayKey();
 
- if(dates.includes(t)){
-  return t;
- }
+  if(dates.includes(t)){
+    return t;
+  }
 
- return dates[0];
+  return dates[0];
+
 }
 
 function dateLabel(s){
 
- if(!s)return "-";
+  if(!s)return '-';
 
- const p=s.split("-").map(Number);
+  const p=s.split('-').map(Number);
 
- return `${String(p[2]).padStart(2,"0")} ${new Date(p[0],p[1]-1,1).toLocaleString("id-ID",{month:"short"})} ${p[0]}`;
+  return `${String(p[2]).padStart(2,'0')} ${new Date(p[0],p[1]-1,1).toLocaleString('id-ID',{month:'short'})} ${p[0]}`;
+
 }
 
 function rup(n){
 
- return "Rp"+Number(n||0).toLocaleString("id-ID");
+  return 'Rp'+Number(n||0).toLocaleString('id-ID');
+
 }
 
 function fmt(n){
 
- return Number(n||0).toLocaleString(
-  "id-ID",
-  {maximumFractionDigits:2}
- );
+  return Number(n||0).toLocaleString(
+    'id-ID',
+    {maximumFractionDigits:2}
+  );
+
 }
 
 function pct(a,t){
 
- return Number(t)>0
-  ? ((Number(a||0)/Number(t))*100).toFixed(2)+"%"
-  : "0.00%";
+  a=Number(a||0);
+  t=Number(t||0);
+
+  return t ? (a/t*100).toFixed(2)+'%' : '0%';
+
+}
+
+function pctNumber(a,t){
+
+  a=Number(a||0);
+  t=Number(t||0);
+
+  return t ? a/t*100 : 0;
+
 }
 
 function esc(s){
 
- return String(s??"").replace(
-  /[&<>"']/g,
-  c=>({
-   "&":"&amp;",
-   "<":"&lt;",
-   ">":"&gt;",
-   '"':"&quot;",
-   "'":"&#39;"
-  }[c])
- );
-}
-
-
-/* =========================
-   TARGET
-========================= */
-
-function targetWeek(){
-
- return Number(data().target||0);
-}
-
-function targetDaily(){
-
- return targetWeek()/7;
-}
-
-function totalActual(){
-
- let total=0;
-
- weekDates().forEach(dt=>{
-  total+=dailyTotal(dt);
- });
-
- return total;
-}
-
-function dailyTotal(date){
-
- const d=data().daily[date]||{};
-
- return Object.keys(d).reduce(
-  (sum,id)=>sum+Number(d[id]||0),
-  0
- );
-}
-
-function actualItem(id){
-
- let total=0;
-
- weekDates().forEach(dt=>{
-  total+=Number(
-   data().daily[dt]?.[id]||0
+  return String(s??'').replace(
+    /[&<>"']/g,
+    c=>({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    }[c])
   );
- });
 
- return total;
-}
-
-function actualItemDay(id,date){
-
- return Number(
-  data().daily[date]?.[id]||0
- );
-}
-
-function targetItemDaily(x){
-
- return Number(x.target||0)/7;
 }
 
 function cashierDivisor(){
 
- const n=Number(
-  db.settings?.cashierDivisor
- );
-
- return n>0?n:3;
-}
-
-function cashierTarget(){
-
- return targetWeek()/cashierDivisor();
-}
-
-function cashierTargetDaily(){
-
- return targetDaily()/cashierDivisor();
-}
-
-
-/* =========================
-   NAV
-========================= */
-
-function go(p){
-
- page=p;
- render();
-}
-
-function setWeek(w){
-
- week=Number(w);
- selectedDate="";
- render();
-}
-
-function changeMonth(v){
-
- if(!v)return;
-
- const p=v.split("-").map(Number);
-
- db.year=p[0];
- db.month=p[1];
-
- week=1;
- selectedDate="";
-
- save();
- render();
-}
-
-function changeDate(v){
-
- selectedDate=v;
- render();
-}
-
-function render(){
-
- ensureDB();
-
- const app=document.getElementById("app");
-
- if(page==="dashboard"){
-  app.innerHTML=dashboard();
- }
-
- if(page==="toko"){
-  app.innerHTML=toko();
- }
-
- if(page==="kasir"){
-  app.innerHTML=kasir();
- }
-
- if(page==="info"){
-  app.innerHTML=infoTarget();
- }
-
- if(page==="laporan"){
-  app.innerHTML=laporan();
- }
-
- if(page==="pengaturan"){
-  app.innerHTML=pengaturan();
- }
-
- document.querySelectorAll(".nav button")
- .forEach(b=>{
-  b.classList.toggle(
-   "active",
-   b.dataset.page===page
+  const n=Number(
+    db.settings?.cashierDivisor
   );
- });
+
+  return n>0?n:3;
+
 }
 
-function monthControls(){
+function dailyTarget(){
 
- return `
- <div class="card">
-  <div class="grid">
-   <div>
-    <label>Bulan</label>
-    <input
-     type="month"
-     value="${db.year}-${String(db.month).padStart(2,"0")}"
-     onchange="changeMonth(this.value)"
-    >
-   </div>
+  return Number(
+    db.settings?.dailyTarget||0
+  );
 
-   <div>
-    <label>Week Aktif</label>
-    <select onchange="setWeek(this.value)">
-     ${[1,2,3,4].map(w=>`
-      <option value="${w}" ${week===w?"selected":""}>
-       Week ${w}
-      </option>
-     `).join("")}
-    </select>
-   </div>
-  </div>
- </div>
- `;
+}
+
+function targetWeek(){
+
+  return dailyTarget()*weekDays();
+
+}
+
+function targetItemWeek(item){
+
+  return Number(item.target||0)*weekDays();
+
+}
+
+function actualOnDate(id,date,w=week){
+
+  const d=ensureWeek(w);
+
+  return Number(
+    d.daily?.[date]?.[id]||0
+  );
+
+}
+
+function actualItem(id,w=week){
+
+  const dates=weekDates(w);
+
+  let total=0;
+
+  dates.forEach(dt=>{
+    total+=actualOnDate(id,dt,w);
+  });
+
+  return total;
+
+}
+
+function totalActual(w=week){
+
+  const d=ensureWeek(w);
+
+  return d.items.reduce(
+    (sum,item)=>
+      sum+actualItem(item.id,w),
+    0
+  );
+
+}
+
+function actualToday(){
+
+  const dt=selectedDay();
+
+  const d=data();
+
+  return d.items.reduce(
+    (sum,item)=>
+      sum+actualOnDate(item.id,dt),
+    0
+  );
+
+}
+
+function actualWeekUntil(date,w=week){
+
+  const dates=weekDates(w);
+
+  let total=0;
+
+  dates.forEach(dt=>{
+
+    if(dt<=date){
+      total+=
+        ensureWeek(w).items.reduce(
+          (sum,item)=>
+            sum+actualOnDate(item.id,dt,w),
+          0
+        );
+    }
+
+  });
+
+  return total;
+
+}
+
+function dayTarget(){
+
+  return dailyTarget();
+
+}
+
+function dayResult(date=selectedDay()){
+
+  const target=dayTarget();
+
+  const actual=
+    ensureWeek(week).items.reduce(
+      (sum,item)=>
+        sum+actualOnDate(item.id,date),
+      0
+    );
+
+  const diff=actual-target;
+
+  return {
+    target,
+    actual,
+    acv:pctNumber(actual,target),
+    diff
+  };
+
+}
+
+function weekResult(w=week){
+
+  const target=targetWeek();
+  const actual=totalActual(w);
+  const diff=actual-target;
+
+  return {
+    target,
+    actual,
+    acv:pctNumber(actual,target),
+    diff
+  };
+
+}
+
+function remainingWeek(){
+
+  const r=weekResult();
+
+  return Math.max(0,r.target-r.actual);
+
+}
+
+function currentWeekIndex(){
+
+  const dates=weekDates();
+
+  const d=selectedDay();
+
+  const i=dates.indexOf(d);
+
+  return i<0?0:i;
+
+}
+
+function remainingDays(){
+
+  return Math.max(
+    0,
+    weekDays()-currentWeekIndex()-1
+  );
+
+}
+
+function requiredAverage(){
+
+  const rem=remainingWeek();
+  const days=remainingDays();
+
+  return days>0?rem/days:rem;
+
+}
+
+function statusClass(acv){
+
+  if(acv>=100)return 'green';
+
+  if(acv>=80)return 'orange';
+
+  return 'red';
+
+}
+
+function statusText(diff){
+
+  if(diff>0)return `Lebih ${fmt(diff)} pcs`;
+
+  if(diff<0)return `Kurang ${fmt(Math.abs(diff))} pcs`;
+
+  return 'Sesuai Target';
+
+}
+
+function statusBadge(diff){
+
+  if(diff>0){
+    return `<span class="badge goodbg green">LEBIH</span>`;
+  }
+
+  if(diff<0){
+    return `<span class="badge badbg red">KURANG</span>`;
+  }
+
+  return `<span class="badge goodbg green">SESUAI TARGET</span>`;
+
 }
 
 function tabs(){
 
- return `
- <div class="tabs">
-  ${[1,2,3,4].map(w=>`
-   <button
-    class="${week===w?"active":""}"
-    onclick="setWeek(${w})"
-   >
-    Week ${w}
-   </button>
-  `).join("")}
- </div>
- `;
+  return `
+  <div class="tabs">
+
+    ${[1,2,3,4].map(w=>`
+
+      <button
+        class="${week===w?'active':''}"
+        onclick="setWeek(${w})">
+
+        Week ${w}
+
+      </button>
+
+    `).join('')}
+
+  </div>
+  `;
+
 }
 
-function dateSelector(){
+function monthControl(){
 
- const dates=weekDates();
+  return `
+  <div class="monthbar">
 
- return `
- <div class="card datebar">
+    <label>Bulan</label>
 
-  <div>
-   <label>📅 Tanggal Pencapaian</label>
+    <input
+      type="month"
+      value="${db.year}-${String(db.month).padStart(2,'0')}"
+      onchange="changeMonth(this.value)"
+    >
 
-   <input
-    type="date"
-    value="${selectedDay()}"
-    min="${dates[0]}"
-    max="${dates[dates.length-1]}"
-    onchange="changeDate(this.value)"
-   >
   </div>
+  `;
 
-  <div class="muted">
-   ${weekName()} • ${dateLabel(selectedDay())}
-  </div>
-
- </div>
- `;
 }
 
+function setWeek(w){
 
-/* =========================
-   DASHBOARD
-========================= */
+  week=Number(w);
+
+  selectedDate='';
+
+  render();
+
+}
+
+function changeMonth(v){
+
+  if(!v)return;
+
+  const p=v.split('-').map(Number);
+
+  db.year=p[0];
+  db.month=p[1];
+
+  week=1;
+  selectedDate='';
+
+  save();
+  render();
+
+}
+
+function setDate(v){
+
+  selectedDate=v;
+
+  render();
+
+}
+
+function render(){
+
+  const app=document.getElementById('app');
+
+  if(page==='dashboard'){
+    app.innerHTML=dashboard();
+  }
+
+  if(page==='produk'){
+    app.innerHTML=produk();
+  }
+
+  if(page==='kasir'){
+    app.innerHTML=kasir();
+  }
+
+  if(page==='laporan'){
+    app.innerHTML=laporan();
+  }
+
+  if(page==='info'){
+    app.innerHTML=infoTarget();
+  }
+
+  if(page==='pengaturan'){
+    app.innerHTML=pengaturan();
+  }
+
+  document
+    .querySelectorAll('.nav button')
+    .forEach(b=>{
+      b.classList.toggle(
+        'active',
+        b.dataset.page===page
+      );
+    });
+
+}
+
+function go(p){
+
+  page=p;
+
+  render();
+
+}
+
+/* =========================================================
+   HOME / DASHBOARD
+========================================================= */
 
 function dashboard(){
 
- const target=targetWeek();
- const actual=totalActual();
- const acv=target>0?(actual/target)*100:0;
+  const wr=weekResult();
+  const dr=dayResult();
 
- return `
- ${monthControls()}
- ${tabs()}
- ${dateSelector()}
+  const idx=currentWeekIndex();
+  const dates=weekDates();
 
- <div class="card">
+  const rem=remainingWeek();
+  const remDays=remainingDays();
 
-  <h2>🏠 Dashboard</h2>
+  const avg=requiredAverage();
 
-  <div class="info">
-   <b>${weekName()}</b>
+  const divisor=cashierDivisor();
+
+  const cashierTarget=
+    dailyTarget()/divisor;
+
+  const cashierActual=
+    dr.actual/divisor;
+
+  const cashierACV=
+    pctNumber(cashierActual,cashierTarget);
+
+  const cashierDiff=
+    cashierActual-cashierTarget;
+
+  const products=data().items;
+
+  return `
+
+  ${monthControl()}
+
+  ${tabs()}
+
+  <div class="card">
+
+    <div class="date-select">
+
+      <div>
+
+        <label>Pencapaian Hari</label>
+
+        <input
+          type="date"
+          value="${selectedDay()}"
+          onchange="setDate(this.value)"
+        >
+
+      </div>
+
+      <button
+        class="secondary"
+        onclick="setDate(todayKey())">
+
+        Hari Ini
+
+      </button>
+
+    </div>
+
   </div>
 
-  <br>
+  <!-- TARGET TOKO -->
 
-  <div class="grid">
+  <div class="card home-main">
 
-   <div class="stat">
-    Target Week
-    <b>${fmt(target)} pcs</b>
-   </div>
+    <div class="home-title">
 
-   <div class="stat">
-    Target / Hari
-    <b>${fmt(targetDaily())} pcs</b>
-   </div>
+      <div class="home-icon">🎯</div>
 
-   <div class="stat">
-    Actual Week
-    <b class="green">${fmt(actual)} pcs</b>
-   </div>
+      <div>
 
-   <div class="stat">
-    ACV
-    <b class="${acv>=100?"green":acv>=80?"orange":"red"}">
-     ${acv.toFixed(2)}%
-    </b>
-   </div>
-
-  </div>
-
-  <div class="progress">
-   <i style="width:${Math.min(100,Math.max(0,acv))}%"></i>
-  </div>
-
- </div>
-
-
- <div class="card">
-
-  <h2>📅 Pencapaian Hari Ini</h2>
-
-  ${dailyBox(selectedDay())}
-
- </div>
-
-
- <div class="card">
-
-  <h2>📦 Produk</h2>
-
-  ${
-   data().items.length
-   ?
-   data().items.map((x,i)=>{
-
-    const a=actualItem(x.id);
-    const ad=actualItemDay(x.id,selectedDay());
-
-    return `
-     <div class="item">
-
-      <div class="product-head">
-
-       ${
-        x.photo
-        ?
-        `<img class="photo" src="${x.photo}">`
-        :
-        `<div class="photo"></div>`
-       }
-
-       <div>
-        <div class="item-title">
-         ${i+1}. ${esc(x.name)}
-        </div>
+        <h2>Pencapaian Target Toko</h2>
 
         <div class="muted">
-         ${rup(x.price)} / pcs
+          ${weekName(week)}
         </div>
-       </div>
 
       </div>
 
-      <hr class="hr">
+    </div>
 
-      <div class="row">
-       <span>Actual Week</span>
-       <b>${fmt(a)} pcs</b>
+    <div class="grid">
+
+      <div class="stat">
+
+        Target Week
+
+        <b>${fmt(wr.target)} pcs</b>
+
       </div>
 
-      <div class="row">
-       <span>Actual Hari Ini</span>
-       <b class="green">${fmt(ad)} pcs</b>
+      <div class="stat">
+
+        Actual Week
+
+        <b class="green">
+          ${fmt(wr.actual)} pcs
+        </b>
+
       </div>
 
-     </div>
-    `;
+      <div class="stat">
 
-   }).join("")
-   :
-   `<div class="empty">
-    Belum ada produk.
-   </div>`
-  }
+        ACV Week
 
- </div>
- `;
-}
+        <b class="${statusClass(wr.acv)} big-acv">
+          ${wr.acv.toFixed(2)}%
+        </b>
 
+      </div>
 
-/* =========================
-   DAILY BOX
-========================= */
+      <div class="stat">
 
-function dailyBox(date){
+        ${wr.diff>=0?'Lebih':'Kekurangan'}
 
- const target=targetDaily();
- const actual=dailyTotal(date);
- const acv=target>0?(actual/target)*100:0;
- const diff=actual-target;
+        <b class="${wr.diff>=0?'green':'red'}">
 
- return `
- <div class="grid">
+          ${fmt(Math.abs(wr.diff))} pcs
 
-  <div class="stat">
-   Target
-   <b>${fmt(target)} pcs</b>
-  </div>
+        </b>
 
-  <div class="stat">
-   Pencapaian
-   <b class="green">${fmt(actual)} pcs</b>
-  </div>
+      </div>
 
-  <div class="stat">
-   ACV
-   <b class="${acv>=100?"green":acv>=80?"orange":"red"}">
-    ${acv.toFixed(2)}%
-   </b>
-  </div>
+    </div>
 
-  <div class="stat">
-   ${diff>=0?"Lebih":"Kurang"}
-   <b class="${diff>=0?"green":"red"}">
-    ${fmt(Math.abs(diff))} pcs
-   </b>
-  </div>
+    <div class="progress">
 
- </div>
+      <i style="width:${Math.min(100,Math.max(0,wr.acv))}%"></i>
 
- <div class="progress">
-  <i style="width:${Math.min(100,Math.max(0,acv))}%"></i>
- </div>
-
- <p class="muted">
-  ${dateLabel(date)}
- </p>
- `;
-}
-
-
-/* =========================
-   TARGET TOKO
-========================= */
-
-function toko(){
-
- return `
- ${monthControls()}
- ${tabs()}
- ${dateSelector()}
-
- <div class="card">
-
-  <h2>🎯 Target Pencapaian Toko</h2>
-
-  <div class="info">
-   Masukkan <b>target pencapaian toko untuk 1 Week</b>.
-   Sistem otomatis menghitung target per hari berdasarkan
-   <b>7 hari</b>.
-  </div>
-
-  <br>
-
-  <label>Target Pencapaian Toko / Week</label>
-
-  <input
-   id="storeTarget"
-   type="number"
-   min="0"
-   step="0.01"
-   value="${targetWeek()}"
-   placeholder="Contoh: 390"
-  >
-
-  <button
-   class="primary"
-   style="margin-top:10px"
-   onclick="saveStoreTarget()"
-  >
-   💾 Simpan Target Toko
-  </button>
-
-  <div class="grid" style="margin-top:12px">
-
-   <div class="stat">
-    Target Week
-    <b>${fmt(targetWeek())} pcs</b>
-   </div>
-
-   <div class="stat">
-    Target / Hari
-    <b>${fmt(targetDaily())} pcs</b>
-   </div>
-
-  </div>
-
- </div>
-
-
- <div class="card">
-
-  <h2>📅 Pencapaian Toko</h2>
-
-  ${dailyBox(selectedDay())}
-
-  <button
-   class="yellow"
-   onclick="inputStoreAchievement()"
-  >
-   ✏️ Input Pencapaian Hari Ini
-  </button>
-
- </div>
-
-
- <div class="card">
-
-  <div class="row">
-   <h2 style="margin:0">
-    📦 Daftar Produk
-   </h2>
-
-   <button
-    class="primary"
-    onclick="addItem()"
-   >
-    ＋ Produk
-   </button>
-  </div>
-
-  <div class="muted">
-   Produk diberi nomor otomatis. Target per item dapat diatur
-   secara terpisah.
-  </div>
-
-  ${
-   data().items.length
-   ?
-   data().items.map(itemCard).join("")
-   :
-   `<div class="empty">
-    Belum ada produk.
-   </div>`
-  }
-
- </div>
- `;
-}
-
-function itemCard(x,i){
-
- const ad=actualItemDay(x.id,selectedDay());
- const target=x.target||0;
- const targetDay=targetItemDaily(x);
-
- return `
- <div class="item">
-
-  <div class="product-head">
-
-   ${
-    x.photo
-    ?
-    `<img class="photo" src="${x.photo}">`
-    :
-    `<div class="photo"></div>`
-   }
-
-   <div style="flex:1">
+    </div>
 
     <div class="row">
 
-     <div class="item-title">
-      ${i+1}. ${esc(x.name)}
-     </div>
+      <span class="muted">0 pcs</span>
 
-     <span class="badge">
-      ${rup(x.price)}
-     </span>
+      <b>${wr.acv.toFixed(2)}%</b>
+
+      <span class="muted">${fmt(wr.target)} pcs</span>
 
     </div>
 
-    <div class="muted">
-     Harga produk terpisah.
+  </div>
+
+
+  <!-- PENCAPAIAN HARI INI -->
+
+  <div class="card daily-card">
+
+    <div class="section-head">
+
+      <div class="home-title">
+
+        <div class="home-icon">📅</div>
+
+        <div>
+
+          <h2>Pencapaian Hari Ini</h2>
+
+          <div class="green">
+            ${dateLabel(selectedDay())}
+          </div>
+
+        </div>
+
+      </div>
+
+      <button
+        class="primary"
+        onclick="inputDailyStore()">
+
+        ✏️ Input Actual
+
+      </button>
+
     </div>
 
-   </div>
+    <br>
+
+    <div class="grid">
+
+      <div class="stat">
+
+        Target Hari Ini
+
+        <b>${fmt(dr.target)} pcs</b>
+
+      </div>
+
+      <div class="stat">
+
+        Actual Hari Ini
+
+        <b class="green">
+          ${fmt(dr.actual)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        ACV Hari Ini
+
+        <b class="${statusClass(dr.acv)} big-acv">
+          ${dr.acv.toFixed(2)}%
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        ${dr.diff>=0?'Lebih':'Kekurangan'}
+
+        <b class="${dr.diff>=0?'green':'red'}">
+
+          ${fmt(Math.abs(dr.diff))} pcs
+
+        </b>
+
+      </div>
+
+    </div>
+
+    <div class="progress ${dr.acv>=100?'greenbar':''}">
+
+      <i style="width:${Math.min(100,Math.max(0,dr.acv))}%"></i>
+
+    </div>
+
+    <div class="row">
+
+      <span>Target: ${fmt(dr.target)} pcs</span>
+
+      <b class="${statusClass(dr.acv)}">
+        ${dr.acv.toFixed(2)}%
+      </b>
+
+      <span>Actual: ${fmt(dr.actual)} pcs</span>
+
+    </div>
+
+    <div class="${dr.diff>=0?'success':'info'}">
+
+      <b>${statusText(dr.diff)}</b>
+
+      <br>
+
+      ${dr.diff>=0
+        ?'Pencapaian hari ini sudah mencapai target.'
+        :'Masih ada kekurangan yang perlu dikejar.'
+      }
+
+    </div>
 
   </div>
 
-  <hr class="hr">
 
-  <div class="grid">
+  <!-- TARGET KASIR -->
 
-   <div class="stat">
-    Target Item / Week
-    <b>${fmt(target)} pcs</b>
-   </div>
+  <div class="card cashier-card">
 
-   <div class="stat">
-    Target Item / Hari
-    <b>${fmt(targetDay)} pcs</b>
-   </div>
+    <div class="section-head">
+
+      <div class="home-title">
+
+        <div class="home-icon">👤</div>
+
+        <div>
+
+          <h2>Target Kasir Hari Ini</h2>
+
+          <div class="muted">
+            Pembagi: ${fmt(divisor)}
+          </div>
+
+        </div>
+
+      </div>
+
+      <button
+        class="bluebtn"
+        onclick="go('kasir')">
+
+        Detail
+
+      </button>
+
+    </div>
+
+    <div class="grid">
+
+      <div class="stat">
+
+        Target / Hari
+
+        <b>${fmt(cashierTarget)} pcs</b>
+
+      </div>
+
+      <div class="stat">
+
+        Actual / Hari
+
+        <b class="green">
+          ${fmt(cashierActual)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        ACV
+
+        <b class="${statusClass(cashierACV)}">
+          ${cashierACV.toFixed(2)}%
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Selisih
+
+        <b class="${cashierDiff>=0?'green':'red'}">
+
+          ${cashierDiff>=0?'+':''}${fmt(cashierDiff)}
+
+        </b>
+
+      </div>
+
+    </div>
+
+    <div class="progress purplebar">
+
+      <i style="width:${Math.min(100,Math.max(0,cashierACV))}%"></i>
+
+    </div>
 
   </div>
 
-  <div class="row">
-   <span>Pencapaian Hari Ini</span>
-   <b class="green">${fmt(ad)} pcs</b>
+
+  <!-- STATUS WEEK -->
+
+  <div class="card">
+
+    <div class="home-title">
+
+      <div class="home-icon">📊</div>
+
+      <div>
+
+        <h2>Status Week Berjalan</h2>
+
+        <div class="muted">
+          Hari ke-${idx+1} dari ${dates.length}
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="quick-grid">
+
+      <div class="quick">
+
+        <span>Target Week</span>
+
+        <b>${fmt(wr.target)}</b>
+
+        <small>pcs</small>
+
+      </div>
+
+      <div class="quick">
+
+        <span>Sudah Tercapai</span>
+
+        <b class="green">
+          ${fmt(wr.actual)}
+        </b>
+
+        <small>pcs</small>
+
+      </div>
+
+      <div class="quick">
+
+        <span>Sisa Target</span>
+
+        <b class="red">
+          ${fmt(rem)}
+        </b>
+
+        <small>pcs</small>
+
+      </div>
+
+      <div class="quick">
+
+        <span>Sisa Hari</span>
+
+        <b>${remDays}</b>
+
+        <small>hari</small>
+
+      </div>
+
+    </div>
+
+    <div class="totalbox">
+
+      <div class="row">
+
+        <span>Kebutuhan rata-rata berikutnya</span>
+
+        <b>${fmt(avg)} pcs/hari</b>
+
+      </div>
+
+      <div class="row">
+
+        <span>Status</span>
+
+        ${statusBadge(wr.diff)}
+
+      </div>
+
+    </div>
+
   </div>
 
-  ${
-   x.variants?.length
-   ?
-   `<div class="muted">
-    Variant: ${x.variants.map(esc).join(" • ")}
-   </div>`
-   :
-   ""
+
+  <!-- PRODUK -->
+
+  <div class="card">
+
+    <div class="section-head">
+
+      <div>
+
+        <h2>📦 Produk PSM</h2>
+
+        <div class="muted">
+          Ringkasan actual Week ${week}
+        </div>
+
+      </div>
+
+      <button
+        class="bluebtn"
+        onclick="go('produk')">
+
+        Lihat Semua
+
+      </button>
+
+    </div>
+
+    ${products.length
+      ?products.slice(0,5).map((x,i)=>{
+
+        const a=actualItem(x.id);
+        const target=
+          x.target>0
+          ?targetItemWeek(x)
+          :0;
+
+        const acv=
+          target
+          ?pctNumber(a,target)
+          :0;
+
+        const diff=
+          target
+          ?a-target
+          :0;
+
+        return `
+
+        <div class="product-mini">
+
+          <div>
+
+            <b>${i+1}. ${esc(x.name)}</b>
+
+            <div class="muted">
+              ${rup(x.price)} / pcs
+            </div>
+
+          </div>
+
+          <div class="right">
+
+            <b class="green">
+              ${fmt(a)}
+            </b>
+
+            <div class="muted">actual</div>
+
+          </div>
+
+          <div class="right">
+
+            ${x.target>0
+              ?`<b class="${statusClass(acv)}">${acv.toFixed(0)}%</b>
+                 <div class="muted">${diff>=0?'+':''}${fmt(diff)}</div>`
+              :`<span class="badge">Belum ada target</span>`
+            }
+
+          </div>
+
+        </div>
+
+        `;
+
+      }).join('')
+      :'<div class="empty">Belum ada produk PSM.</div>'
+    }
+
+  </div>
+
+
+  <!-- REKAP HARIAN -->
+
+  <div class="card">
+
+    <div class="section-head">
+
+      <div>
+
+        <h2>📅 Rekap Harian</h2>
+
+        <div class="muted">
+          Week ${week}
+        </div>
+
+      </div>
+
+      <button
+        class="bluebtn"
+        onclick="go('laporan')">
+
+        Lihat Laporan
+
+      </button>
+
+    </div>
+
+    <div class="day-list">
+
+      ${dates.map(dt=>{
+
+        const r=dayResult(dt);
+
+        const active=
+          dt===selectedDay()
+          ?'active'
+          :'';
+
+        const cls=
+          r.acv>=100
+          ?'good'
+          :r.actual>0
+          ?'bad'
+          :'';
+
+        return `
+
+        <div
+          class="day-box ${active} ${cls}"
+          onclick="setDate('${dt}')">
+
+          <b>${dt.slice(8,10)}</b>
+
+          <div>${dateLabel(dt).split(' ')[1]}</div>
+
+          <hr class="hr">
+
+          <div>
+            Target ${fmt(r.target)}
+          </div>
+
+          <div>
+            Actual ${r.actual?fmt(r.actual):'-'}
+          </div>
+
+          <b class="${statusClass(r.acv)}">
+            ${r.acv.toFixed(0)}%
+          </b>
+
+        </div>
+
+        `;
+
+      }).join('')}
+
+    </div>
+
+  </div>
+
+
+  <!-- RINGKASAN -->
+
+  <div class="card summary-card">
+
+    <h2>⚡ Ringkasan Cepat</h2>
+
+    <div class="quick-grid">
+
+      <div class="quick">
+
+        <span>Target / Hari</span>
+
+        <b>${fmt(dailyTarget())}</b>
+
+        <small>pcs</small>
+
+      </div>
+
+      <div class="quick">
+
+        <span>Actual / Hari</span>
+
+        <b class="green">
+          ${fmt(dr.actual)}
+        </b>
+
+        <small>pcs</small>
+
+      </div>
+
+      <div class="quick">
+
+        <span>ACV / Hari</span>
+
+        <b class="${statusClass(dr.acv)}">
+          ${dr.acv.toFixed(2)}%
+        </b>
+
+      </div>
+
+      <div class="quick">
+
+        <span>Actual Week</span>
+
+        <b class="green">
+          ${fmt(wr.actual)}
+        </b>
+
+        <small>pcs</small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   INPUT ACTUAL TOKO
+========================================================= */
+
+function inputDailyStore(){
+
+  const d=data();
+
+  if(!d.items.length){
+
+    alert(
+      'Tambahkan produk terlebih dahulu di menu Produk.'
+    );
+
+    go('produk');
+
+    return;
+
   }
 
-  <div class="actions">
+  const date=selectedDay();
 
-   <button
-    class="primary"
-    onclick="inputItemAchievement('${x.id}')"
-   >
-    Input
-   </button>
+  d.items.forEach(item=>{
 
-   <button
-    class="secondary"
-    onclick="editItem('${x.id}')"
-   >
-    Edit
-   </button>
+    const old=
+      actualOnDate(item.id,date);
 
-   <button
-    class="danger"
-    onclick="deleteItem('${x.id}')"
-   >
-    Hapus
-   </button>
+    const value=prompt(
+      `Actual ${item.name} pada ${dateLabel(date)} (qty):`,
+      old
+    );
+
+    if(value===null)return;
+
+    const q=Math.max(
+      0,
+      Number(value)||0
+    );
+
+    if(!d.daily[date]){
+      d.daily[date]={};
+    }
+
+    d.daily[date][item.id]=q;
+
+  });
+
+  save();
+
+  render();
+
+  toast('Actual harian berhasil disimpan.');
+
+}
+
+
+/* =========================================================
+   PRODUK
+========================================================= */
+
+function produk(){
+
+  const items=data().items;
+
+  return `
+
+  ${monthControl()}
+
+  ${tabs()}
+
+  <div class="card">
+
+    <div class="section-head">
+
+      <div>
+
+        <h2>📦 Produk PSM</h2>
+
+        <div class="muted">
+          Tambahkan produk yang menjadi acuan Target Kasir.
+        </div>
+
+      </div>
+
+      <button
+        class="primary"
+        onclick="addItem()">
+
+        ＋ Tambah Produk
+
+      </button>
+
+    </div>
+
+    <div class="info">
+
+      <b>Catatan:</b><br>
+
+      Produk di sini otomatis menjadi daftar pada
+      <b>Target Kasir</b>.
+
+      Target kasir dihitung dari target produk
+      berdasarkan pembagi yang ada di Pengaturan.
+
+    </div>
+
+    <br>
+
+    ${items.length
+      ?items.map((x,i)=>productCard(x,i)).join('')
+      :'<div class="empty">Belum ada produk PSM.<br><br>Tekan Tambah Produk untuk memulai.</div>'
+    }
 
   </div>
 
- </div>
- `;
+  `;
+
 }
 
+function productCard(x,index){
 
-/* =========================
-   STORE TARGET
-========================= */
+  const a=actualItem(x.id);
 
-function saveStoreTarget(){
+  const target=
+    Number(x.target||0);
 
- const v=Number(
-  document.getElementById("storeTarget").value
- );
+  const targetWeekValue=
+    target*weekDays();
 
- if(!Number.isFinite(v)||v<0){
-  alert("Target tidak valid.");
-  return;
- }
+  const acv=
+    targetWeekValue
+    ?pctNumber(a,targetWeekValue)
+    :0;
 
- data().target=v;
+  const diff=
+    targetWeekValue
+    ?a-targetWeekValue
+    :0;
 
- save();
- render();
+  return `
 
- toast("Target toko berhasil disimpan.");
+  <div class="item">
+
+    <div class="row">
+
+      <div>
+
+        <span class="badge">
+          ITEM ${index+1}
+        </span>
+
+        <div class="item-title" style="margin-top:7px">
+          ${esc(x.name)}
+        </div>
+
+      </div>
+
+      <b class="green">
+        ${fmt(a)} pcs
+      </b>
+
+    </div>
+
+    <div style="display:flex;gap:12px;margin-top:10px">
+
+      ${x.photo
+        ?`<img
+             src="${x.photo}"
+             class="product-photo"
+             alt="produk">`
+        :`<div class="photo-empty">📦</div>`
+      }
+
+      <div style="flex:1">
+
+        <div class="muted">
+          Harga / pcs
+        </div>
+
+        <b>${rup(x.price)}</b>
+
+        <div class="muted" style="margin-top:5px">
+          Target produk / hari:
+          ${target?fmt(target)+' pcs':'Belum diatur'}
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="grid" style="margin-top:10px">
+
+      <div class="stat">
+
+        Actual Week
+
+        <b class="green">
+          ${fmt(a)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Nilai Actual
+
+        <b>
+          ${rup(a*x.price)}
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Target Produk
+
+        <b>
+          ${target
+            ?fmt(targetWeekValue)+' pcs'
+            :'—'
+          }
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        ACV
+
+        <b class="${statusClass(acv)}">
+          ${target
+            ?acv.toFixed(2)+'%'
+            :'—'
+          }
+        </b>
+
+      </div>
+
+    </div>
+
+    ${target
+      ?`
+
+      <div class="row">
+
+        <span>
+          ${diff>=0?'Lebih':'Kekurangan'}
+        </span>
+
+        <b class="${diff>=0?'green':'red'}">
+
+          ${diff>=0?'+':''}${fmt(diff)} pcs
+
+        </b>
+
+      </div>
+
+      `
+      :''
+    }
+
+    <div class="actions">
+
+      <button
+        class="primary"
+        onclick="inputProductActual('${x.id}')">
+
+        Input Actual
+
+      </button>
+
+      <button
+        class="secondary"
+        onclick="editItem('${x.id}')">
+
+        Edit
+
+      </button>
+
+      <button
+        class="yellow"
+        onclick="setItemTarget('${x.id}')">
+
+        Target Item
+
+      </button>
+
+      <button
+        class="danger"
+        onclick="delItem('${x.id}')">
+
+        Hapus
+
+      </button>
+
+    </div>
+
+  </div>
+
+  `;
+
 }
-
-function inputStoreAchievement(){
-
- const date=selectedDay();
-
- const old=dailyTotal(date);
-
- const v=Number(
-  prompt(
-   `Pencapaian toko pada ${dateLabel(date)} (qty):`,
-   old
-  )
- );
-
- if(!Number.isFinite(v)||v<0)return;
-
- /*
-  Pencapaian toko disimpan sebagai distribusi
-  ke produk secara proporsional jika produk sudah ada.
- */
-
- if(!data().items.length){
-
-  alert("Tambahkan produk terlebih dahulu.");
-  return;
- }
-
- if(!data().daily[date]){
-  data().daily[date]={};
- }
-
- if(old>0){
-
-  const ratio=v/old;
-
-  data().items.forEach(x=>{
-   const oldItem=Number(
-    data().daily[date][x.id]||0
-   );
-
-   data().daily[date][x.id]=
-    Math.max(0,oldItem*ratio);
-  });
-
- }else{
-
-  /*
-   Jika belum ada actual item,
-   input pencapaian toko ditempatkan
-   pada item pertama.
-  */
-
-  const first=data().items[0];
-
-  data().daily[date][first.id]=v;
- }
-
- save();
- render();
-
- toast("Pencapaian toko berhasil disimpan.");
-}
-
-
-/* =========================
-   ADD PRODUCT
-========================= */
 
 function addItem(){
 
- const name=prompt("Nama produk/item:");
+  const name=prompt(
+    'Nama produk / item PSM:'
+  );
 
- if(!name)return;
+  if(!name)return;
 
- const price=Number(
-  prompt(
-   `Harga ${name.trim()} per pcs (Rp):`,
-   "0"
-  )
- )||0;
+  const price=Number(
+    prompt(
+      `Harga ${name} per pcs (Rp):`,
+      '0'
+    )
+  )||0;
 
- const target=Number(
-  prompt(
-   `Target ${name.trim()} / Week (qty):`,
-   "0"
-  )
- )||0;
+  const target=Number(
+    prompt(
+      `Target ${name} per hari (opsional):`,
+      '0'
+    )
+  )||0;
 
- const variantsText=prompt(
-  "Variant produk (opsional), pisahkan koma:",
-  ""
- );
+  const variants=prompt(
+    'Variant produk (opsional), pisahkan dengan koma:',
+    ''
+  );
 
- const variants=variantsText
-  ?
-  variantsText
-   .split(",")
-   .map(x=>x.trim())
-   .filter(Boolean)
-  :
-  [];
+  const item={
 
- /*
-  Upload foto menggunakan FileReader.
-  Karena prompt tidak bisa memilih file,
-  foto ditambahkan melalui form edit.
- */
+    id:
+      'item_'+Date.now()+
+      '_'+Math.random().toString(36).slice(2,7),
 
- data().items.push({
+    name:name.trim(),
 
-  id:"item_"+Date.now()+"_"+Math.random()
-   .toString(36).slice(2,7),
+    price,
 
-  name:name.trim(),
+    target,
 
-  price:price,
+    variants:
+      variants
+      ?variants.split(',')
+        .map(x=>x.trim())
+        .filter(Boolean)
+      :[],
 
-  target:target,
+    photo:''
+  };
 
-  variants:variants,
+  data().items.push(item);
 
-  photo:""
+  save();
 
- });
+  if(confirm(
+    'Produk berhasil dibuat.\n\nMau upload foto produk sekarang?'
+  )){
 
- save();
+    uploadPhoto(item.id);
 
- render();
+  }else{
 
- toast("Produk berhasil ditambahkan.");
+    render();
+    toast('Produk berhasil ditambahkan.');
+
+  }
+
 }
-
-
-/* =========================
-   EDIT PRODUCT
-========================= */
 
 function editItem(id){
 
- const x=data().items.find(
-  i=>i.id===id
- );
+  const item=
+    data().items.find(x=>x.id===id);
 
- if(!x)return;
+  if(!item)return;
 
- const n=prompt(
-  "Nama produk:",
-  x.name
- );
+  const name=prompt(
+    'Nama produk:',
+    item.name
+  );
 
- if(n===null)return;
+  if(name===null)return;
 
- const p=Number(
-  prompt(
-   "Harga per pcs (Rp):",
-   x.price
-  )
- );
+  const price=Number(
+    prompt(
+      'Harga per pcs (Rp):',
+      item.price
+    )
+  );
 
- if(!Number.isFinite(p)||p<0)return;
+  if(!Number.isFinite(price)||price<0)return;
 
- const t=Number(
-  prompt(
-   "Target item / Week:",
-   x.target
-  )
- );
+  const variants=prompt(
+    'Variant dipisahkan koma:',
+    (item.variants||[]).join(', ')
+  );
 
- if(!Number.isFinite(t)||t<0)return;
+  item.name=name.trim();
 
- const v=prompt(
-  "Variant dipisahkan koma:",
-  (x.variants||[]).join(", ")
- );
+  item.price=price;
 
- if(v===null)return;
+  item.variants=
+    variants
+    ?variants.split(',')
+      .map(x=>x.trim())
+      .filter(Boolean)
+    :[];
 
- x.name=n.trim();
- x.price=p;
- x.target=t;
- x.variants=v
-  .split(",")
-  .map(s=>s.trim())
-  .filter(Boolean);
+  save();
 
- save();
+  render();
 
- render();
+  toast('Produk berhasil diperbarui.');
 
- toast("Produk berhasil diperbarui.");
+}
+
+function setItemTarget(id){
+
+  const item=
+    data().items.find(x=>x.id===id);
+
+  if(!item)return;
+
+  const v=Number(
+    prompt(
+      `Target ${item.name} per hari (qty):`,
+      item.target||0
+    )
+  );
+
+  if(!Number.isFinite(v)||v<0)return;
+
+  item.target=v;
+
+  save();
+
+  render();
+
+  toast('Target produk disimpan.');
+
+}
+
+function uploadPhoto(id){
+
+  const item=
+    data().items.find(x=>x.id===id);
+
+  if(!item)return;
+
+  const input=document.createElement('input');
+
+  input.type='file';
+  input.accept='image/*';
+
+  input.onchange=e=>{
+
+    const file=e.target.files[0];
+
+    if(!file)return;
+
+    const reader=new FileReader();
+
+    reader.onload=ev=>{
+
+      item.photo=ev.target.result;
+
+      save();
+
+      render();
+
+      toast('Foto produk berhasil disimpan.');
+
+    };
+
+    reader.readAsDataURL(file);
+
+  };
+
+  input.click();
+
+}
+
+function inputProductActual(id){
+
+  const item=
+    data().items.find(x=>x.id===id);
+
+  if(!item)return;
+
+  const date=selectedDay();
+
+  const old=
+    actualOnDate(id,date);
+
+  const v=prompt(
+    `Actual ${item.name} - ${dateLabel(date)} (qty):`,
+    old
+  );
+
+  if(v===null)return;
+
+  const q=Math.max(
+    0,
+    Number(v)||0
+  );
+
+  if(!data().daily[date]){
+    data().daily[date]={};
+  }
+
+  data().daily[date][id]=q;
+
+  save();
+
+  render();
+
+  toast('Actual produk berhasil disimpan.');
+
+}
+
+function delItem(id){
+
+  const item=
+    data().items.find(x=>x.id===id);
+
+  if(!item)return;
+
+  if(!confirm(
+    `Hapus produk "${item.name}"?`
+  ))return;
+
+  const d=data();
+
+  d.items=
+    d.items.filter(x=>x.id!==id);
+
+  delete d.actual[id];
+
+  Object.keys(d.daily||{}).forEach(dt=>{
+
+    if(d.daily[dt]){
+      delete d.daily[dt][id];
+    }
+
+  });
+
+  save();
+
+  render();
+
+  toast('Produk berhasil dihapus.');
+
 }
 
 
-/* =========================
-   DELETE
-========================= */
-
-function deleteItem(id){
-
- if(!confirm(
-  "Hapus produk ini beserta data pencapaiannya?"
- ))return;
-
- const d=data();
-
- d.items=d.items.filter(
-  x=>x.id!==id
- );
-
- Object.keys(d.daily||{}).forEach(date=>{
-  delete d.daily[date][id];
- });
-
- save();
-
- render();
-
- toast("Produk berhasil dihapus.");
-}
-
-
-/* =========================
-   ITEM ACHIEVEMENT
-========================= */
-
-function inputItemAchievement(id){
-
- const x=data().items.find(
-  i=>i.id===id
- );
-
- if(!x)return;
-
- const date=selectedDay();
-
- if(!data().daily[date]){
-  data().daily[date]={};
- }
-
- const old=Number(
-  data().daily[date][id]||0
- );
-
- const v=Number(
-  prompt(
-   `${x.name}\nPencapaian ${dateLabel(date)} (qty):`,
-   old
-  )
- );
-
- if(!Number.isFinite(v)||v<0)return;
-
- data().daily[date][id]=v;
-
- save();
- render();
-
- toast("Pencapaian item disimpan.");
-}
-
-
-/* =========================
+/* =========================================================
    TARGET KASIR
-========================= */
+========================================================= */
 
 function kasir(){
 
- const divisor=cashierDivisor();
+  const items=data().items;
 
- const targetWeekStore=targetWeek();
+  const divisor=cashierDivisor();
 
- const targetDayStore=targetDaily();
+  const storeTarget=dailyTarget();
 
- const targetWeekCashier=
-  targetWeekStore/divisor;
+  const targetKasir=
+    storeTarget/divisor;
 
- const targetDayCashier=
-  targetDayStore/divisor;
+  const actualStore=actualToday();
 
- return `
- ${monthControls()}
- ${tabs()}
- ${dateSelector()}
+  const actualKasir=
+    actualStore/divisor;
 
- <div class="card">
+  const acv=
+    pctNumber(actualKasir,targetKasir);
 
-  <h2>👤 Target Kasir</h2>
+  const diff=
+    actualKasir-targetKasir;
 
-  <div class="info">
-   Target kasir bukan nama kasir.
-   Target otomatis berasal dari <b>Target Toko</b>
-   dan dibagi <b>${fmt(divisor)}</b>.
+  return `
+
+  ${monthControl()}
+
+  ${tabs()}
+
+  <div class="card">
+
+    <h2>👤 Target Kasir</h2>
+
+    <div class="info">
+
+      Target Kasir bukan nama orang.
+
+      Sistem mengambil <b>nama produk dari menu Produk</b>
+      kemudian membagi target sesuai pembagi.
+
+      <br><br>
+
+      Pembagi saat ini:
+      <b>${fmt(divisor)}</b>
+
+    </div>
+
+    <br>
+
+    <div class="grid">
+
+      <div class="stat">
+
+        Target Toko / Hari
+
+        <b>
+          ${fmt(storeTarget)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Target Kasir / Hari
+
+        <b>
+          ${fmt(targetKasir)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Actual Kasir
+
+        <b class="green">
+          ${fmt(actualKasir)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        ACV Kasir
+
+        <b class="${statusClass(acv)}">
+          ${acv.toFixed(2)}%
+        </b>
+
+      </div>
+
+    </div>
+
+    <div class="progress purplebar">
+
+      <i style="width:${Math.min(100,Math.max(0,acv))}%"></i>
+
+    </div>
+
+    <div class="row">
+
+      <span>Selisih</span>
+
+      <b class="${diff>=0?'green':'red'}">
+
+        ${diff>=0?'+':''}${fmt(diff)} pcs
+
+      </b>
+
+    </div>
+
   </div>
 
-  <br>
 
-  <div class="grid">
+  <div class="card">
 
-   <div class="stat">
-    Target Toko / Hari
-    <b>${fmt(targetDayStore)} pcs</b>
-   </div>
+    <div class="section-head">
 
-   <div class="stat">
-    Target Kasir / Hari
-    <b>${fmt(targetDayCashier)} pcs</b>
-   </div>
+      <div>
 
-   <div class="stat">
-    Target Toko / Week
-    <b>${fmt(targetWeekStore)} pcs</b>
-   </div>
+        <h2>📦 Target Kasir Per Produk</h2>
 
-   <div class="stat">
-    Target Kasir / Week
-    <b>${fmt(targetWeekCashier)} pcs</b>
-   </div>
+        <div class="muted">
+          Produk otomatis mengikuti menu Produk.
+        </div>
+
+      </div>
+
+    </div>
+
+    ${items.length
+      ?items.map((item,index)=>
+        cashierItemCard(item,index)
+      ).join('')
+      :`
+
+      <div class="empty">
+
+        Belum ada produk.<br><br>
+
+        Tambahkan produk terlebih dahulu.
+
+        <br><br>
+
+        <button
+          class="primary"
+          onclick="go('produk')">
+
+          ＋ Tambah Produk
+
+        </button>
+
+      </div>
+
+      `
+    }
 
   </div>
 
- </div>
+  `;
 
-
- <div class="card">
-
-  <h2>📅 Pencapaian Kasir Hari Ini</h2>
-
-  ${cashierDailyBox(selectedDay())}
-
-  <button
-   class="primary"
-   onclick="inputCashierAchievement()"
-  >
-   ✏️ Input Pencapaian Kasir
-  </button>
-
- </div>
-
-
- <div class="card">
-
-  <h2>📦 Target Kasir Per Item</h2>
-
-  <div class="muted">
-   Nama item otomatis mengikuti produk yang dibuat
-   pada menu Target Toko.
-  </div>
-
-  ${
-   data().items.length
-   ?
-   data().items.map((x,i)=>cashierItem(x,i)).join("")
-   :
-   `<div class="empty">
-    Belum ada item di Target Toko.
-   </div>`
-  }
-
- </div>
- `;
 }
 
-function cashierDailyBox(date){
+function cashierItemCard(item,index){
 
- const target=cashierTargetDaily();
+  const divisor=cashierDivisor();
 
- const actual=Number(
-  data().cashierDaily?.[date]?.total||0
- );
+  const targetStore=
+    Number(item.target||0);
 
- const acv=target>0
-  ?actual/target*100
-  :0;
+  const targetCashier=
+    targetStore/divisor;
 
- const diff=actual-target;
+  const date=selectedDay();
 
- return `
- <div class="grid">
+  const actual=
+    actualOnDate(item.id,date);
 
-  <div class="stat">
-   Target
-   <b>${fmt(target)} pcs</b>
-  </div>
+  const actualCashier=
+    actual/divisor;
 
-  <div class="stat">
-   Pencapaian
-   <b class="green">${fmt(actual)} pcs</b>
-  </div>
+  const acv=
+    targetCashier
+    ?pctNumber(actualCashier,targetCashier)
+    :0;
 
-  <div class="stat">
-   ACV
-   <b class="${acv>=100?"green":acv>=80?"orange":"red"}">
-    ${acv.toFixed(2)}%
-   </b>
-  </div>
+  const diff=
+    actualCashier-targetCashier;
 
-  <div class="stat">
-   ${diff>=0?"Lebih":"Kurang"}
-   <b class="${diff>=0?"green":"red"}">
-    ${fmt(Math.abs(diff))} pcs
-   </b>
-  </div>
+  return `
 
- </div>
- `;
-}
+  <div class="item">
 
-function cashierItem(x,i){
+    <div class="row">
 
- const divisor=cashierDivisor();
+      <div>
 
- const targetWeek=
-  Number(x.target||0)/divisor;
+        <span class="badge">
+          ITEM ${index+1}
+        </span>
 
- const targetDay=
-  targetWeek/7;
+        <div
+          class="item-title"
+          style="margin-top:7px">
 
- const actual=Number(
-  data().cashierDaily?.[
-   selectedDay()
-  ]?.items?.[x.id]||0
- );
+          ${esc(item.name)}
 
- const acv=targetDay>0
-  ?actual/targetDay*100
-  :0;
+        </div>
 
- const diff=actual-targetDay;
+      </div>
 
- return `
- <div class="item">
+      <b class="${statusClass(acv)}">
 
-  <div class="product-head">
+        ${targetCashier
+          ?acv.toFixed(2)+'%'
+          :'—'
+        }
 
-   ${
-    x.photo
-    ?
-    `<img class="photo" src="${x.photo}">`
-    :
-    `<div class="photo"></div>`
-   }
+      </b>
 
-   <div>
-
-    <div class="item-title">
-     ${i+1}. ${esc(x.name)}
     </div>
 
     <div class="muted">
-     Target Toko: ${fmt(x.target)} pcs / Week
+
+      Target Produk Toko:
+      ${targetStore
+        ?fmt(targetStore)+' pcs/hari'
+        :'Belum diatur'
+      }
+
     </div>
 
-   </div>
+    <div class="grid" style="margin-top:10px">
+
+      <div class="stat">
+
+        Target Kasir
+
+        <b>
+          ${targetCashier
+            ?fmt(targetCashier)
+            :'—'
+          }
+          pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Actual
+
+        <b class="green">
+          ${fmt(actualCashier)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        ACV
+
+        <b class="${statusClass(acv)}">
+
+          ${targetCashier
+            ?acv.toFixed(2)+'%'
+            :'—'
+          }
+
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        ${diff>=0?'Lebih':'Kekurangan'}
+
+        <b class="${diff>=0?'green':'red'}">
+
+          ${targetCashier
+            ?fmt(Math.abs(diff))+' pcs'
+            :'—'
+          }
+
+        </b>
+
+      </div>
+
+    </div>
+
+    <div class="progress purplebar">
+
+      <i style="width:${Math.min(100,Math.max(0,acv))}%"></i>
+
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="primary"
+        onclick="inputKasirProduct('${item.id}')">
+
+        Input Pencapaian
+
+      </button>
+
+      <button
+        class="secondary"
+        onclick="setItemTarget('${item.id}')">
+
+        Atur Target Item
+
+      </button>
+
+    </div>
 
   </div>
 
-  <hr class="hr">
+  `;
 
-  <div class="grid">
-
-   <div class="stat">
-    Target Kasir / Week
-    <b>${fmt(targetWeek)} pcs</b>
-   </div>
-
-   <div class="stat">
-    Target Kasir / Hari
-    <b>${fmt(targetDay)} pcs</b>
-   </div>
-
-   <div class="stat">
-    Pencapaian
-    <b class="green">${fmt(actual)} pcs</b>
-   </div>
-
-   <div class="stat">
-    ACV
-    <b class="${acv>=100?"green":acv>=80?"orange":"red"}">
-     ${acv.toFixed(2)}%
-    </b>
-   </div>
-
-  </div>
-
-  <div class="row">
-   <span>${diff>=0?"Lebih":"Kekurangan"}</span>
-
-   <b class="${diff>=0?"green":"red"}">
-    ${fmt(Math.abs(diff))} pcs
-   </b>
-  </div>
-
-  <button
-   class="primary"
-   onclick="inputCashierItem('${x.id}')"
-  >
-   Input Pencapaian
-  </button>
-
- </div>
- `;
 }
 
-function inputCashierItem(id){
+function inputKasirProduct(id){
 
- const x=data().items.find(
-  i=>i.id===id
- );
+  const item=
+    data().items.find(x=>x.id===id);
 
- if(!x)return;
+  if(!item)return;
 
- const date=selectedDay();
+  const date=selectedDay();
 
- if(!data().cashierDaily[date]){
-  data().cashierDaily[date]={
-   total:0,
-   items:{}
-  };
- }
+  const divisor=cashierDivisor();
 
- if(!data().cashierDaily[date].items){
-  data().cashierDaily[date].items={};
- }
+  const targetCashier=
+    Number(item.target||0)/divisor;
 
- const old=Number(
-  data().cashierDaily[date].items[id]||0
- );
+  const old=
+    actualOnDate(id,date);
 
- const v=Number(
-  prompt(
-   `${x.name}\nPencapaian Kasir ${dateLabel(date)} (qty):`,
-   old
-  )
- );
+  const v=prompt(
+    `${item.name}\n\nTarget Kasir: ${fmt(targetCashier)} pcs\n\nInput pencapaian qty:`,
+    old
+  );
 
- if(!Number.isFinite(v)||v<0)return;
+  if(v===null)return;
 
- data().cashierDaily[date].items[id]=v;
+  const q=Math.max(
+    0,
+    Number(v)||0
+  );
 
- recalcCashierDate(date);
+  if(!data().daily[date]){
+    data().daily[date]={};
+  }
 
- save();
- render();
+  data().daily[date][id]=q;
 
- toast("Pencapaian kasir disimpan.");
-}
+  save();
 
-function inputCashierAchievement(){
+  render();
 
- const date=selectedDay();
+  toast('Pencapaian kasir berhasil disimpan.');
 
- if(!data().cashierDaily[date]){
-  data().cashierDaily[date]={
-   total:0,
-   items:{}
-  };
- }
-
- const target=cashierTargetDaily();
-
- const old=Number(
-  data().cashierDaily[date].total||0
- );
-
- const v=Number(
-  prompt(
-   `Pencapaian Kasir\n${dateLabel(date)}\nTarget: ${fmt(target)} pcs`,
-   old
-  )
- );
-
- if(!Number.isFinite(v)||v<0)return;
-
- data().cashierDaily[date].total=v;
-
- save();
- render();
-
- toast("Pencapaian kasir disimpan.");
-}
-
-function recalcCashierDate(date){
-
- const d=data().cashierDaily[date];
-
- if(!d)return;
-
- d.total=Object.values(
-  d.items||{}
- ).reduce(
-  (sum,v)=>sum+Number(v||0),
-  0
- );
 }
 
 
-/* =========================
+/* =========================================================
    INFO TARGET
-========================= */
+========================================================= */
 
 function infoTarget(){
 
- const target=targetWeek();
+  const storeDaily=dailyTarget();
 
- return `
- ${monthControls()}
- ${tabs()}
+  const storeWeek=targetWeek();
 
- <div class="card">
+  const divisor=cashierDivisor();
 
-  <h2>📋 Info Target</h2>
+  const cashierDaily=
+    storeDaily/divisor;
 
-  <div class="info">
-   ${weekName()}
+  const items=data().items;
+
+  return `
+
+  ${monthControl()}
+
+  ${tabs()}
+
+  <div class="card">
+
+    <h2>📋 Info Target PSM</h2>
+
+    <div class="info">
+
+      <b>${weekName(week)}</b><br>
+
+      Halaman ini hanya menampilkan target.
+      Pencapaian dan ACV ada di Home serta Laporan.
+
+    </div>
+
+    <br>
+
+    <div class="grid">
+
+      <div class="stat">
+
+        Target Toko / Hari
+
+        <b>
+          ${fmt(storeDaily)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Target Toko / Week
+
+        <b>
+          ${fmt(storeWeek)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Target Kasir / Hari
+
+        <b>
+          ${fmt(cashierDaily)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Pembagi
+
+        <b>
+          ${fmt(divisor)}
+        </b>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <br>
 
-  <div class="grid">
+  <div class="card">
 
-   <div class="stat">
-    Target Toko / Week
-    <b>${fmt(target)} pcs</b>
-   </div>
+    <div class="section-head">
 
-   <div class="stat">
-    Target Toko / Hari
-    <b>${fmt(targetDaily())} pcs</b>
-   </div>
+      <h2>📦 Daftar Produk PSM</h2>
 
-   <div class="stat">
-    Target Kasir / Hari
-    <b>${fmt(cashierTargetDaily())} pcs</b>
-   </div>
+      <button
+        class="yellow"
+        onclick="copyInfo()">
 
-   <div class="stat">
-    Pembagi
-    <b>${fmt(cashierDivisor())}</b>
-   </div>
+        📤 Salin
+
+      </button>
+
+    </div>
+
+    <table>
+
+      <tr>
+
+        <th>No</th>
+        <th>Produk</th>
+        <th>Harga</th>
+        <th>Target/Hari</th>
+
+      </tr>
+
+      ${items.length
+        ?items.map((x,i)=>`
+
+          <tr>
+
+            <td>${i+1}</td>
+
+            <td>
+              <b>${esc(x.name)}</b>
+            </td>
+
+            <td>
+              ${rup(x.price)}
+            </td>
+
+            <td>
+              ${x.target
+                ?fmt(x.target)
+                :'—'
+              }
+            </td>
+
+          </tr>
+
+        `).join('')
+        :`
+
+          <tr>
+
+            <td
+              colspan="4"
+              class="empty">
+
+              Belum ada produk.
+
+            </td>
+
+          </tr>
+
+        `
+      }
+
+    </table>
 
   </div>
 
- </div>
+  `;
 
-
- <div class="card">
-
-  <h2>📦 Daftar Item</h2>
-
-  ${
-   data().items.length
-   ?
-   `
-   <table>
-
-    <tr>
-     <th>No</th>
-     <th>Item</th>
-     <th>Harga</th>
-     <th>Target</th>
-    </tr>
-
-    ${data().items.map((x,i)=>`
-
-     <tr>
-
-      <td>
-       <b>${i+1}</b>
-      </td>
-
-      <td>
-       <b>${esc(x.name)}</b>
-
-       ${
-        x.variants?.length
-        ?
-        `<br>
-        <span class="muted">
-         ${x.variants.map(esc).join(", ")}
-        </span>`
-        :
-        ""
-       }
-
-      </td>
-
-      <td>
-       ${rup(x.price)}
-      </td>
-
-      <td>
-       ${fmt(x.target)} / week
-      </td>
-
-     </tr>
-
-    `).join("")}
-
-   </table>
-   `
-   :
-   `<div class="empty">Belum ada item.</div>`
-  }
-
- </div>
-
-
- <div class="card">
-
-  <button
-   class="yellow"
-   onclick="copyInfo()"
-  >
-   📤 Salin Info Target
-  </button>
-
- </div>
- `;
 }
 
 function copyInfo(){
 
- let text=
- `TARGET PSM\n`+
- `${weekName()}\n\n`+
- `TARGET TOKO\n`+
- `Target Week : ${fmt(targetWeek())} pcs\n`+
- `Target / Hari : ${fmt(targetDaily())} pcs\n\n`+
- `TARGET KASIR\n`+
- `Pembagi : ${fmt(cashierDivisor())}\n`+
- `Target Kasir / Hari : ${fmt(cashierTargetDaily())} pcs\n\n`+
- `DAFTAR ITEM\n`;
+  const text=
+`TARGET PSM
 
- data().items.forEach((x,i)=>{
+${weekName(week)}
 
-  text+=
-   `${i+1}. ${x.name}\n`+
-   `Harga : ${rup(x.price)}\n`+
-   `Target Item : ${fmt(x.target)} / Week\n\n`;
+TARGET TOKO
+Target / hari : ${fmt(dailyTarget())} pcs
+Target / week : ${fmt(targetWeek())} pcs
 
- });
+TARGET KASIR
+Target / hari : ${fmt(dailyTarget()/cashierDivisor())} pcs
+Pembagi : ${fmt(cashierDivisor())}
 
- if(navigator.clipboard){
+DAFTAR PRODUK
+`+
+data().items.map((x,i)=>
+`${i+1}. ${x.name}
+Harga : ${rup(x.price)}
+Target / hari : ${x.target?fmt(x.target)+' pcs':'Belum diatur'}`
+).join('\n\n');
 
-  navigator.clipboard
-   .writeText(text)
-   .then(()=>toast("Info berhasil disalin."))
-   .catch(()=>prompt("Salin:",text));
+  if(navigator.clipboard){
 
- }else{
+    navigator.clipboard
+      .writeText(text)
+      .then(()=>{
+        toast('Info target berhasil disalin.');
+      })
+      .catch(()=>{
+        prompt('Salin teks berikut:',text);
+      });
 
-  prompt("Salin:",text);
+  }else{
 
- }
+    prompt('Salin teks berikut:',text);
+
+  }
+
 }
 
 
-/* =========================
+/* =========================================================
    LAPORAN
-========================= */
-
-function weekReport(w){
-
- const oldWeek=week;
-
- week=w;
-
- const target=targetWeek();
-
- const actual=totalActual();
-
- week=oldWeek;
-
- const acv=target>0
-  ?actual/target*100
-  :0;
-
- const diff=actual-target;
-
- return {
-  target,
-  actual,
-  acv,
-  diff
- };
-}
-
-function monthlyReport(){
-
- let target=0;
- let actual=0;
-
- for(let w=1;w<=4;w++){
-
-  const r=weekReport(w);
-
-  target+=r.target;
-  actual+=r.actual;
- }
-
- const acv=target>0
-  ?actual/target*100
-  :0;
-
- return {
-  target,
-  actual,
-  acv,
-  diff:actual-target
- };
-}
+========================================================= */
 
 function laporan(){
 
- const wr=weekReport(week);
- const mr=monthlyReport();
+  const wr=weekResult();
 
- return `
- ${monthControls()}
- ${tabs()}
- ${dateSelector()}
+  const monthly=monthlyResult();
 
- <div class="card">
+  return `
 
-  <h2>📈 Laporan ${weekName()}</h2>
+  ${monthControl()}
 
-  <div class="grid">
+  ${tabs()}
 
-   <div class="stat">
-    Target Week
-    <b>${fmt(wr.target)} pcs</b>
-   </div>
+  <div class="card">
 
-   <div class="stat">
-    Pencapaian
-    <b class="green">${fmt(wr.actual)} pcs</b>
-   </div>
+    <h2>📈 Laporan ${weekName(week)}</h2>
 
-   <div class="stat">
-    ACV
-    <b class="${wr.acv>=100?"green":wr.acv>=80?"orange":"red"}">
-     ${wr.acv.toFixed(2)}%
-    </b>
-   </div>
+    <div class="grid">
 
-   <div class="stat">
-    ${wr.diff>=0?"Lebih":"Kekurangan"}
-    <b class="${wr.diff>=0?"green":"red"}">
-     ${fmt(Math.abs(wr.diff))} pcs
-    </b>
-   </div>
+      <div class="stat">
 
-  </div>
+        Target Week
 
-  <div class="progress">
-   <i style="width:${Math.min(100,Math.max(0,wr.acv))}%"></i>
-  </div>
+        <b>
+          ${fmt(wr.target)} pcs
+        </b>
 
- </div>
+      </div>
 
+      <div class="stat">
 
- <div class="card">
+        Actual Week
 
-  <h2>📅 Laporan Hari ${dateLabel(selectedDay())}</h2>
+        <b class="green">
+          ${fmt(wr.actual)} pcs
+        </b>
 
-  ${dailyBox(selectedDay())}
+      </div>
 
- </div>
+      <div class="stat">
 
+        ACV
 
- <div class="card">
+        <b class="${statusClass(wr.acv)}">
+          ${wr.acv.toFixed(2)}%
+        </b>
 
-  <h2>📊 Rekap Week 1 - 4</h2>
+      </div>
 
-  <table>
+      <div class="stat">
 
-   <tr>
-    <th>Week</th>
-    <th>Target</th>
-    <th>Actual</th>
-    <th>ACV</th>
-    <th>Kurang/Lebih</th>
-   </tr>
+        ${wr.diff>=0?'Lebih':'Kekurangan'}
 
-   ${[1,2,3,4].map(w=>{
+        <b class="${wr.diff>=0?'green':'red'}">
 
-    const r=weekReport(w);
+          ${fmt(Math.abs(wr.diff))} pcs
 
-    return `
-    <tr>
+        </b>
 
-     <td>
-      <b>W${w}</b>
-     </td>
+      </div>
 
-     <td>
-      ${fmt(r.target)}
-     </td>
+    </div>
 
-     <td>
-      ${fmt(r.actual)}
-     </td>
+    <div class="progress">
 
-     <td class="${r.acv>=100?"green":r.acv>=80?"orange":"red"}">
-      <b>${r.acv.toFixed(2)}%</b>
-     </td>
+      <i style="width:${Math.min(100,Math.max(0,wr.acv))}%"></i>
 
-     <td class="${r.diff>=0?"green":"red"}">
-      ${r.diff>=0?"+":"-"}${fmt(Math.abs(r.diff))}
-     </td>
-
-    </tr>
-    `;
-
-   }).join("")}
-
-  </table>
-
- </div>
-
-
- <div class="card">
-
-  <h2>📆 Rekap Bulanan</h2>
-
-  <div class="grid">
-
-   <div class="stat">
-    Target
-    <b>${fmt(mr.target)} pcs</b>
-   </div>
-
-   <div class="stat">
-    Pencapaian
-    <b class="green">${fmt(mr.actual)} pcs</b>
-   </div>
-
-   <div class="stat">
-    ACV
-    <b class="${mr.acv>=100?"green":mr.acv>=80?"orange":"red"}">
-     ${mr.acv.toFixed(2)}%
-    </b>
-   </div>
-
-   <div class="stat">
-    ${mr.diff>=0?"Lebih":"Kekurangan"}
-    <b class="${mr.diff>=0?"green":"red"}">
-     ${fmt(Math.abs(mr.diff))} pcs
-    </b>
-   </div>
+    </div>
 
   </div>
 
- </div>
+
+  <div class="card">
+
+    <h2>📅 Rekap Harian</h2>
+
+    <table>
+
+      <tr>
+
+        <th>Tanggal</th>
+        <th>Target</th>
+        <th>Actual</th>
+        <th>ACV</th>
+        <th>Selisih</th>
+
+      </tr>
+
+      ${weekDates().map(dt=>{
+
+        const r=dayResult(dt);
+
+        return `
+
+        <tr>
+
+          <td>
+            <b>${dateLabel(dt)}</b>
+          </td>
+
+          <td>
+            ${fmt(r.target)}
+          </td>
+
+          <td class="green">
+            ${r.actual?fmt(r.actual):'-'}
+          </td>
+
+          <td class="${statusClass(r.acv)}">
+
+            <b>
+              ${r.acv.toFixed(2)}%
+            </b>
+
+          </td>
+
+          <td class="${r.diff>=0?'green':'red'}">
+
+            ${r.diff>=0?'+':''}${fmt(r.diff)}
+
+          </td>
+
+        </tr>
+
+        `;
+
+      }).join('')}
+
+    </table>
+
+  </div>
 
 
- <div class="card">
+  <div class="card">
 
-  <h2>📦 Rekap Per Item</h2>
+    <h2>📦 Rekap Produk</h2>
 
-  ${
-   data().items.length
-   ?
-   `
-   <table>
+    ${data().items.length
+      ?`
 
-    <tr>
-     <th>No</th>
-     <th>Item</th>
-     <th>Target</th>
-     <th>Actual</th>
-    </tr>
+      <table>
 
-    ${data().items.map((x,i)=>{
+        <tr>
 
-     const target=x.target||0;
-     const actual=actualItem(x.id);
-     const acv=target>0
-      ?actual/target*100
-      :0;
+          <th>No</th>
+          <th>Produk</th>
+          <th>Target</th>
+          <th>Actual</th>
+          <th>ACV</th>
 
-     return `
-     <tr>
+        </tr>
 
-      <td>${i+1}</td>
+        ${data().items.map((x,i)=>{
 
-      <td>
-       <b>${esc(x.name)}</b>
-      </td>
+          const target=
+            Number(x.target||0)*weekDays();
 
-      <td>
-       ${fmt(target)}
-      </td>
+          const actual=
+            actualItem(x.id);
 
-      <td>
+          const acv=
+            target
+            ?pctNumber(actual,target)
+            :0;
 
-       ${fmt(actual)}
-       <br>
+          const diff=
+            actual-target;
 
-       <span class="${
-        acv>=100
-        ?"green"
-        :
-        acv>=80
-        ?"orange"
-        :"red"
-       }">
+          return `
 
-        ${acv.toFixed(2)}% ACV
+          <tr>
 
-       </span>
+            <td>${i+1}</td>
 
-      </td>
+            <td>
 
-     </tr>
-     `;
+              <b>${esc(x.name)}</b>
 
-    }).join("")}
+              <div class="muted">
+                ${rup(x.price)}
+              </div>
 
-   </table>
-   `
-   :
-   `<div class="empty">Belum ada item.</div>`
+            </td>
+
+            <td>
+              ${x.target
+                ?fmt(target)
+                :'—'
+              }
+            </td>
+
+            <td class="green">
+              ${fmt(actual)}
+            </td>
+
+            <td class="${statusClass(acv)}">
+
+              ${x.target
+                ?acv.toFixed(2)+'%'
+                :'—'
+              }
+
+              ${x.target
+                ?`<div class="muted">
+                    ${diff>=0?'+':''}${fmt(diff)}
+                  </div>`
+                :''
+              }
+
+            </td>
+
+          </tr>
+
+          `;
+
+        }).join('')}
+
+      </table>
+
+      `
+      :'<div class="empty">Belum ada produk.</div>'
+    }
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>📊 Rekap Bulanan</h2>
+
+    <div class="grid">
+
+      <div class="stat">
+
+        Target
+
+        <b>
+          ${fmt(monthly.target)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Actual
+
+        <b class="green">
+          ${fmt(monthly.actual)} pcs
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        ACV
+
+        <b class="${statusClass(monthly.acv)}">
+
+          ${monthly.acv.toFixed(2)}%
+
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        Selisih
+
+        <b class="${monthly.diff>=0?'green':'red'}">
+
+          ${monthly.diff>=0?'+':''}${fmt(monthly.diff)}
+
+        </b>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+function monthlyResult(){
+
+  let target=0;
+  let actual=0;
+
+  for(let w=1;w<=4;w++){
+
+    target+=targetWeek();
+
+    actual+=totalActual(w);
+
   }
 
- </div>
+  return {
 
+    target,
+    actual,
+    acv:pctNumber(actual,target),
+    diff:actual-target
 
- <div class="card">
+  };
 
-  <h2>📅 Rekap Harian</h2>
-
-  <table>
-
-   <tr>
-    <th>Tanggal</th>
-    <th>Target</th>
-    <th>Actual</th>
-    <th>ACV</th>
-    <th>Selisih</th>
-   </tr>
-
-   ${weekDates().map(dt=>{
-
-    const target=targetDaily();
-    const actual=dailyTotal(dt);
-    const acv=target>0
-     ?actual/target*100
-     :0;
-
-    const diff=actual-target;
-
-    return `
-    <tr>
-
-     <td>
-      ${dateLabel(dt)}
-     </td>
-
-     <td>
-      ${fmt(target)}
-     </td>
-
-     <td>
-      ${fmt(actual)}
-     </td>
-
-     <td class="${
-      acv>=100
-      ?"green"
-      :
-      acv>=80
-      ?"orange"
-      :"red"
-     }">
-
-      <b>${acv.toFixed(2)}%</b>
-
-     </td>
-
-     <td class="${diff>=0?"green":"red"}">
-
-      ${diff>=0?"+":"-"}
-      ${fmt(Math.abs(diff))}
-
-     </td>
-
-    </tr>
-    `;
-
-   }).join("")}
-
-  </table>
-
- </div>
- `;
 }
 
 
-/* =========================
+/* =========================================================
    PENGATURAN
-========================= */
+========================================================= */
 
 function pengaturan(){
 
- return `
- ${monthControls()}
+  return `
 
- <div class="card">
+  ${monthControl()}
 
-  <h2>⚙️ Pengaturan</h2>
+  <div class="card">
 
-  <label>
-   Pembagi Target Kasir
-  </label>
+    <h2>⚙️ Pengaturan</h2>
 
-  <input
-   id="divisor"
-   type="number"
-   min="1"
-   step="1"
-   value="${cashierDivisor()}"
-  >
+    <div class="info">
 
-  <p class="muted">
-   Contoh pembagi 3:
-   Target Toko ÷ 3 = Target Kasir.
-   Ini bukan nama kasir.
-  </p>
+      Pengaturan ini digunakan untuk menentukan
+      pembagian Target Kasir.
 
-  <button
-   class="primary"
-   onclick="saveSettings()"
-  >
-   💾 Simpan
-  </button>
+    </div>
 
- </div>
+    <label>
+      Pembagi Target Kasir
+    </label>
 
-
- <div class="card">
-
-  <h2>ℹ️ Sistem Target</h2>
-
-  <div class="info">
-
-   Target Toko:
-   <b>Target Week ÷ 7 = Target / Hari</b>
-
-   <br><br>
-
-   Contoh:
-   <b>390 ÷ 7 = 55,71 pcs / hari</b>
-
-   <br><br>
-
-   Jika pencapaian 130 pcs:
-
-   <br>
-
-   <b>
-    130 ÷ 55,71 × 100 =
-    233,33% ACV
-   </b>
-
-  </div>
-
- </div>
- `;
-}
-
-function saveSettings(){
-
- const v=Number(
-  document.getElementById("divisor").value
- );
-
- if(!Number.isFinite(v)||v<1){
-
-  alert("Pembagi minimal 1.");
-
-  return;
- }
-
- db.settings.cashierDivisor=Math.round(v);
-
- save();
- render();
-
- toast("Pengaturan disimpan.");
-}
-
-
-/* =========================
-   PHOTO UPLOAD
-========================= */
-
-function openPhotoEditor(id){
-
- const x=data().items.find(
-  i=>i.id===id
- );
-
- if(!x)return;
-
- const app=document.getElementById("app");
-
- app.innerHTML=`
- <div class="card">
-
-  <h2>📷 Foto Produk</h2>
-
-  <div class="product-head">
-
-   ${
-    x.photo
-    ?
-    `<img class="photo-large" src="${x.photo}">`
-    :
-    `<div class="photo-large"></div>`
-   }
-
-   <div>
-
-    <b>${esc(x.name)}</b>
+    <input
+      id="divisorInput"
+      type="number"
+      min="1"
+      step="1"
+      value="${cashierDivisor()}"
+    >
 
     <p class="muted">
-     Pilih foto produk dari HP.
+
+      Contoh: Target Toko 32 pcs
+      dan pembagi 3 →
+      Target Kasir = 32 ÷ 3 = 10,67 pcs.
+
     </p>
 
-   </div>
+    <button
+      class="primary"
+      onclick="saveDivisor()">
+
+      Simpan Pembagi
+
+    </button>
 
   </div>
 
-  <label>Pilih Foto</label>
 
-  <input
-   type="file"
-   accept="image/*"
-   onchange="savePhoto('${id}',this.files[0])"
-  >
+  <div class="card">
 
-  <div class="actions">
+    <h2>🎯 Target Keseluruhan Toko</h2>
 
-   <button
-    class="secondary"
-    onclick="render()"
-   >
-    ← Kembali
-   </button>
+    <label>
+      Target keseluruhan per hari
+    </label>
 
-   ${
-    x.photo
-    ?
-    `<button
-      class="danger"
-      onclick="removePhoto('${id}')"
-     >
-      Hapus Foto
-     </button>`
-    :
-    ""
-   }
+    <input
+      id="dailyTargetInput"
+      type="number"
+      min="0"
+      step="0.01"
+      value="${dailyTarget()}"
+    >
+
+    <p class="muted">
+
+      Target Week otomatis dihitung:
+      Target per hari × jumlah hari Week.
+
+    </p>
+
+    <button
+      class="yellow"
+      onclick="saveDailyTarget()">
+
+      Simpan Target
+
+    </button>
 
   </div>
 
- </div>
- `;
+
+  <div class="card">
+
+    <h2>ℹ️ Tentang Perhitungan</h2>
+
+    <div class="totalbox">
+
+      <div class="row">
+
+        <span>ACV</span>
+
+        <b>
+          Actual ÷ Target × 100%
+        </b>
+
+      </div>
+
+      <div class="row">
+
+        <span>Kekurangan</span>
+
+        <b>
+          Target - Actual
+        </b>
+
+      </div>
+
+      <div class="row">
+
+        <span>Lebih</span>
+
+        <b>
+          Actual - Target
+        </b>
+
+      </div>
+
+      <div class="row">
+
+        <span>Target Kasir</span>
+
+        <b>
+          Target ÷ Pembagi
+        </b>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  `;
+
 }
 
-function savePhoto(id,file){
+function saveDivisor(){
 
- if(!file)return;
-
- const reader=new FileReader();
-
- reader.onload=function(e){
-
-  const x=data().items.find(
-   i=>i.id===id
+  const v=Number(
+    document.getElementById(
+      'divisorInput'
+    ).value
   );
 
-  if(!x)return;
+  if(!Number.isFinite(v)||v<1){
 
-  /*
-   Ukuran gambar diperkecil agar
-   localStorage tidak cepat penuh.
-  */
+    alert('Pembagi minimal 1.');
 
-  resizeImage(
-   e.target.result,
-   500,
-   function(result){
-
-    x.photo=result;
-
-    save();
-
-    render();
-
-    toast("Foto produk berhasil disimpan.");
-
-   }
-  );
- };
-
- reader.readAsDataURL(file);
-}
-
-function resizeImage(src,maxSize,callback){
-
- const img=new Image();
-
- img.onload=function(){
-
-  let w=img.width;
-  let h=img.height;
-
-  if(w>maxSize || h>maxSize){
-
-   if(w>h){
-
-    h=Math.round(
-     h*maxSize/w
-    );
-
-    w=maxSize;
-
-   }else{
-
-    w=Math.round(
-     w*maxSize/h
-    );
-
-    h=maxSize;
-
-   }
+    return;
 
   }
 
-  const canvas=document.createElement("canvas");
+  db.settings.cashierDivisor=
+    Math.round(v);
 
-  canvas.width=w;
-  canvas.height=h;
+  save();
 
-  const ctx=canvas.getContext("2d");
+  render();
 
-  ctx.drawImage(
-   img,
-   0,
-   0,
-   w,
-   h
+  toast('Pembagi berhasil disimpan.');
+
+}
+
+function saveDailyTarget(){
+
+  const v=Number(
+    document.getElementById(
+      'dailyTargetInput'
+    ).value
   );
 
-  callback(
-   canvas.toDataURL(
-    "image/jpeg",
-    .75
-   )
-  );
- };
+  if(!Number.isFinite(v)||v<0){
 
- img.src=src;
-}
+    alert('Target tidak valid.');
 
-function removePhoto(id){
+    return;
 
- const x=data().items.find(
-  i=>i.id===id
- );
+  }
 
- if(!x)return;
+  db.settings.dailyTarget=v;
 
- x.photo="";
+  save();
 
- save();
+  render();
 
- render();
+  toast('Target keseluruhan berhasil disimpan.');
 
- toast("Foto dihapus.");
 }
 
 
-/* =========================
-   ADD PHOTO BUTTON
-========================= */
+/* =========================================================
+   NAV
+========================================================= */
 
-function productActions(id){
+document
+  .querySelectorAll('.nav button')
+  .forEach(button=>{
 
- return `
- <button
-  class="secondary"
-  onclick="openPhotoEditor('${id}')"
- >
-  📷 Foto
- </button>
- `;
-}
+    button.onclick=()=>{
 
+      page=button.dataset.page;
 
-/* =========================
-   OVERRIDE ITEM CARD ACTION
-========================= */
+      render();
 
-const originalItemCard=itemCard;
+    };
 
-itemCard=function(x,i){
-
- const ad=actualItemDay(
-  x.id,
-  selectedDay()
- );
-
- const target=x.target||0;
- const targetDay=target/7;
-
- return `
- <div class="item">
-
-  <div class="product-head">
-
-   ${
-    x.photo
-    ?
-    `<img class="photo" src="${x.photo}">`
-    :
-    `<div class="photo"></div>`
-   }
-
-   <div style="flex:1">
-
-    <div class="item-title">
-     ${i+1}. ${esc(x.name)}
-    </div>
-
-    <div class="muted">
-     ${rup(x.price)} / pcs
-    </div>
-
-   </div>
-
-  </div>
-
-  <hr class="hr">
-
-  <div class="grid">
-
-   <div class="stat">
-    Target Item / Week
-    <b>${fmt(target)} pcs</b>
-   </div>
-
-   <div class="stat">
-    Target Item / Hari
-    <b>${fmt(targetDay)} pcs</b>
-   </div>
-
-  </div>
-
-  <div class="row">
-   <span>Pencapaian Hari Ini</span>
-   <b class="green">
-    ${fmt(ad)} pcs
-   </b>
-  </div>
-
-  <div class="actions">
-
-   <button
-    class="primary"
-    onclick="inputItemAchievement('${x.id}')"
-   >
-    Input
-   </button>
-
-   <button
-    class="secondary"
-    onclick="openPhotoEditor('${x.id}')"
-   >
-    📷 Foto
-   </button>
-
-   <button
-    class="secondary"
-    onclick="editItem('${x.id}')"
-   >
-    Edit
-   </button>
-
-   <button
-    class="danger"
-    onclick="deleteItem('${x.id}')"
-   >
-    Hapus
-   </button>
-
-  </div>
-
- </div>
- `;
-};
+  });
 
 
-/* =========================
+/* =========================================================
    TOAST
-========================= */
+========================================================= */
 
-function toast(msg){
+function toast(message){
 
- const el=document.getElementById("toast");
+  const el=
+    document.getElementById('toast');
 
- el.textContent=msg;
+  el.textContent=message;
 
- el.style.display="block";
+  el.style.display='block';
 
- clearTimeout(window.__toast);
+  clearTimeout(window.toastTimer);
 
- window.__toast=setTimeout(
-  ()=>el.style.display="none",
-  2200
- );
+  window.toastTimer=
+    setTimeout(()=>{
+
+      el.style.display='none';
+
+    },2200);
+
 }
 
 
-/* =========================
-   NAV BUTTON
-========================= */
+/* =========================================================
+   MIGRASI DATA LAMA
+========================================================= */
 
-document.querySelectorAll(".nav button")
-.forEach(b=>{
+(function migrateOldData(){
 
- b.onclick=()=>{
-  go(b.dataset.page);
- };
+  try{
 
-});
+    const oldKey='psm_monitoring_v2';
+
+    const old=
+      JSON.parse(
+        localStorage.getItem(oldKey)||'null'
+      );
+
+    if(
+      old &&
+      old.weeks &&
+      !localStorage.getItem(KEY+'_migrated')
+    ){
+
+      for(let w=1;w<=4;w++){
+
+        if(!old.weeks[w])continue;
+
+        const ow=old.weeks[w];
+
+        const nw=ensureWeek(w);
+
+        if(Array.isArray(ow.items)){
+
+          ow.items.forEach(x=>{
+
+            if(
+              !nw.items.some(
+                n=>n.id===x.id
+              )
+            ){
+
+              nw.items.push({
+
+                id:x.id||
+                  'item_'+Date.now(),
+
+                name:x.name||'Produk',
+
+                price:Number(x.price)||0,
+
+                target:Number(x.target)||0,
+
+                variants:
+                  Array.isArray(x.variants)
+                  ?x.variants
+                  :[],
+
+                photo:''
+
+              });
+
+            }
+
+          });
+
+        }
+
+        if(ow.daily){
+
+          nw.daily=
+            Object.assign(
+              nw.daily,
+              ow.daily
+            );
+
+        }
+
+      }
+
+      if(old.settings){
+
+        db.settings=
+          Object.assign(
+            db.settings,
+            old.settings
+          );
+
+      }
+
+      localStorage.setItem(
+        KEY+'_migrated',
+        '1'
+      );
+
+      save();
+
+    }
+
+  }catch(e){
+
+    console.log(
+      'Migrasi dilewati',
+      e
+    );
+
+  }
+
+})();
 
 
-/* =========================
+/* =========================================================
    START
-========================= */
+========================================================= */
 
 render();
 
