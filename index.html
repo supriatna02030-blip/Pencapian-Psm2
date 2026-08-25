@@ -4,445 +4,244 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#e30613">
-<meta name="mobile-web-app-capable" content="yes">
 <title>PSM Monitoring</title>
 
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f5f5;
-  color:#222;
+ margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#222
 }
 header{
-  background:#e30613;
-  color:#fff;
-  padding:16px 18px;
-  position:sticky;
-  top:0;
-  z-index:20;
+ background:#e30613;color:#fff;padding:16px 18px;
+ position:sticky;top:0;z-index:5
 }
 header h1{margin:0;font-size:21px}
 header small{opacity:.9}
 
-main{
-  max-width:900px;
-  margin:auto;
-  padding:14px 14px 95px;
-}
+main{max-width:900px;margin:auto;padding:14px 14px 95px}
 
 .nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#fff;
-  border-top:1px solid #ddd;
-  display:flex;
-  z-index:30;
-  box-shadow:0 -3px 12px #00000012;
+ position:fixed;bottom:0;left:0;right:0;background:#fff;
+ border-top:1px solid #ddd;display:flex;z-index:10
 }
 .nav button{
-  flex:1;
-  border:0;
-  background:#fff;
-  padding:9px 2px;
-  font-size:10px;
-  color:#555;
+ flex:1;border:0;background:white;padding:9px 2px;
+ font-size:10px;color:#555
 }
-.nav button.active{
-  color:#e30613;
-  font-weight:bold;
-}
+.nav button.active{color:#e30613;font-weight:bold}
 
 .card{
-  background:#fff;
-  border-radius:15px;
-  padding:15px;
-  margin-bottom:13px;
-  box-shadow:0 2px 8px #00000012;
+ background:#fff;border-radius:16px;padding:15px;
+ margin-bottom:13px;box-shadow:0 2px 8px #00000012
 }
 
-h2{
-  font-size:18px;
-  margin:4px 0 12px;
-}
-
-h3{
-  margin:4px 0 8px;
-  font-size:15px;
-}
+h2{font-size:18px;margin:4px 0 12px}
 
 .tabs{
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  margin-bottom:12px;
+ display:flex;gap:7px;overflow:auto;margin-bottom:12px
 }
 .tabs button{
-  border:1px solid #ddd;
-  background:#fff;
-  border-radius:10px;
-  padding:9px 13px;
-  white-space:nowrap;
+ border:1px solid #ddd;background:#fff;border-radius:10px;
+ padding:9px 15px;white-space:nowrap
 }
 .tabs button.active{
-  background:#e30613;
-  color:#fff;
-  border-color:#e30613;
+ background:#e30613;color:#fff;border-color:#e30613
+}
+
+.monthbar{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:9px;margin-bottom:12px
+}
+
+label{
+ display:block;font-size:12px;font-weight:bold;
+ margin:8px 0 5px
+}
+
+input,select{
+ width:100%;padding:11px;border:1px solid #ccc;
+ border-radius:10px;font-size:14px;background:#fff
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+ display:grid;grid-template-columns:1fr 1fr;gap:10px
 }
 
 .stat{
-  padding:12px;
-  border-radius:11px;
-  background:#f7f7f7;
+ padding:13px;border-radius:12px;background:#f7f7f7
 }
 .stat b{
-  display:block;
-  font-size:20px;
-  margin-top:4px;
+ display:block;font-size:20px;margin-top:4px
 }
 
 .red{color:#e30613}
 .green{color:#149447}
 .orange{color:#d98200}
 .muted{color:#777;font-size:12px}
-.empty{
-  text-align:center;
-  color:#888;
-  padding:25px 15px;
-}
-
-input,select{
-  width:100%;
-  padding:10px;
-  border:1px solid #ccc;
-  border-radius:9px;
-  font-size:14px;
-  background:#fff;
-}
-
-label{
-  display:block;
-  font-size:12px;
-  font-weight:bold;
-  margin:9px 0 5px;
-}
-
-button{
-  cursor:pointer;
-}
 
 button.primary{
-  background:#e30613;
-  color:#fff;
-  border:0;
-  border-radius:10px;
-  padding:11px 14px;
-  font-weight:bold;
+ background:#e30613;color:white;border:0;
+ border-radius:10px;padding:11px 14px;font-weight:bold
 }
-
 button.yellow{
-  background:#ffca05;
-  color:#111;
-  border:0;
-  border-radius:10px;
-  padding:11px 14px;
-  font-weight:bold;
+ background:#ffca05;color:#111;border:0;
+ border-radius:10px;padding:11px 14px;font-weight:bold
 }
-
 button.secondary{
-  background:#eee;
-  border:0;
-  border-radius:10px;
-  padding:10px 13px;
+ background:#eee;border:0;border-radius:10px;
+ padding:10px 13px
 }
-
 button.danger{
-  background:#ffe9e9;
-  color:#e30613;
-  border:0;
-  border-radius:10px;
-  padding:10px 13px;
-  font-weight:bold;
+ background:#ffe9e9;color:#e30613;border:0;
+ border-radius:10px;padding:10px 13px;font-weight:bold
 }
 
 .actions{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  margin-top:10px;
+ display:flex;gap:7px;flex-wrap:wrap;margin-top:10px
 }
-.actions button{
-  flex:1;
-  min-width:90px;
-}
-
-.row{
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-  align-items:center;
-  margin:6px 0;
-}
-
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-
-.monthbar{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-bottom:12px;
-}
+.actions button{flex:1;min-width:90px}
 
 .info{
-  background:#fff7d6;
-  border-left:4px solid #ffca05;
-  padding:11px;
-  border-radius:8px;
-  font-size:13px;
+ background:#fff7d6;border-left:4px solid #ffca05;
+ padding:11px;border-radius:8px;font-size:13px
+}
+
+.item{
+ border:1px solid #eee;border-radius:14px;
+ padding:12px;margin:10px 0;background:#fff
+}
+
+.item-head{
+ display:flex;gap:12px;align-items:center
+}
+
+.product-photo{
+ width:72px;height:72px;border-radius:12px;
+ object-fit:cover;background:#f1f1f1;
+ border:1px solid #eee;flex-shrink:0
+}
+
+.no-photo{
+ width:72px;height:72px;border-radius:12px;
+ background:#f2f2f2;display:flex;
+ align-items:center;justify-content:center;
+ font-size:30px;flex-shrink:0
+}
+
+.item-title{
+ font-weight:bold;font-size:16px
+}
+
+.item-number{
+ width:28px;height:28px;border-radius:50%;
+ background:#e30613;color:#fff;
+ display:flex;align-items:center;justify-content:center;
+ font-weight:bold;font-size:13px;flex-shrink:0
+}
+
+.product-info{flex:1}
+
+.badge{
+ display:inline-block;padding:4px 8px;
+ border-radius:20px;background:#f2f2f2;
+ font-size:10px;font-weight:bold
+}
+
+.price{
+ color:#e30613;font-weight:bold;margin-top:4px
 }
 
 .progress{
-  height:9px;
-  background:#eee;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:8px;
+ height:9px;background:#eee;border-radius:20px;
+ overflow:hidden;margin-top:8px
 }
 .progress i{
-  display:block;
-  height:100%;
-  background:#e30613;
-  border-radius:20px;
+ display:block;height:100%;
+ background:#e30613;border-radius:20px
 }
 
-.product{
-  border:1px solid #e8e8e8;
-  border-radius:14px;
-  padding:13px;
-  margin:10px 0;
-  background:#fff;
+.photo-actions{
+ display:flex;gap:7px;margin-top:9px
 }
-
-.product-number{
-  width:30px;
-  height:30px;
-  border-radius:9px;
-  background:#e30613;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  font-size:12px;
-  flex-shrink:0;
-}
-
-.product-title{
-  font-size:15px;
-  font-weight:bold;
-}
-
-.product-head{
-  display:flex;
-  align-items:center;
-  gap:9px;
-}
-
-.price-list{
-  margin-top:10px;
-  border-top:1px solid #eee;
-}
-
-.price-row{
-  display:grid;
-  grid-template-columns:1fr 100px;
-  gap:8px;
-  padding:8px 0;
-  border-bottom:1px solid #eee;
-  font-size:12px;
-}
-
-.price-row:last-child{
-  border-bottom:0;
-}
-
-.actual-box{
-  background:#f8f8f8;
-  border-radius:11px;
-  padding:10px;
-  margin-top:10px;
-}
-
-.variant-input{
-  display:grid;
-  grid-template-columns:1fr 95px 90px;
-  gap:7px;
-  align-items:center;
-  padding:8px 0;
-  border-bottom:1px solid #eee;
-}
-
-.variant-input:last-child{
-  border-bottom:0;
-}
-
-.variant-input input{
-  text-align:center;
-  padding:8px;
+.photo-actions button{
+ flex:1
 }
 
 .cashier-item{
-  border:1px solid #eee;
-  border-radius:13px;
-  padding:13px;
-  margin:10px 0;
+ display:grid;
+ grid-template-columns:60px 1fr;
+ gap:12px;
+ align-items:center;
+ border:1px solid #eee;
+ padding:12px;
+ border-radius:14px;
+ margin:10px 0
 }
 
-.cashier-number{
-  display:inline-flex;
-  width:28px;
-  height:28px;
-  border-radius:8px;
-  align-items:center;
-  justify-content:center;
-  background:#e30613;
-  color:#fff;
-  font-weight:bold;
-  font-size:11px;
-  margin-right:7px;
+.cashier-photo{
+ width:60px;height:60px;
+ border-radius:11px;object-fit:cover;
+ background:#f1f1f1
 }
 
-.totalbox{
-  background:#fff;
-  border:1px solid #eee;
-  border-radius:12px;
-  padding:12px;
-  margin-top:10px;
+.cashier-no-photo{
+ width:60px;height:60px;border-radius:11px;
+ background:#f1f1f1;
+ display:flex;align-items:center;
+ justify-content:center;font-size:25px
+}
+
+.cashier-target{
+ background:#f7f7f7;
+ border-radius:10px;
+ padding:10px;
+ margin-top:8px
 }
 
 table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:13px;
+ width:100%;border-collapse:collapse;
+ font-size:13px
 }
 th,td{
-  border-bottom:1px solid #eee;
-  padding:9px 5px;
-  text-align:left;
+ border-bottom:1px solid #eee;
+ padding:9px 5px;text-align:left
 }
 th{background:#fafafa}
 
-.badge{
-  display:inline-block;
-  padding:4px 7px;
-  border-radius:20px;
-  background:#f3f3f3;
-  font-size:10px;
-  font-weight:bold;
+.empty{
+ text-align:center;color:#888;padding:25px
 }
 
-.goodbg{background:#eaf8ef}
-.badbg{background:#ffecec}
-.yellowbg{background:#fff7d6}
+.totalbox{
+ background:#fff;border:1px solid #eee;
+ border-radius:12px;padding:12px;margin-top:10px
+}
+
+.row{
+ display:flex;justify-content:space-between;
+ gap:8px;align-items:center;margin:6px 0
+}
 
 .toast{
-  position:fixed;
-  left:50%;
-  bottom:75px;
-  transform:translateX(-50%);
-  background:#222;
-  color:#fff;
-  padding:10px 15px;
-  border-radius:10px;
-  font-size:12px;
-  z-index:100;
-  display:none;
-  max-width:90%;
-  text-align:center;
+ position:fixed;left:50%;bottom:75px;
+ transform:translateX(-50%);
+ background:#222;color:#fff;
+ padding:10px 15px;border-radius:10px;
+ font-size:12px;z-index:50;display:none
 }
 
-.modal-bg{
-  position:fixed;
-  inset:0;
-  background:#00000070;
-  z-index:80;
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
+.upload-box{
+ border:2px dashed #ddd;
+ border-radius:12px;
+ padding:14px;text-align:center;
+ margin-top:10px
 }
 
-.modal{
-  background:#fff;
-  width:100%;
-  max-width:650px;
-  max-height:90vh;
-  overflow:auto;
-  border-radius:20px 20px 0 0;
-  padding:18px;
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-
-.close{
-  border:0;
-  background:#eee;
-  border-radius:50%;
-  width:35px;
-  height:35px;
-  font-size:18px;
-}
-
-.form-row{
-  margin-bottom:10px;
-}
-
-.hidden{display:none}
+.upload-box input{border:0;padding:5px}
 
 @media(max-width:600px){
-  .grid{
-    grid-template-columns:1fr 1fr;
-  }
-  .monthbar{
-    grid-template-columns:1fr;
-  }
-  .variant-input{
-    grid-template-columns:1fr 80px 80px;
-  }
-  .price-row{
-    grid-template-columns:1fr 90px;
-  }
-}
-
-@media print{
-  header,.nav,.tabs,.monthbar,button{
-    display:none!important;
-  }
-  main{
-    padding:0;
-  }
-  .card{
-    box-shadow:none;
-    border:1px solid #ddd;
-  }
+ .monthbar{grid-template-columns:1fr}
+ .grid{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -450,3874 +249,1609 @@ th{background:#fafafa}
 <body>
 
 <header>
-  <h1>📊 PSM Monitoring</h1>
-  <small>Produk Spesial Mingguan</small>
+<h1>📊 PSM Monitoring</h1>
+<small>Produk Spesial Mingguan</small>
 </header>
 
 <main id="app"></main>
 
 <nav class="nav">
-  <button data-page="dashboard">🏠<br>Dashboard</button>
-  <button data-page="toko">🎯<br>Target Toko</button>
-  <button data-page="kasir">👤<br>Target Kasir</button>
-  <button data-page="info">📋<br>Info Target</button>
-  <button data-page="laporan">📈<br>Laporan</button>
-  <button data-page="pengaturan">⚙️<br>Pengaturan</button>
+<button data-page="dashboard">🏠<br>Dashboard</button>
+<button data-page="toko">🎯<br>Target Toko</button>
+<button data-page="kasir">👤<br>Target Kasir</button>
+<button data-page="info">📋<br>Info Target</button>
+<button data-page="laporan">📈<br>Laporan</button>
+<button data-page="pengaturan">⚙️<br>Pengaturan</button>
 </nav>
 
 <div id="toast" class="toast"></div>
-
-<div id="modalBg" class="modal-bg">
-  <div class="modal" id="modal"></div>
-</div>
 
 <script>
 
 /* =========================================================
    PSM MONITORING
-   SINGLE FILE VERSION
+   - Target pencapaian toko (%)
+   - Input qty pencapaian harian
+   - Target per item
+   - Harga tiap item terpisah
+   - Foto produk dari galeri
+   - Foto tampil di Target Toko & Target Kasir
+   - Target Kasir = Target Item / Pembagi
+   - Tidak ada Orang 1/2/3
+   - Tidak ada target keseluruhan qty/week
+   - Penyimpanan data LocalStorage
+   - Foto produk menggunakan IndexedDB
 ========================================================= */
 
-const KEY='psm_monitoring_v3';
+const KEY="psm_monitoring_v3";
+
+let db=loadDB();
+let page="dashboard";
+let week=1;
+let selectedDate="";
+
+/* =========================
+   DATABASE
+========================= */
 
 function freshDB(){
-  const d=new Date();
+ const d=new Date();
 
-  return {
-    month:d.getMonth()+1,
-    year:d.getFullYear(),
+ return {
+  month:d.getMonth()+1,
+  year:d.getFullYear(),
 
-    settings:{
-      cashierDivisor:3
-    },
+  settings:{
+   cashierDivisor:3
+  },
 
-    weeks:{
-      1:{
-        items:[],
-        daily:{},
-        targetDaily:0
-      },
-      2:{
-        items:[],
-        daily:{},
-        targetDaily:0
-      },
-      3:{
-        items:[],
-        daily:{},
-        targetDaily:0
-      },
-      4:{
-        items:[],
-        daily:{},
-        targetDaily:0
-      }
-    }
-  };
+  weeks:{}
+ };
 }
 
 function loadDB(){
+ try{
+  const x=JSON.parse(localStorage.getItem(KEY)||"null");
 
-  try{
-
-    const old=JSON.parse(localStorage.getItem(KEY)||'null');
-
-    if(old && typeof old==='object'){
-      return migrateDB(old);
-    }
-
-    return freshDB();
-
-  }catch(e){
-
-    return freshDB();
-
+  if(x&&typeof x==="object"){
+   if(!x.settings)x.settings={cashierDivisor:3};
+   if(!x.settings.cashierDivisor)x.settings.cashierDivisor=3;
+   if(!x.weeks)x.weeks={};
+   return x;
   }
 
+  return freshDB();
+
+ }catch(e){
+  return freshDB();
+ }
 }
-
-let db=loadDB();
-
-let page='dashboard';
-let week=1;
-let selectedDate='';
 
 function save(){
-  localStorage.setItem(KEY,JSON.stringify(db));
-}
-
-function migrateDB(x){
-
-  const base=freshDB();
-
-  if(x.month)base.month=x.month;
-  if(x.year)base.year=x.year;
-
-  if(x.settings){
-    base.settings=Object.assign(
-      base.settings,
-      x.settings
-    );
-  }
-
-  if(x.weeks){
-
-    for(let w=1;w<=4;w++){
-
-      const old=x.weeks[w];
-
-      if(!old)continue;
-
-      base.weeks[w]={
-        items:Array.isArray(old.items)?old.items:[],
-        daily:old.daily||{},
-        targetDaily:Number(old.targetDaily||0)
-      };
-
-      base.weeks[w].items.forEach(item=>{
-
-        if(!item.id){
-          item.id='item_'+Date.now()+
-          Math.random().toString(36).slice(2,7);
-        }
-
-        if(!Array.isArray(item.variants)){
-          item.variants=[];
-        }
-
-        /*
-          Format lama:
-          variants = ["Regular","Coffee"]
-
-          Format baru:
-          variants = [
-            {name:"Regular",price:4000},
-            {name:"Coffee",price:7000}
-          ]
-        */
-
-        item.variants=item.variants.map(v=>{
-
-          if(typeof v==='string'){
-            return {
-              name:v,
-              price:Number(item.price||0)
-            };
-          }
-
-          return {
-            name:v.name||'Variant',
-            price:Number(v.price||item.price||0)
-          };
-
-        });
-
-      });
-
-    }
-
-  }
-
-  return base;
+ localStorage.setItem(KEY,JSON.stringify(db));
 }
 
 function ensureWeek(w=week){
 
-  if(!db.weeks)db.weeks={};
+ if(!db.weeks)db.weeks={};
 
-  if(!db.weeks[w]){
+ if(!db.weeks[w]){
+  db.weeks[w]={
+   shopTarget:100,
+   items:[],
+   daily:{}
+  };
+ }
 
-    db.weeks[w]={
-      items:[],
-      daily:{},
-      targetDaily:0
-    };
+ const d=db.weeks[w];
 
-  }
+ if(!Array.isArray(d.items))d.items=[];
+ if(!d.daily)d.daily={};
 
-  if(!Array.isArray(db.weeks[w].items)){
-    db.weeks[w].items=[];
-  }
+ if(!Number.isFinite(Number(d.shopTarget))){
+  d.shopTarget=100;
+ }
 
-  if(!db.weeks[w].daily){
-    db.weeks[w].daily={};
-  }
-
-  if(!Number.isFinite(Number(db.weeks[w].targetDaily))){
-    db.weeks[w].targetDaily=0;
-  }
-
-  return db.weeks[w];
+ return d;
 }
 
 function data(){
-  return ensureWeek(week);
+ return ensureWeek(week);
 }
+
+/* =========================
+   TANGGAL
+========================= */
 
 function daysInWeek(w){
 
-  const y=Number(db.year);
-  const m=Number(db.month);
+ const y=Number(db.year);
+ const m=Number(db.month);
 
-  const last=new Date(y,m,0).getDate();
+ const last=new Date(y,m,0).getDate();
 
-  const ranges={
-    1:[1,7],
-    2:[8,15],
-    3:[16,23],
-    4:[24,last]
-  };
+ const ranges={
+  1:[1,7],
+  2:[8,15],
+  3:[16,23],
+  4:[24,last]
+ };
 
-  return ranges[w];
+ return ranges[w];
 }
 
 function weekDays(w=week){
 
-  const r=daysInWeek(w);
+ const r=daysInWeek(w);
 
-  return r[1]-r[0]+1;
+ return r[1]-r[0]+1;
 }
 
 function monthText(){
 
-  return new Date(
-    Number(db.year),
-    Number(db.month)-1,
-    1
-  ).toLocaleString(
-    'id-ID',
-    {month:'long'}
-  ).toUpperCase();
-
+ return new Date(
+  Number(db.year),
+  Number(db.month)-1,
+  1
+ ).toLocaleString("id-ID",{month:"long"})
+ .toUpperCase();
 }
 
 function weekName(w){
 
-  const r=daysInWeek(w);
+ const r=daysInWeek(w);
 
-  return `WEEK ${w} | ${
-    String(r[0]).padStart(2,'0')
-  }-${
-    String(r[1]).padStart(2,'0')
-  } ${monthText()} ${db.year}`;
-
+ return `WEEK ${w} | ${String(r[0]).padStart(2,"0")}-${String(r[1]).padStart(2,"0")} ${monthText()} ${db.year}`;
 }
 
 function dateKey(day){
 
-  return `${db.year}-${
-    String(db.month).padStart(2,'0')
-  }-${
-    String(day).padStart(2,'0')
-  }`;
-
+ return `${db.year}-${String(db.month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
 }
 
 function weekDates(w=week){
 
-  const r=daysInWeek(w);
-  const out=[];
+ const r=daysInWeek(w);
+ const arr=[];
 
-  for(let d=r[0];d<=r[1];d++){
-    out.push(dateKey(d));
-  }
+ for(let d=r[0];d<=r[1];d++){
+  arr.push(dateKey(d));
+ }
 
-  return out;
+ return arr;
 }
 
 function todayKey(){
 
-  const d=new Date();
+ const d=new Date();
 
-  return `${d.getFullYear()}-${
-    String(d.getMonth()+1).padStart(2,'0')
-  }-${
-    String(d.getDate()).padStart(2,'0')
-  }`;
-
+ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
 
 function selectedDay(){
 
-  const dates=weekDates();
+ const dates=weekDates();
 
-  if(
-    selectedDate &&
-    dates.includes(selectedDate)
-  ){
-    return selectedDate;
-  }
+ if(selectedDate&&dates.includes(selectedDate)){
+  return selectedDate;
+ }
 
-  const today=todayKey();
+ const t=todayKey();
 
-  if(dates.includes(today)){
-    return today;
-  }
+ if(dates.includes(t))return t;
 
-  return dates[0];
+ return dates[0];
 }
 
 function dateLabel(s){
 
-  if(!s)return '-';
+ if(!s)return "-";
 
-  const p=s.split('-').map(Number);
+ const p=s.split("-").map(Number);
 
-  return `${
-    String(p[2]).padStart(2,'0')
-  } ${
-    new Date(
-      p[0],
-      p[1]-1,
-      1
-    ).toLocaleString(
-      'id-ID',
-      {month:'short'}
-    )
-  } ${p[0]}`;
-
+ return `${String(p[2]).padStart(2,"0")} ${
+  new Date(p[0],p[1]-1,1)
+  .toLocaleString("id-ID",{month:"short"})
+ } ${p[0]}`;
 }
 
+/* =========================
+   FORMAT
+========================= */
+
 function rup(n){
-
-  return 'Rp'+Number(n||0)
-    .toLocaleString('id-ID');
-
+ return "Rp"+Number(n||0).toLocaleString("id-ID");
 }
 
 function fmt(n){
-
-  return Number(n||0)
-    .toLocaleString(
-      'id-ID',
-      {maximumFractionDigits:2}
-    );
-
+ return Number(n||0).toLocaleString("id-ID",{
+  maximumFractionDigits:2
+ });
 }
 
 function pct(a,t){
 
-  return t
-    ?((Number(a||0)/Number(t||0))*100).toFixed(2)+'%'
-    :'0%';
-
+ return t
+  ?((Number(a||0)/Number(t||0))*100).toFixed(2)+"%"
+  :"0%";
 }
 
 function esc(s){
 
-  return String(s??'')
-    .replace(
-      /[&<>"']/g,
-      c=>({
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        '"':'&quot;',
-        "'":'&#39;'
-      }[c])
-    );
-
+ return String(s??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[c]));
 }
 
-/* =========================================================
+/* =========================
    TARGET TOKO
-========================================================= */
+========================= */
 
-/*
-  SATU-SATUNYA TARGET YANG DIINPUT:
-  TARGET KESELURUHAN TOKO PER HARI
+function shopTarget(){
 
-  TIDAK ADA INPUT TARGET WEEK.
-*/
-
-function getDailyTarget(w=week){
-
-  return Number(
-    ensureWeek(w).targetDaily||0
-  );
-
+ return Number(data().shopTarget||100);
 }
 
-function setDailyTarget(){
+function setShopTarget(){
 
-  const old=getDailyTarget();
+ const old=shopTarget();
 
-  const value=Number(
-    prompt(
-      `Target keseluruhan toko PER HARI\n\n${weekName(week)}\n\nMasukkan qty:`,
-      old
-    )
-  );
+ const v=Number(prompt(
+  "Target pencapaian toko (%):",
+  old
+ ));
 
-  if(
-    !Number.isFinite(value) ||
-    value<0
-  ){
-    return;
+ if(!Number.isFinite(v)||v<0)return;
+
+ data().shopTarget=v;
+
+ save();
+ render();
+
+ toast("Target pencapaian toko disimpan.");
+}
+
+/* =========================
+   PRODUK
+========================= */
+
+function addItem(){
+
+ const name=prompt("Nama produk/item:");
+
+ if(!name)return;
+
+ const price=Number(prompt(
+  `Harga ${name.trim()} per pcs (Rp):`,
+  "0"
+ ));
+
+ if(!Number.isFinite(price)||price<0)return;
+
+ const target=Number(prompt(
+  `Target ${name.trim()} per week (qty):`,
+  "0"
+ ));
+
+ if(!Number.isFinite(target)||target<0)return;
+
+ const id=
+  "item_"+Date.now()+"_"+
+  Math.random().toString(36).slice(2,7);
+
+ data().items.push({
+  id:id,
+  name:name.trim(),
+  price:price,
+  target:target
+ });
+
+ save();
+
+ uploadPhotoForItem(id);
+
+ render();
+
+ toast("Produk berhasil ditambahkan.");
+}
+
+function editItem(id){
+
+ const x=data().items.find(i=>i.id===id);
+
+ if(!x)return;
+
+ const n=prompt("Nama produk:",x.name);
+
+ if(n===null)return;
+
+ const p=Number(prompt(
+  `Harga ${n.trim()} per pcs (Rp):`,
+  x.price||0
+ ));
+
+ if(!Number.isFinite(p)||p<0)return;
+
+ const t=Number(prompt(
+  `Target ${n.trim()} per week (qty):`,
+  x.target||0
+ ));
+
+ if(!Number.isFinite(t)||t<0)return;
+
+ x.name=n.trim();
+ x.price=p;
+ x.target=t;
+
+ save();
+ render();
+
+ toast("Produk berhasil diperbarui.");
+}
+
+function delItem(id){
+
+ const x=data().items.find(i=>i.id===id);
+
+ if(!x)return;
+
+ if(!confirm(
+  `Hapus produk "${x.name}" beserta data actual dan fotonya?`
+ ))return;
+
+ data().items=
+  data().items.filter(i=>i.id!==id);
+
+ Object.keys(data().daily||{}).forEach(dt=>{
+  if(data().daily[dt]){
+   delete data().daily[dt][id];
+  }
+ });
+
+ deletePhoto(id);
+
+ save();
+ render();
+
+ toast("Produk berhasil dihapus.");
+}
+
+/* =========================
+   ACTUAL HARIAN
+========================= */
+
+function actualOnDate(id,date){
+
+ return Number(
+  data().daily?.[date]?.[id]||0
+ );
+}
+
+function actualItem(id){
+
+ let total=0;
+
+ Object.values(data().daily||{}).forEach(day=>{
+  total+=Number(day?.[id]||0);
+ });
+
+ return total;
+}
+
+function actualToday(){
+
+ const date=selectedDay();
+
+ return data().items.reduce(
+  (s,x)=>s+actualOnDate(x.id,date),
+  0
+ );
+}
+
+function totalActual(){
+
+ return data().items.reduce(
+  (s,x)=>s+actualItem(x.id),
+  0
+ );
+}
+
+function inputActual(id){
+
+ const x=data().items.find(i=>i.id===id);
+
+ if(!x)return;
+
+ const date=selectedDay();
+
+ if(!data().daily[date]){
+  data().daily[date]={};
+ }
+
+ const old=actualOnDate(id,date);
+
+ const q=Number(prompt(
+  `Qty pencapaian ${x.name}\n${dateLabel(date)}:`,
+  old
+ ));
+
+ if(!Number.isFinite(q)||q<0)return;
+
+ data().daily[date][id]=q;
+
+ save();
+ render();
+
+ toast("Qty pencapaian harian disimpan.");
+}
+
+function inputDailyTotal(){
+
+ const date=selectedDay();
+
+ const current=actualToday();
+
+ const v=Number(prompt(
+  `Qty pencapaian toko hari ${dateLabel(date)}:`,
+  current
+ ));
+
+ if(!Number.isFinite(v)||v<0)return;
+
+ /*
+  Qty toko bisa diinput langsung.
+  Sistem memasukkan angka ke produk pertama
+  hanya jika belum ada pencatatan produk.
+ */
+ if(data().items.length===0){
+  alert("Tambahkan produk terlebih dahulu.");
+  return;
+ }
+
+ if(!data().daily[date]){
+  data().daily[date]={};
+ }
+
+ let existing=actualToday();
+
+ if(existing===0){
+  data().daily[date][data().items[0].id]=v;
+ }else{
+
+  const diff=v-existing;
+
+  data().daily[date][data().items[0].id]=
+   Math.max(
+    0,
+    Number(data().daily[date][data().items[0].id]||0)+diff
+   );
+ }
+
+ save();
+ render();
+
+ toast("Qty pencapaian toko disimpan.");
+}
+
+/* =========================
+   FOTO PRODUK
+   IndexedDB
+========================= */
+
+let photoDB=null;
+
+function openPhotoDB(){
+
+ return new Promise((resolve,reject)=>{
+
+  if(photoDB){
+   resolve(photoDB);
+   return;
   }
 
-  data().targetDaily=value;
+  const req=indexedDB.open(
+   "PSM_Product_Photos",
+   1
+  );
 
-  save();
+  req.onupgradeneeded=e=>{
+
+   const dbi=e.target.result;
+
+   if(!dbi.objectStoreNames.contains("photos")){
+    dbi.createObjectStore("photos");
+   }
+  };
+
+  req.onsuccess=e=>{
+   photoDB=e.target.result;
+   resolve(photoDB);
+  };
+
+  req.onerror=()=>{
+   reject(req.error);
+  };
+
+ });
+}
+
+async function savePhoto(id,file){
+
+ try{
+
+  const dbi=await openPhotoDB();
+
+  await new Promise((resolve,reject)=>{
+
+   const tx=dbi.transaction(
+    "photos",
+    "readwrite"
+   );
+
+   tx.objectStore("photos")
+    .put(file,id);
+
+   tx.oncomplete=resolve;
+   tx.onerror=()=>reject(tx.error);
+
+  });
+
+ }catch(e){
+  console.log(e);
+ }
+}
+
+async function getPhoto(id){
+
+ try{
+
+  const dbi=await openPhotoDB();
+
+  return await new Promise((resolve,reject)=>{
+
+   const tx=dbi.transaction(
+    "photos",
+    "readonly"
+   );
+
+   const req=
+    tx.objectStore("photos").get(id);
+
+   req.onsuccess=()=>resolve(req.result);
+   req.onerror=()=>reject(req.error);
+
+  });
+
+ }catch(e){
+  return null;
+ }
+}
+
+async function deletePhoto(id){
+
+ try{
+
+  const dbi=await openPhotoDB();
+
+  const tx=dbi.transaction(
+   "photos",
+   "readwrite"
+  );
+
+  tx.objectStore("photos").delete(id);
+
+ }catch(e){}
+}
+
+function uploadPhotoForItem(id){
+
+ const input=document.createElement("input");
+
+ input.type="file";
+ input.accept="image/*";
+
+ input.onchange=async()=>{
+
+  const file=input.files[0];
+
+  if(!file)return;
+
+  await savePhoto(id,file);
+
   render();
 
-  toast(
-    'Target keseluruhan per hari berhasil disimpan.'
-  );
+  toast("Foto produk berhasil disimpan.");
+ };
 
+ input.click();
 }
 
-/*
-  Target week hanya dihitung otomatis.
-  BUKAN input user.
-*/
+function changePhoto(id){
 
-function calculatedWeekTarget(w=week){
-
-  return getDailyTarget(w)*weekDays(w);
-
+ uploadPhotoForItem(id);
 }
 
-/* =========================================================
-   TARGET ITEM UNTUK KASIR
-========================================================= */
+/* =========================
+   FOTO DATA URI UNTUK UI
+========================= */
 
-/*
-  Karena user tidak ingin memasukkan
-  target toko per item, sistem membagi
-  target harian secara otomatis ke semua
-  produk yang terdaftar.
+async function photoURL(id){
 
-  Contoh:
-  Target toko = 90
-  Produk = 3
+ const file=await getPhoto(id);
 
-  Aqua = 30
-  Le Mineral = 30
-  Teh = 30
+ if(!file)return null;
 
-  Kemudian jika pembagi kasir = 3:
-
-  Aqua = 10
-  Le Mineral = 10
-  Teh = 10
-*/
-
-function automaticItemTarget(itemCount){
-
-  if(!itemCount)return 0;
-
-  return getDailyTarget()/itemCount;
-
+ return URL.createObjectURL(file);
 }
 
-/* =========================================================
-   PEMBAGI KASIR
-========================================================= */
+async function refreshPhotos(){
 
-function cashierDivisor(){
+ const imgs=document.querySelectorAll(
+  "[data-photo-id]"
+ );
 
-  const n=Number(
-    db.settings?.cashierDivisor
-  );
+ for(const img of imgs){
 
-  return (
-    Number.isFinite(n) &&
-    n>0
-  )
-  ?n
-  :3;
+  const id=img.dataset.photoId;
 
-}
+  const url=await photoURL(id);
 
-/* =========================================================
-   ACTUAL
-========================================================= */
+  if(url){
 
-function actualOnDate(
-  id,
-  date,
-  w=week
-){
+   img.src=url;
 
-  const d=ensureWeek(w);
+   img.style.display="block";
 
-  return Number(
-    d.daily?.[date]?.[id]?.total||0
-  );
-
-}
-
-function actualItem(
-  id,
-  w=week
-){
-
-  const d=ensureWeek(w);
-
-  let total=0;
-
-  Object.values(d.daily||{}).forEach(day=>{
-
-    total+=Number(
-      day?.[id]?.total||0
-    );
-
-  });
-
-  return total;
-
-}
-
-function totalActual(w=week){
-
-  const d=ensureWeek(w);
-
-  return d.items.reduce(
-    (sum,item)=>
-      sum+actualItem(item.id,w),
-    0
-  );
-
-}
-
-function dailyItemTotal(
-  date,
-  w=week
-){
-
-  const d=ensureWeek(w);
-
-  return d.items.reduce(
-    (sum,item)=>
-      sum+actualOnDate(
-        item.id,
-        date,
-        w
-      ),
-    0
-  );
-
-}
-
-function totalTarget(w=week){
-
-  return calculatedWeekTarget(w);
-
-}
-
-/* =========================================================
-   VARIANT
-========================================================= */
-
-function variantPrice(item,index){
-
-  const v=item.variants?.[index];
-
-  if(!v)return Number(item.price||0);
-
-  if(typeof v==='string'){
-    return Number(item.price||0);
   }
-
-  return Number(
-    v.price||item.price||0
-  );
-
+ }
 }
 
-function variantName(item,index){
-
-  const v=item.variants?.[index];
-
-  if(!v)return '';
-
-  if(typeof v==='string')return v;
-
-  return v.name||'Variant';
-
-}
-
-function variantActual(
-  id,
-  index,
-  date,
-  w=week
-){
-
-  const d=ensureWeek(w);
-
-  return Number(
-    d.daily?.[date]?.[id]?.variants?.[index]||0
-  );
-
-}
-
-function variantWeeklyActual(
-  id,
-  index,
-  w=week
-){
-
-  const dates=weekDates(w);
-
-  let total=0;
-
-  dates.forEach(date=>{
-
-    total+=variantActual(
-      id,
-      index,
-      date,
-      w
-    );
-
-  });
-
-  return total;
-
-}
-
-/* =========================================================
-   TABS + MONTH
-========================================================= */
-
-function tabs(){
-
-  return `
-  <div class="tabs">
-
-    ${[1,2,3,4].map(w=>`
-
-      <button
-        class="${week==w?'active':''}"
-        onclick="setWeek(${w})"
-      >
-        Week ${w}
-      </button>
-
-    `).join('')}
-
-  </div>`;
-
-}
-
-function monthControls(){
-
-  return `
-  <div class="monthbar">
-
-    <div>
-      <label>Bulan</label>
-
-      <input
-        type="month"
-        value="${db.year}-${
-          String(db.month).padStart(2,'0')
-        }"
-        onchange="changeMonth(this.value)"
-      >
-
-    </div>
-
-    <div>
-      <label>Week Aktif</label>
-
-      <input
-        value="${weekName(week)}"
-        readonly
-      >
-
-    </div>
-
-  </div>`;
-
-}
+/* =========================
+   NAVIGATION
+========================= */
 
 function setWeek(w){
 
-  week=Number(w);
-  selectedDate='';
+ week=Number(w);
+ selectedDate="";
 
-  render();
-
+ render();
 }
 
 function changeMonth(v){
 
-  if(!v)return;
+ if(!v)return;
 
-  const p=v.split('-').map(Number);
+ const p=v.split("-").map(Number);
 
-  db.year=p[0];
-  db.month=p[1];
+ db.year=p[0];
+ db.month=p[1];
 
-  week=1;
-  selectedDate='';
+ week=1;
+ selectedDate="";
 
-  save();
-  render();
-
+ save();
+ render();
 }
 
-/* =========================================================
+function monthControls(){
+
+ return `
+ <div class="monthbar">
+
+  <div>
+   <label>Bulan</label>
+
+   <input
+    type="month"
+    value="${db.year}-${String(db.month).padStart(2,"0")}"
+    onchange="changeMonth(this.value)"
+   >
+  </div>
+
+  <div>
+   <label>Week Aktif</label>
+
+   <input
+    value="${weekName(week)}"
+    readonly
+   >
+  </div>
+
+ </div>`;
+}
+
+function tabs(){
+
+ return `
+ <div class="tabs">
+
+ ${[1,2,3,4].map(w=>`
+  <button
+   class="${week==w?"active":""}"
+   onclick="setWeek(${w})"
+  >
+   Week ${w}
+  </button>
+ `).join("")}
+
+ </div>`;
+}
+
+function go(p){
+
+ page=p;
+ render();
+}
+
+/* =========================
    RENDER
-========================================================= */
+========================= */
 
 function render(){
 
-  const app=
-    document.getElementById('app');
+ const a=document.getElementById("app");
 
-  if(page==='dashboard'){
-    app.innerHTML=dashboard();
-  }
+ if(page==="dashboard")
+  a.innerHTML=dashboard();
 
-  if(page==='toko'){
-    app.innerHTML=toko();
-  }
+ if(page==="toko")
+  a.innerHTML=toko();
 
-  if(page==='kasir'){
-    app.innerHTML=kasir();
-  }
+ if(page==="kasir")
+  a.innerHTML=kasir();
 
-  if(page==='info'){
-    app.innerHTML=infoTarget();
-  }
+ if(page==="info")
+  a.innerHTML=infoTarget();
 
-  if(page==='laporan'){
-    app.innerHTML=laporan();
-  }
+ if(page==="laporan")
+  a.innerHTML=laporan();
 
-  if(page==='pengaturan'){
-    app.innerHTML=pengaturan();
-  }
+ if(page==="pengaturan")
+  a.innerHTML=pengaturan();
 
-  document
-    .querySelectorAll('.nav button')
-    .forEach(button=>{
-      button.classList.toggle(
-        'active',
-        button.dataset.page===page
-      );
-    });
+ document
+  .querySelectorAll(".nav button")
+  .forEach(b=>{
+   b.classList.toggle(
+    "active",
+    b.dataset.page===page
+   );
+  });
 
+ refreshPhotos();
 }
 
-/* =========================================================
+/* =========================
    DASHBOARD
-========================================================= */
+========================= */
 
 function dashboard(){
 
-  const target=totalTarget();
-  const actual=totalActual();
+ const target=shopTarget();
+ const actual=actualToday();
 
-  const acv=
-    target
-    ?actual/target*100
-    :0;
+ const ach=
+  target?actual:0;
 
-  const daily=getDailyTarget();
+ const itemCount=data().items.length;
 
-  const today=selectedDay();
+ return `
+ ${monthControls()}
+ ${tabs()}
 
-  const actualToday=
-    dailyItemTotal(today);
+ <div class="card">
 
-  const remaining=
-    Math.max(
-      0,
-      target-actual
-    );
+  <h2>🏠 Dashboard</h2>
 
-  const dates=weekDates();
+  <div class="info">
+   <b>${weekName(week)}</b><br>
+   Monitoring pencapaian toko dan produk.
+  </div>
 
-  const currentIndex=
-    Math.max(
-      0,
-      dates.indexOf(today)
-    );
+  <div class="grid" style="margin-top:12px">
 
-  const remainingDays=
-    Math.max(
-      0,
-      dates.length-currentIndex-1
-    );
+   <div class="stat">
+    Target Pencapaian Toko
+    <b>${fmt(target)}%</b>
+   </div>
 
-  const needTomorrow=
-    remainingDays
-    ?remaining/remainingDays
-    :0;
-
-  return `
-
-  ${monthControls()}
-  ${tabs()}
-
-  <div class="card">
-
-    <h2>
-      🏠 Dashboard
-    </h2>
-
-    <div class="muted">
-      ${weekName(week)}
-    </div>
-
-    <br>
-
-    <div class="grid">
-
-      <div class="stat">
-        Target / Hari
-        <b>${fmt(daily)} pcs</b>
-      </div>
-
-      <div class="stat">
-        Target Week
-        <b>${fmt(target)} pcs</b>
-      </div>
-
-      <div class="stat">
-        Actual Week
-        <b class="green">${fmt(actual)} pcs</b>
-      </div>
-
-      <div class="stat">
-        ACV
-        <b class="${
-          acv>=100
-          ?'green'
-          :acv>=80
-          ?'orange'
-          :'red'
-        }">
-          ${acv.toFixed(2)}%
-        </b>
-      </div>
-
-    </div>
-
-    <div class="progress">
-      <i style="width:${Math.min(
-        100,
-        Math.max(0,acv)
-      )}%"></i>
-    </div>
+   <div class="stat">
+    Qty Hari Ini
+    <b class="green">${fmt(actual)} pcs</b>
+   </div>
 
   </div>
 
+ </div>
 
-  <div class="card">
+ <div class="card">
 
-    <h2>📅 Hari Ini</h2>
+  <h2>📦 Produk</h2>
 
-    <div class="grid">
-
-      <div class="stat">
-        Tanggal
-        <b>${dateLabel(today)}</b>
-      </div>
-
-      <div class="stat">
-        Target
-        <b>${fmt(daily)} pcs</b>
-      </div>
-
-      <div class="stat">
-        Actual
-        <b class="green">
-          ${fmt(actualToday)} pcs
-        </b>
-      </div>
-
-      <div class="stat">
-        Selisih
-        <b class="${
-          actualToday>=daily
-          ?'green'
-          :'red'
-        }">
-          ${
-            actualToday>=daily?'+':''
-          }${fmt(actualToday-daily)}
-        </b>
-      </div>
-
-    </div>
-
+  <div class="stat">
+   Jumlah Produk
+   <b>${itemCount}</b>
   </div>
 
-
-  <div class="card">
-
-    <h2>📦 Produk</h2>
-
-    ${
-      data().items.length
-      ?data().items.map((item,i)=>{
-
-        const a=actualItem(item.id);
-
-        return `
-
-        <div class="product">
-
-          <div class="product-head">
-
-            <div class="product-number">
-              ${String(i+1).padStart(2,'0')}
-            </div>
-
-            <div>
-
-              <div class="product-title">
-                ${esc(item.name)}
-              </div>
-
-              <div class="muted">
-                Actual Week: ${fmt(a)} pcs
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        `;
-
-      }).join('')
-      :`
-        <div class="empty">
-          Belum ada produk.
-        </div>
-      `
-    }
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>🎯 Target Berjalan</h2>
-
-    <div class="totalbox">
-
-      <div class="row">
-        <span>Sisa target Week</span>
-        <b>${fmt(remaining)} pcs</b>
-      </div>
-
-      <div class="row">
-        <span>Sisa hari setelah hari ini</span>
-        <b>${remainingDays}</b>
-      </div>
-
-      <div class="row">
-        <span>Kebutuhan besok</span>
-        <b>
-          ${
-            remainingDays
-            ?fmt(needTomorrow)+' pcs'
-            :'Week selesai'
-          }
-        </b>
-      </div>
-
-    </div>
-
-  </div>
-
-  `;
-
+ </div>`;
 }
 
-/* =========================================================
+/* =========================
    TARGET TOKO
-========================================================= */
+========================= */
 
 function toko(){
 
-  const daily=getDailyTarget();
+ const target=shopTarget();
+ const today=selectedDay();
+ const actual=actualToday();
 
-  const today=selectedDay();
+ return `
+ ${monthControls()}
+ ${tabs()}
 
-  return `
+ <div class="card">
 
-  ${monthControls()}
-  ${tabs()}
+  <div class="row">
 
-  <div class="card">
+   <div>
+    <h2>🎯 Target Toko</h2>
 
-    <div class="section-head">
-
-      <div>
-        <h2>🎯 Target Toko</h2>
-
-        <div class="muted">
-          Target hanya berdasarkan keseluruhan
-          qty per hari.
-        </div>
-
-      </div>
-
-      <button
-        class="yellow"
-        onclick="setDailyTarget()"
-      >
-        ⚙ Target / Hari
-      </button>
-
+    <div class="muted">
+     Target pencapaian per toko
     </div>
+   </div>
 
-
-    <div class="grid">
-
-      <div class="stat">
-        Target Keseluruhan / Hari
-        <b>${fmt(daily)} pcs</b>
-      </div>
-
-      <div class="stat">
-        Actual Hari Ini
-        <b class="green">
-          ${fmt(dailyItemTotal(today))} pcs
-        </b>
-      </div>
-
-    </div>
-
-
-    <br>
-
-    <div class="info">
-
-      <b>Catatan:</b><br>
-
-      Target per produk tidak perlu
-      diinput manual.
-
-      Sistem menggunakan daftar produk
-      sebagai dasar pembagian otomatis
-      untuk menu Target Kasir.
-
-    </div>
-
-
-    <br>
-
-    <h3>
-      📦 Daftar Produk
-    </h3>
-
-
-    ${
-      data().items.length
-      ?data().items.map(itemCard).join('')
-      :`
-        <div class="empty">
-          Belum ada produk.<br><br>
-          Tambahkan produk terlebih dahulu.
-        </div>
-      `
-    }
-
-
-    <button
-      class="primary"
-      style="width:100%;margin-top:8px"
-      onclick="openProductModal()"
-    >
-      ＋ Tambah Produk
-    </button>
+   <button
+    class="yellow"
+    onclick="setShopTarget()"
+   >
+    ⚙ Target
+   </button>
 
   </div>
 
-  `;
+  <div class="grid">
 
-}
+   <div class="stat">
+    Target Pencapaian Toko
+    <b>${fmt(target)}%</b>
+   </div>
 
-function itemCard(item){
-
-  const index=
-    data().items.findIndex(
-      x=>x.id===item.id
-    );
-
-  const today=selectedDay();
-
-  const actualToday=
-    actualOnDate(
-      item.id,
-      today
-    );
-
-  const actualWeek=
-    actualItem(
-      item.id
-    );
-
-  const valueToday=
-    actualValueOnDate(
-      item.id,
-      today
-    );
-
-  const valueWeek=
-    actualValueWeek(
-      item.id
-    );
-
-  return `
-
-  <div class="product">
-
-    <div class="product-head">
-
-      <div class="product-number">
-        ${String(index+1).padStart(2,'0')}
-      </div>
-
-      <div style="flex:1">
-
-        <div class="product-title">
-          ${esc(item.name)}
-        </div>
-
-        <div class="muted">
-          ${item.variants?.length
-            ?item.variants.length+' variant'
-            :'1 harga'
-          }
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="price-list">
-
-      ${
-        item.variants?.length
-
-        ?item.variants.map((v,i)=>`
-
-          <div class="price-row">
-
-            <div>
-              <b>${esc(variantName(item,i))}</b>
-            </div>
-
-            <div class="right">
-              ${rup(variantPrice(item,i))}
-            </div>
-
-          </div>
-
-        `).join('')
-
-        :`
-
-          <div class="price-row">
-
-            <div>
-              <b>Harga Produk</b>
-            </div>
-
-            <div class="right">
-              ${rup(item.price)}
-            </div>
-
-          </div>
-
-        `
-      }
-
-    </div>
-
-
-    <div class="actual-box">
-
-      <div class="row">
-
-        <span>
-          Actual Hari Ini
-        </span>
-
-        <b class="green">
-          ${fmt(actualToday)} pcs
-        </b>
-
-      </div>
-
-      <div class="row">
-
-        <span>
-          Nilai Hari Ini
-        </span>
-
-        <b>
-          ${rup(valueToday)}
-        </b>
-
-      </div>
-
-      <div class="row">
-
-        <span>
-          Actual Week
-        </span>
-
-        <b>
-          ${fmt(actualWeek)} pcs
-        </b>
-
-      </div>
-
-      <div class="row">
-
-        <span>
-          Nilai Week
-        </span>
-
-        <b>
-          ${rup(valueWeek)}
-        </b>
-
-      </div>
-
-    </div>
-
-
-    <div class="actions">
-
-      <button
-        class="primary"
-        onclick="openActualModal('${item.id}')"
-      >
-        Input Actual
-      </button>
-
-      <button
-        class="secondary"
-        onclick="detailItem('${item.id}')"
-      >
-        Detail
-      </button>
-
-      <button
-        class="secondary"
-        onclick="editProduct('${item.id}')"
-      >
-        Edit
-      </button>
-
-      <button
-        class="danger"
-        onclick="deleteProduct('${item.id}')"
-      >
-        Hapus
-      </button>
-
-    </div>
+   <div class="stat">
+    Qty Pencapaian Hari Ini
+    <b class="green">${fmt(actual)} pcs</b>
+   </div>
 
   </div>
-
-  `;
-
-}
-
-/* =========================================================
-   NILAI ACTUAL
-========================================================= */
-
-function actualValueOnDate(
-  id,
-  date
-){
-
-  const item=
-    data().items.find(
-      x=>x.id===id
-    );
-
-  if(!item)return 0;
-
-  if(item.variants?.length){
-
-    return item.variants.reduce(
-      (sum,v,i)=>{
-
-        return sum+
-          variantActual(
-            id,
-            i,
-            date
-          )*
-          variantPrice(
-            item,
-            i
-          );
-
-      },
-      0
-    );
-
-  }
-
-  return actualOnDate(
-    id,
-    date
-  )*Number(item.price||0);
-
-}
-
-function actualValueWeek(id){
-
-  const item=
-    data().items.find(
-      x=>x.id===id
-    );
-
-  if(!item)return 0;
-
-  return weekDates().reduce(
-    (sum,date)=>
-      sum+
-      actualValueOnDate(
-        id,
-        date
-      ),
-    0
-  );
-
-}
-
-/* =========================================================
-   TAMBAH PRODUK
-========================================================= */
-
-function openProductModal(){
-
-  document.getElementById(
-    'modal'
-  ).innerHTML=`
-
-  <div class="modal-head">
-
-    <h2>＋ Tambah Produk</h2>
-
-    <button
-      class="close"
-      onclick="closeModal()"
-    >
-      ×
-    </button>
-
-  </div>
-
-
-  <div class="form-row">
-
-    <label>
-      Nama Produk
-    </label>
-
-    <input
-      id="newProductName"
-      placeholder="Contoh: Aqua 600 ml"
-    >
-
-  </div>
-
-
-  <div class="form-row">
-
-    <label>
-      Harga Produk
-    </label>
-
-    <input
-      id="newProductPrice"
-      type="number"
-      min="0"
-      placeholder="4000"
-    >
-
-  </div>
-
-
-  <div class="info">
-
-    Kalau produk mempunyai beberapa
-    variant dengan harga berbeda,
-    aktifkan variant di bawah.
-
-  </div>
-
-
-  <br>
-
-  <label>
-    Variant Produk
-  </label>
-
-  <div id="variantFormList">
-
-    ${newVariantRow()}
-
-  </div>
-
-
-  <button
-    class="secondary"
-    style="width:100%;margin-top:8px"
-    onclick="addVariantFormRow()"
-  >
-    ＋ Tambah Variant
-  </button>
-
-
-  <div class="actions">
-
-    <button
-      class="secondary"
-      onclick="closeModal()"
-    >
-      Batal
-    </button>
-
-    <button
-      class="primary"
-      onclick="saveNewProduct()"
-    >
-      Simpan Produk
-    </button>
-
-  </div>
-
-  `;
-
-  showModal();
-
-}
-
-function newVariantRow(){
-
-  return `
-
-  <div
-    class="variant-input form-variant"
-  >
-
-    <input
-      class="variant-name"
-      placeholder="Nama variant"
-    >
-
-    <input
-      class="variant-price"
-      type="number"
-      min="0"
-      placeholder="Harga"
-    >
-
-    <button
-      class="danger"
-      type="button"
-      onclick="this.parentElement.remove()"
-    >
-      Hapus
-    </button>
-
-  </div>
-
-  `;
-
-}
-
-function addVariantFormRow(){
-
-  document
-    .getElementById(
-      'variantFormList'
-    )
-    .insertAdjacentHTML(
-      'beforeend',
-      newVariantRow()
-    );
-
-}
-
-function saveNewProduct(){
-
-  const name=
-    document
-    .getElementById(
-      'newProductName'
-    )
-    .value
-    .trim();
-
-  const price=
-    Number(
-      document
-      .getElementById(
-        'newProductPrice'
-      )
-      .value
-    )||0;
-
-  if(!name){
-
-    alert(
-      'Nama produk wajib diisi.'
-    );
-
-    return;
-
-  }
-
-  const variants=[];
-
-  document
-    .querySelectorAll(
-      '#variantFormList .form-variant'
-    )
-    .forEach(row=>{
-
-      const n=
-        row
-        .querySelector(
-          '.variant-name'
-        )
-        .value
-        .trim();
-
-      const p=
-        Number(
-          row
-          .querySelector(
-            '.variant-price'
-          )
-          .value
-        )||0;
-
-      if(n){
-
-        variants.push({
-          name:n,
-          price:p||price
-        });
-
-      }
-
-    });
-
-  data().items.push({
-
-    id:
-      'item_'+
-      Date.now()+
-      '_'+
-      Math.random()
-      .toString(36)
-      .slice(2,8),
-
-    name:name,
-
-    price:price,
-
-    variants:variants
-
-  });
-
-  save();
-  closeModal();
-  render();
-
-  toast(
-    'Produk berhasil ditambahkan.'
-  );
-
-}
-
-/* =========================================================
-   EDIT PRODUK
-========================================================= */
-
-function editProduct(id){
-
-  const item=
-    data().items.find(
-      x=>x.id===id
-    );
-
-  if(!item)return;
-
-  document.getElementById(
-    'modal'
-  ).innerHTML=`
-
-  <div class="modal-head">
-
-    <h2>✏️ Edit Produk</h2>
-
-    <button
-      class="close"
-      onclick="closeModal()"
-    >
-      ×
-    </button>
-
-  </div>
-
-
-  <div class="form-row">
-
-    <label>
-      Nama Produk
-    </label>
-
-    <input
-      id="editProductName"
-      value="${esc(item.name)}"
-    >
-
-  </div>
-
-
-  <div class="form-row">
-
-    <label>
-      Harga Utama
-    </label>
-
-    <input
-      id="editProductPrice"
-      type="number"
-      min="0"
-      value="${Number(item.price||0)}"
-    >
-
-  </div>
-
-
-  <label>
-    Variant + Harga
-  </label>
-
-
-  <div id="editVariantList">
-
-    ${
-      item.variants?.length
-
-      ?item.variants.map(v=>`
-
-        <div
-          class="variant-input edit-variant"
-        >
-
-          <input
-            class="edit-v-name"
-            value="${esc(v.name)}"
-          >
-
-          <input
-            class="edit-v-price"
-            type="number"
-            min="0"
-            value="${Number(v.price||0)}"
-          >
-
-          <button
-            class="danger"
-            type="button"
-            onclick="this.parentElement.remove()"
-          >
-            Hapus
-          </button>
-
-        </div>
-
-      `).join('')
-
-      :newVariantRow().replaceAll(
-        'variant-name',
-        'edit-v-name'
-      ).replaceAll(
-        'variant-price',
-        'edit-v-price'
-      )
-
-    }
-
-  </div>
-
-
-  <button
-    class="secondary"
-    style="width:100%;margin-top:8px"
-    onclick="addEditVariantRow()"
-  >
-    ＋ Tambah Variant
-  </button>
-
-
-  <div class="actions">
-
-    <button
-      class="secondary"
-      onclick="closeModal()"
-    >
-      Batal
-    </button>
-
-    <button
-      class="primary"
-      onclick="saveEditProduct('${id}')"
-    >
-      Simpan Perubahan
-    </button>
-
-  </div>
-
-  `;
-
-  showModal();
-
-}
-
-function addEditVariantRow(){
-
-  document
-    .getElementById(
-      'editVariantList'
-    )
-    .insertAdjacentHTML(
-      'beforeend',
-      `
-      <div
-        class="variant-input edit-variant"
-      >
-
-        <input
-          class="edit-v-name"
-          placeholder="Nama variant"
-        >
-
-        <input
-          class="edit-v-price"
-          type="number"
-          min="0"
-          placeholder="Harga"
-        >
-
-        <button
-          class="danger"
-          type="button"
-          onclick="this.parentElement.remove()"
-        >
-          Hapus
-        </button>
-
-      </div>
-      `
-    );
-
-}
-
-function saveEditProduct(id){
-
-  const item=
-    data().items.find(
-      x=>x.id===id
-    );
-
-  if(!item)return;
-
-  const name=
-    document
-    .getElementById(
-      'editProductName'
-    )
-    .value
-    .trim();
-
-  const price=
-    Number(
-      document
-      .getElementById(
-        'editProductPrice'
-      )
-      .value
-    )||0;
-
-  if(!name){
-
-    alert(
-      'Nama produk wajib diisi.'
-    );
-
-    return;
-
-  }
-
-  const variants=[];
-
-  document
-    .querySelectorAll(
-      '#editVariantList .edit-variant'
-    )
-    .forEach(row=>{
-
-      const n=
-        row
-        .querySelector(
-          '.edit-v-name'
-        )
-        .value
-        .trim();
-
-      const p=
-        Number(
-          row
-          .querySelector(
-            '.edit-v-price'
-          )
-          .value
-        )||0;
-
-      if(n){
-
-        variants.push({
-          name:n,
-          price:p||price
-        });
-
-      }
-
-    });
-
-  item.name=name;
-  item.price=price;
-  item.variants=variants;
-
-  save();
-  closeModal();
-  render();
-
-  toast(
-    'Produk berhasil diperbarui.'
-  );
-
-}
-
-function deleteProduct(id){
-
-  const item=
-    data().items.find(
-      x=>x.id===id
-    );
-
-  if(!item)return;
-
-  if(!confirm(
-    `Hapus produk "${item.name}"?\n\nData actual produk ini juga akan dihapus.`
-  )){
-    return;
-  }
-
-  const d=data();
-
-  d.items=d.items.filter(
-    x=>x.id!==id
-  );
-
-  Object.keys(d.daily||{})
-    .forEach(date=>{
-      if(d.daily[date]){
-        delete d.daily[date][id];
-      }
-    });
-
-  save();
-  render();
-
-  toast(
-    'Produk berhasil dihapus.'
-  );
-
-}
-
-/* =========================================================
-   INPUT ACTUAL
-========================================================= */
-
-function openActualModal(id){
-
-  const item=
-    data().items.find(
-      x=>x.id===id
-    );
-
-  if(!item)return;
-
-  const date=selectedDay();
-
-  const old=
-    data()
-    .daily?.[date]?.[id];
-
-  const hasVariant=
-    item.variants?.length>0;
-
-  document.getElementById(
-    'modal'
-  ).innerHTML=`
-
-  <div class="modal-head">
-
-    <div>
-
-      <h2>📦 Input Actual</h2>
-
-      <div class="muted">
-        ${dateLabel(date)}
-      </div>
-
-    </div>
-
-    <button
-      class="close"
-      onclick="closeModal()"
-    >
-      ×
-    </button>
-
-  </div>
-
-
-  <div class="info">
-
-    <b>${esc(item.name)}</b><br>
-
-    Masukkan qty actual untuk tanggal
-    yang dipilih.
-
-  </div>
-
-
-  <br>
-
-
-  ${
-    hasVariant
-
-    ?`
-
-      <div id="actualVariantList">
-
-        ${item.variants.map((v,i)=>{
-
-          const q=
-            Number(
-              old?.variants?.[i]||0
-            );
-
-          return `
-
-          <div
-            class="variant-input actual-variant"
-          >
-
-            <div>
-
-              <b>
-                ${esc(variantName(item,i))}
-              </b>
-
-              <div class="muted">
-                ${rup(
-                  variantPrice(item,i)
-                )}
-              </div>
-
-            </div>
-
-            <input
-              class="actual-v-qty"
-              type="number"
-              min="0"
-              value="${q}"
-              data-index="${i}"
-            >
-
-            <div class="right">
-              pcs
-            </div>
-
-          </div>
-
-          `;
-
-        }).join('')}
-
-      </div>
-
-    `
-
-    :`
-
-      <label>
-        Actual Qty
-      </label>
-
-      <input
-        id="actualSimpleQty"
-        type="number"
-        min="0"
-        value="${Number(old?.total||0)}"
-      >
-
-    `
-
-  }
-
-
-  <div
-    class="totalbox"
-    id="actualPreview"
-  >
-    Total: 0 pcs
-  </div>
-
-
-  <div class="actions">
-
-    <button
-      class="secondary"
-      onclick="closeModal()"
-    >
-      Batal
-    </button>
-
-    <button
-      class="primary"
-      onclick="saveActual('${id}')"
-    >
-      Simpan Actual
-    </button>
-
-  </div>
-
-  `;
-
-  showModal();
-
-  updateActualPreview(id);
-
-  document
-    .querySelectorAll(
-      '#modal input'
-    )
-    .forEach(input=>{
-      input.addEventListener(
-        'input',
-        ()=>updateActualPreview(id)
-      );
-    });
-
-}
-
-function updateActualPreview(id){
-
-  const item=
-    data().items.find(
-      x=>x.id===id
-    );
-
-  if(!item)return;
-
-  let total=0;
-  let value=0;
-
-  if(item.variants?.length){
-
-    document
-      .querySelectorAll(
-        '.actual-v-qty'
-      )
-      .forEach(input=>{
-
-        const i=
-          Number(
-            input.dataset.index
-          );
-
-        const q=
-          Number(input.value||0);
-
-        total+=q;
-
-        value+=
-          q*
-          variantPrice(
-            item,
-            i
-          );
-
-      });
-
-  }else{
-
-    total=
-      Number(
-        document
-        .getElementById(
-          'actualSimpleQty'
-        )?.value||0
-      );
-
-    value=
-      total*
-      Number(item.price||0);
-
-  }
-
-  const preview=
-    document.getElementById(
-      'actualPreview'
-    );
-
-  if(preview){
-
-    preview.innerHTML=`
-
-      <div class="row">
-
-        <span>
-          Total Qty
-        </span>
-
-        <b>
-          ${fmt(total)} pcs
-        </b>
-
-      </div>
-
-      <div class="row">
-
-        <span>
-          Nilai Actual
-        </span>
-
-        <b>
-          ${rup(value)}
-        </b>
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-function saveActual(id){
-
-  const item=
-    data().items.find(
-      x=>x.id===id
-    );
-
-  if(!item)return;
-
-  const date=selectedDay();
-
-  const d=data();
-
-  if(!d.daily[date]){
-    d.daily[date]={};
-  }
-
-  let total=0;
-
-  const record={
-    total:0,
-    variants:[]
-  };
-
-  if(item.variants?.length){
-
-    document
-      .querySelectorAll(
-        '.actual-v-qty'
-      )
-      .forEach(input=>{
-
-        const q=Math.max(
-          0,
-          Number(input.value||0)
-        );
-
-        const i=
-          Number(
-            input.dataset.index
-          );
-
-        record.variants[i]=q;
-
-        total+=q;
-
-      });
-
-  }else{
-
-    total=Math.max(
-      0,
-      Number(
-        document
-        .getElementById(
-          'actualSimpleQty'
-        )
-        .value||0
-      )
-    );
-
-  }
-
-  record.total=total;
-
-  d.daily[date][id]=record;
-
-  save();
-  closeModal();
-  render();
-
-  toast(
-    'Actual berhasil disimpan.'
-  );
-
-}
-
-/* =========================================================
-   DETAIL PRODUK
-========================================================= */
-
-function detailItem(id){
-
-  const item=
-    data().items.find(
-      x=>x.id===id
-    );
-
-  if(!item)return;
-
-  const dates=weekDates();
-
-  document.getElementById(
-    'modal'
-  ).innerHTML=`
-
-  <div class="modal-head">
-
-    <h2>📦 Detail Produk</h2>
-
-    <button
-      class="close"
-      onclick="closeModal()"
-    >
-      ×
-    </button>
-
-  </div>
-
-
-  <div class="product">
-
-    <div class="product-head">
-
-      <div class="product-number">
-
-        ${String(
-          data().items.findIndex(
-            x=>x.id===id
-          )+1
-        ).padStart(2,'0')}
-
-      </div>
-
-      <div>
-
-        <div class="product-title">
-          ${esc(item.name)}
-        </div>
-
-        <div class="muted">
-          ${item.variants?.length
-            ?item.variants.length+' variant'
-            :'1 harga'
-          }
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <h3>
-    💰 Harga
-  </h3>
-
-  <table>
-
-    <tr>
-      <th>Variant</th>
-      <th>Harga</th>
-    </tr>
-
-    ${
-      item.variants?.length
-
-      ?item.variants.map((v,i)=>`
-
-        <tr>
-
-          <td>
-            ${esc(
-              variantName(item,i)
-            )}
-          </td>
-
-          <td>
-            ${rup(
-              variantPrice(item,i)
-            )}
-          </td>
-
-        </tr>
-
-      `).join('')
-
-      :`
-
-        <tr>
-          <td>Produk</td>
-          <td>${rup(item.price)}</td>
-        </tr>
-
-      `
-    }
-
-  </table>
-
-
-  <br>
-
-  <h3>
-    📅 Rekap Harian
-  </h3>
-
-  <table>
-
-    <tr>
-      <th>Tanggal</th>
-      <th>Qty</th>
-      <th>Nilai</th>
-    </tr>
-
-    ${dates.map(date=>{
-
-      const q=
-        actualOnDate(
-          id,
-          date
-        );
-
-      const value=
-        actualValueOnDate(
-          id,
-          date
-        );
-
-      return `
-
-      <tr>
-
-        <td>
-          ${dateLabel(date)}
-        </td>
-
-        <td>
-          ${fmt(q)} pcs
-        </td>
-
-        <td>
-          ${rup(value)}
-        </td>
-
-      </tr>
-
-      `;
-
-    }).join('')}
-
-  </table>
-
-
-  <br>
 
   <div class="totalbox">
 
-    <div class="row">
+   <div class="row">
+    <span>Tanggal Input</span>
+    <b>${dateLabel(today)}</b>
+   </div>
 
-      <span>
-        Actual Week
-      </span>
-
-      <b>
-        ${fmt(actualItem(id))} pcs
-      </b>
-
-    </div>
-
-    <div class="row">
-
-      <span>
-        Nilai Week
-      </span>
-
-      <b>
-        ${rup(actualValueWeek(id))}
-      </b>
-
-    </div>
+   <button
+    class="primary"
+    onclick="inputDailyTotal()"
+    style="width:100%;margin-top:8px"
+   >
+    ＋ Input Qty Pencapaian Hari Ini
+   </button>
 
   </div>
 
-  `;
+  <div class="info" style="margin-top:12px">
 
-  showModal();
+   <b>Catatan:</b><br>
 
+   Target toko menggunakan persentase
+   pencapaian per toko. Qty pencapaian
+   harian dapat diinput setiap hari.
+
+   <br><br>
+
+   Target masing-masing produk
+   diatur pada daftar produk di bawah.
+
+  </div>
+
+ </div>
+
+ <div class="card">
+
+  <div class="row">
+
+   <div>
+    <h2>📦 Daftar Target Produk</h2>
+
+    <div class="muted">
+     Urutan produk otomatis
+    </div>
+   </div>
+
+   <button
+    class="primary"
+    onclick="addItem()"
+   >
+    ＋ Produk
+   </button>
+
+  </div>
+
+  ${
+   data().items.length
+   ?data().items.map((x,i)=>itemCard(x,i)).join("")
+   :`
+    <div class="empty">
+     Belum ada produk.<br><br>
+     Tambahkan produk pertama.
+    </div>
+   `
+  }
+
+ </div>`;
 }
 
-/* =========================================================
+function itemCard(x,index){
+
+ const today=selectedDay();
+
+ const actual=actualItem(x.id);
+ const actualTodayValue=
+  actualOnDate(x.id,today);
+
+ const target=Number(x.target||0);
+
+ const acv=
+  target?actual/target*100:0;
+
+ const photo=
+  `<img
+   class="product-photo"
+   data-photo-id="${x.id}"
+   src=""
+   alt="${esc(x.name)}"
+   style="display:block"
+  >`;
+
+ return `
+ <div class="item">
+
+  <div class="item-head">
+
+   <div class="item-number">
+    ${index+1}
+   </div>
+
+   ${photo}
+
+   <div class="product-info">
+
+    <div class="item-title">
+     ${esc(x.name)}
+    </div>
+
+    <div class="price">
+     ${rup(x.price)} / pcs
+    </div>
+
+    <div class="muted">
+     Target item: ${fmt(target)} pcs/week
+    </div>
+
+   </div>
+
+  </div>
+
+  <div class="grid" style="margin-top:12px">
+
+   <div class="stat">
+    Target Item
+    <b>${fmt(target)} pcs</b>
+   </div>
+
+   <div class="stat">
+    Actual
+    <b class="green">${fmt(actual)} pcs</b>
+   </div>
+
+  </div>
+
+  <div class="row">
+   <span>Actual ${dateLabel(today)}</span>
+   <b>${fmt(actualTodayValue)} pcs</b>
+  </div>
+
+  <div class="progress">
+   <i style="width:${Math.min(100,Math.max(0,acv))}%"></i>
+  </div>
+
+  <div class="muted" style="margin-top:5px">
+   Pencapaian item: ${pct(actual,target)}
+  </div>
+
+  <div class="photo-actions">
+
+   <button
+    class="secondary"
+    onclick="changePhoto('${x.id}')"
+   >
+    📷 ${actualPhotoText(x.id)}
+   </button>
+
+   <button
+    class="primary"
+    onclick="inputActual('${x.id}')"
+   >
+    ＋ Input Qty
+   </button>
+
+  </div>
+
+  <div class="actions">
+
+   <button
+    class="secondary"
+    onclick="editItem('${x.id}')"
+   >
+    ✏️ Edit
+   </button>
+
+   <button
+    class="danger"
+    onclick="delItem('${x.id}')"
+   >
+    🗑️ Hapus
+   </button>
+
+  </div>
+
+ </div>`;
+}
+
+function actualPhotoText(id){
+
+ return "Foto Produk";
+}
+
+/* =========================
    TARGET KASIR
-========================================================= */
+========================= */
+
+function cashierDivisor(){
+
+ const n=Number(
+  db.settings?.cashierDivisor
+ );
+
+ return Number.isFinite(n)&&n>0
+  ?n
+  :3;
+}
 
 function kasir(){
 
-  const divisor=
-    cashierDivisor();
+ const divisor=cashierDivisor();
 
-  const daily=
-    getDailyTarget();
+ const items=data().items;
 
-  const items=
-    data().items;
+ const totalTarget=items.reduce(
+  (s,x)=>s+Number(x.target||0),
+  0
+ );
 
-  /*
-    Karena target item tidak diinput manual,
-    sistem membagi target harian toko
-    secara otomatis ke jumlah produk.
-  */
+ const totalCashier=
+  totalTarget/divisor;
 
-  const itemTarget=
-    automaticItemTarget(
-      items.length
-    );
+ return `
+ ${monthControls()}
+ ${tabs()}
 
-  return `
+ <div class="card">
 
-  ${monthControls()}
-  ${tabs()}
+  <h2>👤 Target Kasir</h2>
 
-  <div class="card">
+  <div class="info">
 
-    <h2>👤 Target Kasir</h2>
+   Target Kasir bukan nama kasir.
 
-    <div class="info">
+   <br><br>
 
-      Target Kasir <b>bukan nama kasir</b>.
+   Sistem mengambil
+   <b>nama produk, foto, harga dan target item</b>
+   dari menu Target Toko.
 
-      Sistem mengambil daftar produk
-      dari Target Toko.
+   <br><br>
 
-      Target toko per hari dibagi rata
-      ke produk, lalu dibagi lagi sesuai
-      pembagi yang diatur.
-
-    </div>
-
-
-    <br>
-
-
-    <div class="grid">
-
-      <div class="stat">
-        Target Toko / Hari
-        <b>${fmt(daily)} pcs</b>
-      </div>
-
-      <div class="stat">
-        Pembagi
-        <b>${fmt(divisor)}</b>
-      </div>
-
-      <div class="stat">
-        Jumlah Produk
-        <b>${items.length}</b>
-      </div>
-
-      <div class="stat">
-        Target / Item / Hari
-        <b>${fmt(itemTarget)} pcs</b>
-      </div>
-
-    </div>
+   Target Kasir otomatis =
+   <b>Target Item ÷ ${fmt(divisor)}</b>.
 
   </div>
 
+  <div class="grid" style="margin-top:12px">
 
-  <div class="card">
+   <div class="stat">
+    Jumlah Item
+    <b>${items.length}</b>
+   </div>
 
-    <h2>
-      📋 Pembagian Target Per Item
-    </h2>
+   <div class="stat">
+    Pembagi
+    <b>${fmt(divisor)}</b>
+   </div>
 
-    ${
-      items.length
+   <div class="stat">
+    Total Target Item
+    <b>${fmt(totalTarget)} pcs</b>
+   </div>
 
-      ?items.map((item,i)=>{
-
-        const targetItem=
-          itemTarget;
-
-        const targetKasir=
-          targetItem/divisor;
-
-        const actual=
-          actualItem(item.id);
-
-        return `
-
-        <div class="cashier-item">
-
-          <div>
-
-            <span class="cashier-number">
-              ${String(i+1).padStart(2,'0')}
-            </span>
-
-            <b>
-              ${esc(item.name)}
-            </b>
-
-          </div>
-
-
-          <br>
-
-
-          <div class="grid">
-
-            <div class="stat">
-
-              Target Item / Hari
-
-              <b>
-                ${fmt(targetItem)} pcs
-              </b>
-
-            </div>
-
-            <div class="stat">
-
-              Target Kasir / Hari
-
-              <b class="red">
-                ${fmt(targetKasir)} pcs
-              </b>
-
-            </div>
-
-          </div>
-
-
-          <div class="totalbox">
-
-            <div class="row">
-
-              <span>
-                Pembagian
-              </span>
-
-              <b>
-                ${fmt(targetItem)}
-                ÷
-                ${fmt(divisor)}
-              </b>
-
-            </div>
-
-            <div class="row">
-
-              <span>
-                Actual Week
-              </span>
-
-              <b class="green">
-                ${fmt(actual)} pcs
-              </b>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        `;
-
-      }).join('')
-
-      :`
-
-        <div class="empty">
-
-          Belum ada produk di Target Toko.
-
-          <br><br>
-
-          Tambahkan produk terlebih dahulu.
-
-        </div>
-
-      `
-    }
+   <div class="stat">
+    Total Target Kasir
+    <b class="green">
+     ${fmt(totalCashier)} pcs
+    </b>
+   </div>
 
   </div>
 
+ </div>
 
-  <div class="card">
+ <div class="card">
 
-    <h2>⚙️ Pengaturan Pembagi</h2>
+  <h2>🎯 Target Kasir Per Item</h2>
 
-    <div class="info">
-
-      Saat ini Target Kasir menggunakan
-      pembagi <b>${fmt(divisor)}</b>.
-
-      <br><br>
-
-      Contoh:
-      target item 30 pcs ÷ 3 =
-      <b>10 pcs</b>.
-
+  ${
+   items.length
+   ?items.map((x,i)=>cashierItem(x,i)).join("")
+   :`
+    <div class="empty">
+     Belum ada produk.<br>
+     Tambahkan produk di Target Toko.
     </div>
+   `
+  }
 
-    <button
-      class="yellow"
-      style="margin-top:10px"
-      onclick="go('pengaturan')"
-    >
-      Buka Pengaturan
-    </button>
-
-  </div>
-
-  `;
-
+ </div>`;
 }
 
-/* =========================================================
+function cashierItem(x,index){
+
+ const target=Number(x.target||0);
+ const divisor=cashierDivisor();
+
+ const cashierTarget=target/divisor;
+
+ return `
+ <div class="cashier-item">
+
+  <div>
+
+   <img
+    class="cashier-photo"
+    data-photo-id="${x.id}"
+    src=""
+    alt="${esc(x.name)}"
+   >
+
+  </div>
+
+  <div>
+
+   <div class="item-title">
+    ${index+1}. ${esc(x.name)}
+   </div>
+
+   <div class="price">
+    ${rup(x.price)} / pcs
+   </div>
+
+   <div class="cashier-target">
+
+    <div class="row">
+     <span>Target Item</span>
+     <b>${fmt(target)} pcs</b>
+    </div>
+
+    <div class="row">
+     <span>Pembagi</span>
+     <b>÷ ${fmt(divisor)}</b>
+    </div>
+
+    <div class="row">
+     <span>Target Kasir</span>
+     <b class="green">
+      ${fmt(cashierTarget)} pcs
+     </b>
+    </div>
+
+   </div>
+
+  </div>
+
+ </div>`;
+}
+
+/* =========================
    INFO TARGET
-========================================================= */
+========================= */
 
 function infoTarget(){
 
-  const daily=
-    getDailyTarget();
+ const items=data().items;
+ const divisor=cashierDivisor();
 
-  const divisor=
-    cashierDivisor();
+ return `
+ ${monthControls()}
+ ${tabs()}
 
-  const items=
-    data().items;
+ <div class="card">
 
-  const itemTarget=
-    automaticItemTarget(
-      items.length
-    );
+  <h2>📋 Info Target</h2>
 
-  return `
+  <div class="info">
+   ${weekName(week)}<br><br>
 
-  ${monthControls()}
-  ${tabs()}
-
-  <div class="card">
-
-    <h2>
-      📋 INFO TARGET PSM
-    </h2>
-
-    <div class="info">
-
-      <b>${weekName(week)}</b>
-
-      <br><br>
-
-      Target toko yang dimasukkan
-      adalah <b>target keseluruhan per hari</b>.
-
-      <br><br>
-
-      Target produk untuk pembagian kasir
-      dihitung otomatis dari jumlah produk.
-
-    </div>
-
-
-    <br>
-
-
-    <div class="grid">
-
-      <div class="stat">
-
-        Target Toko / Hari
-
-        <b>
-          ${fmt(daily)} pcs
-        </b>
-
-      </div>
-
-      <div class="stat">
-
-        Jumlah Produk
-
-        <b>
-          ${items.length}
-        </b>
-
-      </div>
-
-      <div class="stat">
-
-        Alokasi / Produk
-
-        <b>
-          ${fmt(itemTarget)} pcs
-        </b>
-
-      </div>
-
-      <div class="stat">
-
-        Pembagi Kasir
-
-        <b>
-          ${fmt(divisor)}
-        </b>
-
-      </div>
-
-    </div>
-
+   Target pencapaian toko:
+   <b>${fmt(shopTarget())}%</b>
   </div>
 
+  <table style="margin-top:12px">
 
-  <div class="card">
+   <tr>
+    <th>No</th>
+    <th>Produk</th>
+    <th>Harga</th>
+    <th>Target</th>
+    <th>Kasir</th>
+   </tr>
 
-    <h2>
-      📦 Daftar Produk
-    </h2>
+   ${
+    items.map((x,i)=>`
+     <tr>
 
-    <table>
+      <td>${i+1}</td>
 
-      <tr>
-        <th>No</th>
-        <th>Produk</th>
-        <th>Alokasi</th>
-        <th>Kasir</th>
-      </tr>
+      <td>
+       <b>${esc(x.name)}</b>
+      </td>
 
-      ${
-        items.length
+      <td>
+       ${rup(x.price)}
+      </td>
 
-        ?items.map((item,i)=>`
+      <td>
+       ${fmt(x.target)} pcs
+      </td>
 
-          <tr>
+      <td>
+       ${fmt(Number(x.target||0)/divisor)} pcs
+      </td>
 
-            <td>
-              <b>
-                ${String(i+1).padStart(2,'0')}
-              </b>
-            </td>
+     </tr>
+    `).join("")
+    ||
+    `
+     <tr>
+      <td colspan="5" class="empty">
+       Belum ada produk
+      </td>
+     </tr>
+    `
+   }
 
-            <td>
-              <b>
-                ${esc(item.name)}
-              </b>
-            </td>
+  </table>
 
-            <td>
-              ${fmt(itemTarget)}
-            </td>
-
-            <td>
-              ${fmt(
-                itemTarget/divisor
-              )}
-            </td>
-
-          </tr>
-
-        `).join('')
-
-        :`
-
-          <tr>
-
-            <td
-              colspan="4"
-              class="empty"
-            >
-              Belum ada produk.
-            </td>
-
-          </tr>
-
-        `
-      }
-
-    </table>
-
-
-    <div class="actions">
-
-      <button
-        class="yellow"
-        onclick="copyInfo()"
-      >
-        📤 Salin Info
-      </button>
-
-      <button
-        class="secondary"
-        onclick="window.print()"
-      >
-        🖨️ Cetak
-      </button>
-
-    </div>
-
-  </div>
-
-  `;
-
+ </div>`;
 }
 
-function copyInfo(){
-
-  const daily=
-    getDailyTarget();
-
-  const divisor=
-    cashierDivisor();
-
-  const items=
-    data().items;
-
-  const itemTarget=
-    automaticItemTarget(
-      items.length
-    );
-
-  let text=
-`TARGET PSM
-${weekName(week)}
-
-Target keseluruhan toko / hari :
-${fmt(daily)} pcs
-
-Jumlah produk :
-${items.length}
-
-Pembagi target kasir :
-${fmt(divisor)}
-
-DAFTAR PRODUK
-`;
-
-  items.forEach((item,i)=>{
-
-    text+=`
-
-${String(i+1).padStart(2,'0')}. ${item.name}
-Alokasi item : ${fmt(itemTarget)} pcs/hari
-Target kasir : ${fmt(itemTarget/divisor)} pcs/hari
-`;
-
-  });
-
-  if(navigator.clipboard){
-
-    navigator.clipboard
-      .writeText(text)
-      .then(()=>{
-        toast(
-          'Info target berhasil disalin.'
-        );
-      })
-      .catch(()=>{
-        fallbackCopy(text);
-      });
-
-  }else{
-
-    fallbackCopy(text);
-
-  }
-
-}
-
-function fallbackCopy(text){
-
-  prompt(
-    'Salin teks berikut:',
-    text
-  );
-
-}
-
-/* =========================================================
+/* =========================
    LAPORAN
-========================================================= */
-
-function weekReport(w){
-
-  const target=
-    totalTarget(w);
-
-  const actual=
-    totalActual(w);
-
-  const acv=
-    target
-    ?actual/target*100
-    :0;
-
-  return {
-    target,
-    actual,
-    diff:actual-target,
-    acv
-  };
-
-}
-
-function monthlyReport(){
-
-  let target=0;
-  let actual=0;
-
-  for(let w=1;w<=4;w++){
-
-    target+=
-      totalTarget(w);
-
-    actual+=
-      totalActual(w);
-
-  }
-
-  return {
-
-    target,
-    actual,
-    diff:actual-target,
-    acv:
-      target
-      ?actual/target*100
-      :0
-
-  };
-
-}
+========================= */
 
 function laporan(){
 
-  const wr=
-    weekReport(week);
+ const actual=actualItemTotalAll();
+ const items=data().items;
 
-  const mr=
-    monthlyReport();
+ return `
+ ${monthControls()}
+ ${tabs()}
 
-  const items=
-    data().items;
+ <div class="card">
 
-  return `
+  <h2>📈 Laporan</h2>
 
-  ${monthControls()}
-  ${tabs()}
+  <div class="grid">
 
+   <div class="stat">
+    Target Toko
+    <b>${fmt(shopTarget())}%</b>
+   </div>
 
-  <div class="card">
+   <div class="stat">
+    Qty Actual
+    <b class="green">
+     ${fmt(actual)} pcs
+    </b>
+   </div>
 
-    <h2>
-      📈 Laporan ${weekName(week)}
-    </h2>
+   <div class="stat">
+    Produk
+    <b>${items.length}</b>
+   </div>
 
-    <div class="grid">
-
-      <div class="stat">
-
-        Target
-
-        <b>
-          ${fmt(wr.target)} pcs
-        </b>
-
-      </div>
-
-      <div class="stat">
-
-        Actual
-
-        <b class="green">
-          ${fmt(wr.actual)} pcs
-        </b>
-
-      </div>
-
-      <div class="stat">
-
-        Selisih
-
-        <b class="${
-          wr.diff>=0
-          ?'green'
-          :'red'
-        }">
-
-          ${
-            wr.diff>=0?'+':''
-          }${fmt(wr.diff)} pcs
-
-        </b>
-
-      </div>
-
-      <div class="stat">
-
-        ACV
-
-        <b class="${
-          wr.acv>=100
-          ?'green'
-          :wr.acv>=80
-          ?'orange'
-          :'red'
-        }">
-
-          ${wr.acv.toFixed(2)}%
-
-        </b>
-
-      </div>
-
-    </div>
+   <div class="stat">
+    Hari Aktif
+    <b>${weekDays(week)}</b>
+   </div>
 
   </div>
 
-
-  <div class="card">
-
-    <h2>
-      📊 Rekap Week 1-4
-    </h2>
-
-    <table>
-
-      <tr>
-        <th>Week</th>
-        <th>Target</th>
-        <th>Actual</th>
-        <th>Selisih</th>
-        <th>ACV</th>
-      </tr>
-
-      ${
-        [1,2,3,4].map(w=>{
-
-          const r=
-            weekReport(w);
-
-          return `
-
-          <tr>
-
-            <td>
-              <b>
-                Week ${w}
-              </b>
-            </td>
-
-            <td>
-              ${fmt(r.target)}
-            </td>
-
-            <td>
-              ${fmt(r.actual)}
-            </td>
-
-            <td class="${
-              r.diff>=0
-              ?'green'
-              :'red'
-            }">
-
-              ${
-                r.diff>=0?'+':''
-              }${fmt(r.diff)}
-
-            </td>
-
-            <td class="${
-              r.acv>=100
-              ?'green'
-              :r.acv>=80
-              ?'orange'
-              :'red'
-            }">
-
-              ${r.acv.toFixed(2)}%
-
-            </td>
-
-          </tr>
-
-          `;
-
-        }).join('')
-      }
-
-    </table>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>
-      📅 Rekap Bulanan
-    </h2>
-
-    <div class="grid">
-
-      <div class="stat">
-
-        Target
-
-        <b>
-          ${fmt(mr.target)} pcs
-        </b>
-
-      </div>
-
-      <div class="stat">
-
-        Actual
-
-        <b class="green">
-          ${fmt(mr.actual)} pcs
-        </b>
-
-      </div>
-
-      <div class="stat">
-
-        Selisih
-
-        <b class="${
-          mr.diff>=0
-          ?'green'
-          :'red'
-        }">
-
-          ${
-            mr.diff>=0?'+':''
-          }${fmt(mr.diff)}
-
-        </b>
-
-      </div>
-
-      <div class="stat">
-
-        ACV
-
-        <b class="${
-          mr.acv>=100
-          ?'green'
-          :mr.acv>=80
-          ?'orange'
-          :'red'
-        }">
-
-          ${mr.acv.toFixed(2)}%
-
-        </b>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>
-      📦 Rekap Produk
-    </h2>
-
-    ${
-      items.length
-
-      ?`
-
-        <table>
-
-          <tr>
-            <th>No</th>
-            <th>Produk</th>
-            <th>Actual</th>
-            <th>Nilai</th>
-          </tr>
-
-          ${
-            items.map((item,i)=>{
-
-              const a=
-                actualItem(item.id);
-
-              const value=
-                actualValueWeek(item.id);
-
-              return `
-
-              <tr>
-
-                <td>
-                  ${String(i+1).padStart(2,'0')}
-                </td>
-
-                <td>
-                  <b>
-                    ${esc(item.name)}
-                  </b>
-                </td>
-
-                <td>
-                  ${fmt(a)} pcs
-                </td>
-
-                <td>
-                  ${rup(value)}
-                </td>
-
-              </tr>
-
-              `;
-
-            }).join('')
-          }
-
-        </table>
-
-      `
-
-      :`
-
-        <div class="empty">
-          Belum ada produk.
-        </div>
-
-      `
-    }
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>
-      📅 Rekap Harian
-    </h2>
-
-    <table>
-
-      <tr>
-        <th>Tanggal</th>
-        <th>Target</th>
-        <th>Actual</th>
-        <th>Selisih</th>
-      </tr>
-
-      ${
-        weekDates().map(date=>{
-
-          const target=
-            getDailyTarget();
-
-          const actual=
-            dailyItemTotal(date);
-
-          const diff=
-            actual-target;
-
-          return `
-
-          <tr>
-
-            <td>
-              ${dateLabel(date)}
-            </td>
-
-            <td>
-              ${fmt(target)}
-            </td>
-
-            <td>
-              ${fmt(actual)}
-            </td>
-
-            <td class="${
-              diff>=0
-              ?'green'
-              :'red'
-            }">
-
-              ${
-                diff>=0?'+':''
-              }${fmt(diff)}
-
-            </td>
-
-          </tr>
-
-          `;
-
-        }).join('')
-      }
-
-    </table>
-
-  </div>
-
-  `;
-
+ </div>
+
+ <div class="card">
+
+  <h2>📦 Rekap Produk</h2>
+
+  <table>
+
+   <tr>
+    <th>No</th>
+    <th>Produk</th>
+    <th>Target</th>
+    <th>Actual</th>
+   </tr>
+
+   ${
+    items.map((x,i)=>`
+     <tr>
+      <td>${i+1}</td>
+      <td>${esc(x.name)}</td>
+      <td>${fmt(x.target)}</td>
+      <td>${fmt(actualItem(x.id))}</td>
+     </tr>
+    `).join("")
+    ||
+    `
+     <tr>
+      <td colspan="4" class="empty">
+       Belum ada produk
+      </td>
+     </tr>
+    `
+   }
+
+  </table>
+
+ </div>
+
+ <div class="card">
+
+  <h2>📅 Rekap Harian</h2>
+
+  <table>
+
+   <tr>
+    <th>Tanggal</th>
+    <th>Actual</th>
+   </tr>
+
+   ${
+    weekDates().map(dt=>`
+     <tr>
+      <td>${dateLabel(dt)}</td>
+      <td>
+       ${fmt(
+        data().items.reduce(
+         (s,x)=>s+actualOnDate(x.id,dt),
+         0
+        )
+       )} pcs
+      </td>
+     </tr>
+    `).join("")
+   }
+
+  </table>
+
+ </div>`;
 }
 
-/* =========================================================
+function actualItemTotalAll(){
+
+ return data().items.reduce(
+  (s,x)=>s+actualItem(x.id),
+  0
+ );
+}
+
+/* =========================
    PENGATURAN
-========================================================= */
+========================= */
 
 function pengaturan(){
 
-  const divisor=
-    cashierDivisor();
+ const divisor=cashierDivisor();
 
-  const daily=
-    getDailyTarget();
+ return `
+ ${monthControls()}
 
-  return `
+ <div class="card">
 
-  ${monthControls()}
+  <h2>⚙️ Pengaturan</h2>
 
+  <label>
+   Pembagi Target Kasir
+  </label>
 
-  <div class="card">
+  <input
+   id="cashierDivisor"
+   type="number"
+   min="1"
+   step="1"
+   value="${divisor}"
+  >
 
-    <h2>
-      ⚙️ Pengaturan Target
-    </h2>
+  <p class="muted">
 
-    <label>
-      Pembagi Target Kasir
-    </label>
+   Contoh pembagi 3:<br>
 
-    <input
-      id="settingDivisor"
-      type="number"
-      min="1"
-      step="1"
-      value="${divisor}"
-    >
+   Target Aqua 60 pcs ÷ 3 =
+   Target Kasir 20 pcs.
 
-    <p class="muted">
+   <br><br>
 
-      Contoh:
+   Pembagi ini bukan nama kasir
+   dan tidak membuat data Orang 1/2/3.
 
-      <br>
+  </p>
 
-      Pembagi 3 berarti target item
-      dibagi 3.
+  <button
+   class="primary"
+   onclick="saveSettings()"
+  >
+   💾 Simpan Pengaturan
+  </button>
 
-      <br><br>
+ </div>
 
-      Ini bukan nama kasir.
+ <div class="card">
 
-    </p>
+  <h2>ℹ️ Tentang Target</h2>
 
+  <div class="info">
 
-    <button
-      class="primary"
-      onclick="saveSettings()"
-    >
-      Simpan Pembagi
-    </button>
+   <b>Target Toko</b><br>
+   Menggunakan persentase target
+   pencapaian per toko.
 
-  </div>
+   <br><br>
 
+   <b>Qty Harian</b><br>
+   Actual pencapaian dapat dimasukkan
+   setiap hari.
 
-  <div class="card">
+   <br><br>
 
-    <h2>
-      🎯 Target Keseluruhan
-    </h2>
+   <b>Target Item</b><br>
+   Target masing-masing produk
+   dimasukkan pada Target Toko.
 
-    <label>
-      Target keseluruhan toko / hari
-    </label>
+   <br><br>
 
-    <input
-      id="settingDailyTarget"
-      type="number"
-      min="0"
-      step="0.01"
-      value="${daily}"
-    >
-
-    <p class="muted">
-
-      Ini adalah satu-satunya target
-      utama yang dimasukkan.
-
-      Target Week dihitung otomatis
-      oleh sistem dan tidak perlu
-      diinput manual.
-
-    </p>
-
-
-    <button
-      class="yellow"
-      onclick="saveDailySetting()"
-    >
-      Simpan Target Harian
-    </button>
+   <b>Target Kasir</b><br>
+   Otomatis mengambil target item
+   lalu dibagi sesuai pembagi.
 
   </div>
 
-
-  <div class="card">
-
-    <h2>
-      💾 Backup & Restore
-    </h2>
-
-    <div class="info">
-
-      Gunakan Backup secara berkala
-      supaya data tidak hilang jika
-      data browser/aplikasi terhapus.
-
-    </div>
-
-
-    <div class="actions">
-
-      <button
-        class="primary"
-        onclick="backupData()"
-      >
-        📥 Backup Data
-      </button>
-
-      <button
-        class="secondary"
-        onclick="document.getElementById('restoreFile').click()"
-      >
-        📤 Restore Data
-      </button>
-
-    </div>
-
-
-    <input
-      id="restoreFile"
-      type="file"
-      accept=".json,application/json"
-      style="display:none"
-      onchange="restoreData(event)"
-    >
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>
-      🗑️ Data
-    </h2>
-
-    <p class="muted">
-
-      Reset akan menghapus seluruh
-      data PSM yang tersimpan di
-      perangkat ini.
-
-    </p>
-
-    <button
-      class="danger"
-      onclick="resetAllData()"
-    >
-      Hapus Semua Data
-    </button>
-
-  </div>
-
-  `;
-
+ </div>`;
 }
 
 function saveSettings(){
 
-  const value=
-    Number(
-      document
-      .getElementById(
-        'settingDivisor'
-      )
-      .value
-    );
+ const v=Number(
+  document.getElementById("cashierDivisor").value
+ );
 
-  if(
-    !Number.isFinite(value) ||
-    value<1
-  ){
+ if(!Number.isFinite(v)||v<1){
 
-    alert(
-      'Pembagi minimal 1.'
-    );
+  alert("Pembagi minimal 1.");
 
-    return;
+  return;
+ }
 
-  }
+ db.settings.cashierDivisor=Math.round(v);
 
-  if(!db.settings){
-    db.settings={};
-  }
+ save();
+ render();
 
-  db.settings.cashierDivisor=
-    Math.round(value);
-
-  save();
-  render();
-
-  toast(
-    'Pembagi Target Kasir berhasil disimpan.'
-  );
-
+ toast("Pengaturan disimpan.");
 }
 
-function saveDailySetting(){
+/* =========================
+   TOAST
+========================= */
 
-  const value=
-    Number(
-      document
-      .getElementById(
-        'settingDailyTarget'
-      )
-      .value
-    );
+function toast(msg){
 
-  if(
-    !Number.isFinite(value) ||
-    value<0
-  ){
+ const el=document.getElementById("toast");
 
-    alert(
-      'Target harian tidak valid.'
-    );
+ el.textContent=msg;
+ el.style.display="block";
 
-    return;
+ clearTimeout(window.__toast);
 
-  }
-
-  data().targetDaily=value;
-
-  save();
-  render();
-
-  toast(
-    'Target keseluruhan per hari berhasil disimpan.'
-  );
-
+ window.__toast=setTimeout(()=>{
+  el.style.display="none";
+ },2200);
 }
 
-/* =========================================================
-   BACKUP
-========================================================= */
+/* =========================
+   NAV BUTTON
+========================= */
 
-function backupData(){
+document
+ .querySelectorAll(".nav button")
+ .forEach(b=>{
 
-  const content=
-    JSON.stringify(
-      db,
-      null,
-      2
-    );
-
-  const blob=
-    new Blob(
-      [content],
-      {type:'application/json'}
-    );
-
-  const url=
-    URL.createObjectURL(blob);
-
-  const a=
-    document.createElement('a');
-
-  a.href=url;
-
-  a.download=
-    `PSM-Backup-${
-      db.year
-    }-${
-      String(db.month).padStart(2,'0')
-    }.json`;
-
-  document.body.appendChild(a);
-
-  a.click();
-
-  a.remove();
-
-  URL.revokeObjectURL(url);
-
-  toast(
-    'Backup data berhasil dibuat.'
-  );
-
-}
-
-function restoreData(event){
-
-  const file=
-    event.target.files?.[0];
-
-  if(!file)return;
-
-  const reader=
-    new FileReader();
-
-  reader.onload=function(){
-
-    try{
-
-      const restored=
-        JSON.parse(
-          reader.result
-        );
-
-      if(
-        !restored ||
-        typeof restored!=='object' ||
-        !restored.weeks
-      ){
-
-        throw new Error(
-          'Format backup tidak valid.'
-        );
-
-      }
-
-      if(!confirm(
-        'Restore akan mengganti data yang sekarang. Lanjutkan?'
-      )){
-
-        event.target.value='';
-        return;
-
-      }
-
-      db=
-        migrateDB(
-          restored
-        );
-
-      save();
-      render();
-
-      toast(
-        'Data berhasil di-restore.'
-      );
-
-    }catch(e){
-
-      alert(
-        'File backup tidak valid.'
-      );
-
-    }
-
-    event.target.value='';
-
+  b.onclick=()=>{
+   go(b.dataset.page);
   };
 
-  reader.readAsText(file);
+ });
 
-}
+/* =========================
+   MIGRASI DATA LAMA
+========================= */
 
-function resetAllData(){
+(function migrate(){
 
-  if(!confirm(
-    'Yakin ingin menghapus SEMUA data PSM dari perangkat ini?'
-  )){
-    return;
-  }
+ if(!db.weeks)db.weeks={};
 
-  if(!confirm(
-    'Data yang sudah dihapus tidak bisa dikembalikan tanpa backup.'
-  )){
-    return;
-  }
+ for(let w=1;w<=4;w++){
 
-  db=freshDB();
+  const d=ensureWeek(w);
 
-  save();
+  d.items.forEach(x=>{
 
-  page='dashboard';
-  week=1;
-  selectedDate='';
+   if(!x.id){
+    x.id=
+     "item_"+Date.now()+"_"+
+     Math.random().toString(36).slice(2,7);
+   }
 
-  render();
+   if(!Number.isFinite(Number(x.price))){
+    x.price=0;
+   }
 
-  toast(
-    'Semua data berhasil dihapus.'
-  );
+   /*
+    Data versi lama mempunyai target item.
+    Tetap dipertahankan sebagai target item.
+   */
 
-}
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-function showModal(){
-
-  document.getElementById(
-    'modalBg'
-  ).style.display='flex';
-
-}
-
-function closeModal(){
-
-  document.getElementById(
-    'modalBg'
-  ).style.display='none';
-
-  document.getElementById(
-    'modal'
-  ).innerHTML='';
-
-}
-
-document
-  .getElementById(
-    'modalBg'
-  )
-  .addEventListener(
-    'click',
-    function(e){
-
-      if(e.target===this){
-        closeModal();
-      }
-
-    }
-  );
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function go(p){
-
-  page=p;
-  render();
-
-}
-
-document
-  .querySelectorAll(
-    '.nav button'
-  )
-  .forEach(button=>{
-
-    button.onclick=()=>{
-      go(button.dataset.page);
-    };
+   if(!Number.isFinite(Number(x.target))){
+    x.target=0;
+   }
 
   });
 
-/* =========================================================
-   TOAST
-========================================================= */
+ }
 
-function toast(message){
+ save();
 
-  const el=
-    document.getElementById(
-      'toast'
-    );
+})();
 
-  el.textContent=message;
-  el.style.display='block';
-
-  clearTimeout(
-    window.__toast
-  );
-
-  window.__toast=
-    setTimeout(
-      ()=>{
-        el.style.display='none';
-      },
-      2300
-    );
-
-}
-
-/* =========================================================
-   AUTO MIGRATION & SAVE
-========================================================= */
-
-save();
+/* =========================
+   START
+========================= */
 
 render();
 
